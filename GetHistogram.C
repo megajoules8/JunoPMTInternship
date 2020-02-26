@@ -32,8 +32,7 @@ TH1F* GetHistogram(TString path, TString filename, int binwidth){
  //create and allocate histogram
   TH1F* hist = new TH1F(histname,histname,nbins,0,nbins); //we want to automate it and count number of lines before made into a histogram
  
-	// so I think we need to move this to open the data file, read it, skip the five lines, then have the code execute creating a 
-	//histogram
+	
   //open data file 
   ifstream read;
   read.open((path+filename).Data()); 
