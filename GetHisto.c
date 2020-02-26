@@ -61,7 +61,11 @@ for (int a=0; a<5; a++)
 	  time[i] = time[i]*(-1000000000/50);
 	 // cout <<"time "<< time[i] << " amplitude "<< amplitude[i] <<endl;
  	i++;
+	 
+	 
     }
+	
+	
 //FINDING THE MAXIMUM AND MINIMUM
 
 double number, max = INT_MIN, min = INT_MAX;
@@ -75,35 +79,15 @@ for (int b=0; b<i; ++b)
 	}
 cout <<  " Max = " << max << " min = " << min << endl; 
 
-//SORT INTO NEW ARRAYS
-int nbins = 3999;
-TString histo = filename;
- 
-
-  //create and allocate histogram
-  TH1F* hist = new TH1F(histo,histo,nbins,min,max);
- 
-  //open data file
-  infile.open((path+filename).Data());
-  double counts=-1;  
+ //define size of array
   
-  //read data file
-  int bin = -1 ;
-  while (read>>counts){ //reading
-    for(int k = 0 ; k < counts; k++) //filling histogram
-      hist->Fill(bin);  
-    //hist->SetBinContent(bin,counts); //filling histogram, alternative method
-    bin++;
-  }
-  
-  //print number of read lines
-  cout << bin << " bins were found in file " << filename << endl;
-  //binwidth histogram and draw
-  //hist->Rebin(binwidth);
-  hist->Draw();
-  
-  return hist;
-
+    int n = sizeof(time)/sizeof(time[0]); 
+    sort(time, time+n); //adding a sorting function to time
+    cout << "\nArray after sorting using "
+         "default sort is : \n";  
+    for int i = 0; i <n; ++i)
+        cout << time[i] << " ";
+    }
 
 return(0);
 }
