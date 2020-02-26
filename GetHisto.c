@@ -86,7 +86,7 @@ ofstream output_file("Sortedhistogram.txt");
     cout << "\nArray after sorting using "
          "default sort is : \n";  
     for int i = 0; i <n; ++i)
-	output_file << time[i] << " " << amplitude[i] << endl;
+	output_file << time[s] << " " << amplitude[s] << endl;
     }
 
 return(0);
