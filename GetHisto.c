@@ -1,24 +1,10 @@
-/*
-This macro creates a root histogram from an ascii data file of format
----------------------------
-Channel0 CountsPerChannel0
-Channel1 CountsPerChannel1
-Channel2 CountsPerChannel2
-etc...
----------------------------
 
-Execution example:
-.x GetHistogram.C("../path/to/the/file/","name-of-the-file.asc",nb-of-bins-ADC, nb-of-merged-bins )
-
-Practical info:
-nb-of-bins-ADC = pow(2,15) = 32768,         /!\  FIXED by the ADC
-nb-of-merged-bins = binwidth = pow(2,n)     /!\  n = User defined integer
-
-*/
-
-#include <iostream>
+#include <fstream>
 #include <bits/stdc++.h>
+#include <vector>
+#include <stdlib.h>
 using namespace std;
+
 //Global parameter
 int bins = 50000;
 
@@ -30,30 +16,35 @@ TH1F* GetHisto(TString path, TString filename, int binwidth){
   TString histname = filename;
   histname.ReplaceAll(".","");
   histname.ReplaceAll("/","");
-  
-  
-  
-ifstream f( (path+filename).Data() );
+ 
+  //count no. of rows 
+int rows = 0, cols = 0;
+   string line, item;
 
-double number, max = INT_MIN, min = INT_MAX; 
+   ifstream file( (path+filename).Data());
+   while ( getline( file, line ) )
+   {
+      rows++;
+      if ( rows == 1 )                 // First row only: determine the number of columns
+      {
+         stringstream ss( line );      // Set up up a stream from this line
+         while ( ss >> item ) cols++;  // Each item delineated by spaces adds one to cols
+      }
 
-	int number_of_lines;
-    std::string line;
-    std::ifstream myfile((path+filename).Data());
+       // .... //                      // Do any processing on a line here
 
-    while (std::getline(myfile, line))
-	{
-        ++number_of_lines;
-	}
+      //cout << "Line read is " << line << endl;
+   }
+   file.close();
 
-    std::cout << "Number of lines in text file: " << number_of_lines<< endl;
-   
-double time[number_of_lines];
-double amplitude[number_of_lines];
-double sorted_time[number_of_lines];
-double sorted_amplitude[number_of_lines];
+   cout << "\nFile had " << rows-5 << " rows and " << cols-1 << " columns" << endl;
+ 
+//fill data into arrays
+ 
+double time[rows-5];
+double amplitude[rows-5];
 int i=0;
-ofstream output_file("histogram_data_sorted.txt"); 
+  
  ifstream infile;
     infile.open((path+filename).Data());
 	
@@ -69,51 +60,59 @@ for (int a=0; a<5; a++)
  	++i;
     }
 
-
-for (int b=0; b<i-1; ++b)
+//finding the max and min values
+double min = INT_MAX, max = INT_MIN;
+int b=0;	
+  for (int b=0; b<rows-5; ++b)
 	{
-		if (time[b]>max)
-		     max=time[b];
+		if (time[b] > max)
+		     max = time[b];
 		
 		if (time[b]<min)
 		     min=time[b];
 	}
-cout <<  " Max = " << max << " min = " << min << endl; 
-//sort into new arrays
- 
- //define size of array
   
-  int n = sizeof(time)/sizeof(time[0]); 
-    sort(time, time+n); //adding a sorting function to time
-   // cout << "\nArray after sorting using "
-     //    "default sort is : \n"<<endl;  
-    for (int s = 0; s < n; ++i){
-        //cout << time[i] << " "<<endl;
-    output_file << time << " " << amplitude << endl;}
-output_file.close();
+ cout <<  " Max = " << max << " min = " << min << endl; 
 
+//sort into new arrays
+ std::string name ="result_" + std::string (filename) + ".txt";
+ ofstream FF (name);
+ vector< pair <double,int> > vect;
+ int n = sizeof(time)/sizeof(time[0]);
+ for (int c=0; c<n; c++) 
+        vect.push_back( make_pair(time[c],amplitude[c]) );
 
-
-
-
-
-
-
-
+sort(vect.begin(), vect.end()); 
+  
+     // Printing the sorted vector(after using sort()) 
+    cout << "The vector after sort operation is:\n" ; 
+    for (int d=0; d<n; d++) 
+    { 
+        // "first" and "second" are used to access 
+        // 1st and 2nd element of pair respectively 
+        FF << vect[d].first << " "<< vect[d].second << endl; 
+			 
+		 
+    } 
+ FF.close();	
+ 
+ 
+ 
  //create and allocate histogram
-  TH1F* hist = new TH1F(histname,histname,2*(i-1),min,max);
+  TH1F* hist = new TH1F(histname,histname,2*(rows-5),min,max);
  
   //open data file
   ifstream read;
-  read.open("LED1350.txt");
+  
+  read.open(name);
   double counts=-1;  
   
   //read data file
   int bin = -1 ;
 
   while (read>>counts){ //reading
-   // for(int l = 0 ; l < counts; l++) //filling histogram
-      //hist->Fill(bin);  
+   //for(int l = 0 ; l < counts; l++) //filling histogram
+   //   hist->Fill(bin);  
     hist->SetBinContent(bin,counts); //filling histogram, alternative method
     bin++;
   }
