@@ -53,7 +53,7 @@ double amplitude[number_of_lines];
 double sorted_time[number_of_lines];
 double sorted_amplitude[number_of_lines];
 int i=0;
- 
+ofstream output_file("histogram_data_sorted.txt"); 
  ifstream infile;
     infile.open((path+filename).Data());
 	
@@ -89,7 +89,8 @@ cout <<  " Max = " << max << " min = " << min << endl;
      //    "default sort is : \n"<<endl;  
     //for (int i = 0; i < n; ++i)
         //cout << time[i] << " "<<endl;
-    
+    output_file << time << " " << amplitude << endl;
+output_file.close();
 
 
 
