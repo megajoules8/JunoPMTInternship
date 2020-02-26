@@ -18,7 +18,7 @@ nb-of-merged-bins = binwidth = pow(2,n)     /!\  n = User defined integer
 
 
 //Global parameter
-int nbins = 50000;
+int nbins = 50000; //just a starting point, can be any value 
 
 
 //Main function
@@ -30,11 +30,13 @@ TH1F* GetHistogram(TString path, TString filename, int binwidth){
   histname.ReplaceAll("/","");
 
  //create and allocate histogram
-  TH1F* hist = new TH1F(histname,histname,nbins,0,nbins);
+  TH1F* hist = new TH1F(histname,histname,nbins,0,nbins); //we want to automate it and count number of lines before made into a histogram
  
-  //open data file
+	// so I think we need to move this to open the data file, read it, skip the five lines, then have the code execute creating a 
+	//histogram
+  //open data file 
   ifstream read;
-  read.open((path+filename).Data());
+  read.open((path+filename).Data()); 
   double counts=-1;  
 
   //read data file
