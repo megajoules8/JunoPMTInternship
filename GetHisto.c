@@ -17,6 +17,7 @@ nb-of-merged-bins = binwidth = pow(2,n)     /!\  n = User defined integer
 */
 
 #include <iostream>
+#include <bits/stdc++.h> 
 //Global parameter
 int bins = 50000;
 
