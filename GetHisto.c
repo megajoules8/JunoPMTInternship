@@ -17,7 +17,8 @@ nb-of-merged-bins = binwidth = pow(2,n)     /!\  n = User defined integer
 */
 
 #include <iostream>
-#include <bits/stdc++.h> 
+#include <bits/stdc++.h>
+using namespace std;
 //Global parameter
 int bins = 50000;
 
@@ -25,8 +26,17 @@ int bins = 50000;
 //Main function
 TH1F* GetHisto(TString path, TString filename, int binwidth){
 
-//COUNTING THE TOTAL NUMBER OF ENTRIES
+  //build histogram titles
+  TString histname = filename;
+  histname.ReplaceAll(".","");
+  histname.ReplaceAll("/","");
+  
+  
+  
 ifstream f( (path+filename).Data() );
+
+double number, max = INT_MIN, min = INT_MAX; 
+
 	int number_of_lines;
     std::string line;
     std::ifstream myfile((path+filename).Data());
@@ -37,10 +47,7 @@ ifstream f( (path+filename).Data() );
 	}
 
     std::cout << "Number of lines in text file: " << number_of_lines<< endl;
-
-
- //IGNORING THE FIRST 5 LINES
- 
+   
 double time[number_of_lines];
 double amplitude[number_of_lines];
 double sorted_time[number_of_lines];
@@ -48,29 +55,22 @@ double sorted_amplitude[number_of_lines];
 int i=0;
  
  ifstream infile;
- infile.open((path+filename).Data());
+    infile.open((path+filename).Data());
 	
 for (int a=0; a<5; a++)
 {
  infile.ignore(1000000000000, '\n');
 }	
 
-//SAVING DATA INTO SEPERATE ARRAYS WHILE CALCULATING
-
  while (!infile.eof()) {
 	  infile >> time[i] >> amplitude[i];
 	  time[i] = time[i]*(-1000000000/50);
-	 // cout <<"time "<< time[i] << " amplitude "<< amplitude[i] <<endl;
- 	i++;
-	 
-	 
+	  //cout <<"time "<< time[i] << " amplitude "<< amplitude[i] <<endl;
+ 	++i;
     }
-	
-	
-//FINDING THE MAXIMUM AND MINIMUM
 
-double number, max = INT_MIN, min = INT_MAX;
-for (int b=0; b<i; ++b)
+
+for (int b=0; b<i-1; ++b)
 	{
 		if (time[b]>max)
 		     max=time[b];
@@ -79,16 +79,52 @@ for (int b=0; b<i; ++b)
 		     min=time[b];
 	}
 cout <<  " Max = " << max << " min = " << min << endl; 
-
+//sort into new arrays
+ 
  //define size of array
-ofstream output_file("Sortedhistogram.txt");  
-    int n = sizeof(time)/sizeof(time[0]); 
+  
+  int n = sizeof(time)/sizeof(time[0]); 
     sort(time, time+n); //adding a sorting function to time
-    cout << "\nArray after sorting using "
-         "default sort is : \n";  
-    for int i = 0; i <n; ++i)
-	output_file << time[s] << " " << amplitude[s] << endl;
-    }
+   // cout << "\nArray after sorting using "
+     //    "default sort is : \n"<<endl;  
+    //for (int i = 0; i < n; ++i)
+        //cout << time[i] << " "<<endl;
+    
+
+
+
+
+
+
+
+
+
+ //create and allocate histogram
+  TH1F* hist = new TH1F(histname,histname,2*(i-1),min,max);
+ 
+  //open data file
+  ifstream read;
+  read.open("LED1350.txt");
+  double counts=-1;  
+  
+  //read data file
+  int bin = -1 ;
+
+  while (read>>counts){ //reading
+   // for(int l = 0 ; l < counts; l++) //filling histogram
+      //hist->Fill(bin);  
+    hist->SetBinContent(bin,counts); //filling histogram, alternative method
+    bin++;
+  }
+  
+  //print number of read lines
+  cout << bin << " bins were found in file " << filename << endl;
+  
+  //binwidth histogram and draw
+  //hist->Rebin(binwidth);
+  hist->Draw();
+  
+  return hist;
 
 return(0);
 }
