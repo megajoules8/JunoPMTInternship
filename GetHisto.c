@@ -80,13 +80,13 @@ for (int b=0; b<i; ++b)
 cout <<  " Max = " << max << " min = " << min << endl; 
 
  //define size of array
-  
+ofstream output_file("Sortedhistogram.txt");  
     int n = sizeof(time)/sizeof(time[0]); 
     sort(time, time+n); //adding a sorting function to time
     cout << "\nArray after sorting using "
          "default sort is : \n";  
     for int i = 0; i <n; ++i)
-        cout << time[i] << " ";
+	output_file << time[i] << " " << amplitude[i] << endl;
     }
 
 return(0);
