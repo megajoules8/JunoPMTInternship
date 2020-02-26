@@ -87,9 +87,9 @@ cout <<  " Max = " << max << " min = " << min << endl;
     sort(time, time+n); //adding a sorting function to time
    // cout << "\nArray after sorting using "
      //    "default sort is : \n"<<endl;  
-    //for (int i = 0; i < n; ++i)
+    for (int s = 0; s < n; ++i){
         //cout << time[i] << " "<<endl;
-    output_file << time << " " << amplitude << endl;
+    output_file << time << " " << amplitude << endl;}
 output_file.close();
 
 
