@@ -10,7 +10,7 @@ int main(){
     string filename;
     ifstream read;
 //    read.open((path+filename).Data());
-    read.open("trialtext.txt");
+    read.open("test.txt");
     double charge;
     double amplitude;
     double charge_min;
@@ -22,24 +22,25 @@ int main(){
         read.ignore(1000000000000, '\n');
         }	
 
-    while(!read.eof()){
-        read >> charge >> amplitude;
-        if (count = 0){
-            charge_min= charge;
-
+    while(read >> charge >> amplitude)
+	{
+     	cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
+		
+        if (count == 0)
+		{
+            charge_min = charge;
+			cout << "charge min = " << charge_min << endl;
         }
-        else if (count=1){
+        if (count == 1)
+		{
             bin_width = charge - charge_min;
+			cout << "bin_width = " << bin_width << endl;
         }
 
-        else {
         charge_max = charge;
-        
-        }
         ++count;
     }
-    cout << charge_min << " " << charge_max << endl;
+    cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
 
 return (0);
 }
-
