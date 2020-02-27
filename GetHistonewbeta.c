@@ -21,7 +21,7 @@ TH1F* GetHisto(TString path, TString filename, int binwidth){
 int rows = 0, cols = 0;
    string line, item;
 
-   ifstream file( (path+filename).Data());
+   ifstream file( (path+filename).Data()); 
    while ( getline( file, line ) )
    {
       rows++;
