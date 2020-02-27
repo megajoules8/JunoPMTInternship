@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <math.h>
 using namespace std;
 
 
@@ -42,5 +43,24 @@ int main(){
     }
     cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
 
+    charge_min = -1*charge_max*10 pow(9) / 50;
+    charge_max = -1*charge_min*10 pow(9) / 50;
+    bin_width  = bin_width*10 pow(9) / 50;
+     
+//create and allocate histogram
+  TH1F* hist = new TH1F(histname,histname, count , charge_min-bin_width/2, charge_max-bin_width/2);
+
+  while(read >> charge >> amplitude){
+      
+      charge = -1*charge*10 pow(9) / 50;
+      hist -> fill(charge, amplitude);
+
+  }
+ 
+  //binwidth histogram and draw
+  //hist->Rebin(binwidth);
+  hist->Draw();
+  
+  return hist;
 return (0);
 }
