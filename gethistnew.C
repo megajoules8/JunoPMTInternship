@@ -46,21 +46,31 @@ TH1F* hiss(TString path, TString filename){
 
 	double charge_min_temp;
 	charge_min_temp = charge_min;
-    charge_min = -1*charge_max*1000000000 / 50;
-    charge_max = -1*charge_min_temp*1000000000 / 50;
-    bin_width  = bin_width*1000000000 / 50;
+    charge_min = -1*charge_max*1000000000;
+    charge_max = -1*charge_min_temp*1000000000;
+    bin_width  = bin_width*1.0e+9;
  
-	cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
+	cout << charge_min << " " << charge_max <<" "<<bin_width<< "  " << count << endl;
 //create and allocate histogram
-  TH1F* hist = new TH1F(histname, histname, count , charge_min-bin_width/2, charge_max-bin_width/2);
 
-
-	ifstream scan;
-    scan.open((path+filename).Data());
-  while(scan >> charge >> amplitude){
+   read.close();
+   
+   
+		
+  TH1F* hist = new TH1F(histname, histname, count , charge_min-bin_width/2, charge_max+bin_width/2);
+	
+	ifstream scan2;
+    scan2.open((path+filename).Data());
+	
+	for (int a=0; a<5; a++){
+        scan2.ignore(1000000000000, '\n');
+        }
+		
+		
+  while(scan2 >> charge >> amplitude){
       
-      charge = -1*charge*1000000000  / 50;
-	  cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
+      charge = -1*charge*1.0e+9;
+	  //cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(charge, amplitude);
   }
   //binwidth histogram and draw
