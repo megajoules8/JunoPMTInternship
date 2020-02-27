@@ -46,8 +46,8 @@ TH1F* hiss(TString path, TString filename){
 
 	double charge_min_temp;
 	charge_min_temp = charge_min;
-    charge_min = -1*charge_max*1000000000;
-    charge_max = -1*charge_min_temp*1000000000;
+    charge_min = -1*charge_max*1.0e+9;
+    charge_max = -1*charge_min_temp*1.0e+9;
     bin_width  = bin_width*1.0e+9;
  
 	cout << charge_min << " " << charge_max <<" "<<bin_width<< "  " << count << endl;
@@ -73,10 +73,14 @@ TH1F* hiss(TString path, TString filename){
 	  //cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(charge, amplitude);
   }
-  //binwidth histogram and draw
-  //hist->Rebin(binwidth);
+std::string name ="result_" + std::string (filename) + ".root";
+scan2.close();
+TFile* file = new TFile("result.root","RECREATE");
+  hist->GetXaxis()->SetTitle("charge(nC)");
+  hist->GetYaxis()->SetTitle("amplitude");
   hist->Draw();
-  
+  file->Write();
+  file->Close();
   return hist;
   return (0);
 }
