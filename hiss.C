@@ -6,7 +6,7 @@ using namespace std;
 
 
 TH1F* hiss(TString path, TString filename){
-	
+  
   TString histname = filename;
   histname.ReplaceAll(".","");
   histname.ReplaceAll("/","");
@@ -57,7 +57,7 @@ TH1F* hiss(TString path, TString filename){
    
    
 		
-  TH1F* hist = new TH1F(histname, histname, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
+  TH1F* hist = new TH1F(path+histname, histname, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
 	
 	ifstream scan;
     scan.open((path+filename).Data());
@@ -79,6 +79,9 @@ TH1F* hiss(TString path, TString filename){
   hist->Draw();
   file->Write();
   file->Close();
+  gPad->Modified(); 
+  gPad->Update();
+  gSystem->ProcessEvents();
   return hist;
   return (0);
   
