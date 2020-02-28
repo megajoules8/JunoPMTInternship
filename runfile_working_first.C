@@ -56,3 +56,6 @@ void runfile_working_first(TString path, TString filename)
 
 	
 	}
+
+//resources: https://root-forum.cern.ch/t/open-files-in-a-directory-with-a-for-loop/12471
+//https://stackoverflow.com/questions/50139639/how-to-run-a-c-program-multiple-times-with-different-input-files/50139735
