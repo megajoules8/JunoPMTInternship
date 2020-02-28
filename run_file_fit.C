@@ -66,7 +66,7 @@ void runfile_working_first(TString path, TString filename)
 				amp		= hiss_gram->Integral();
 			//define the fit function instance	
 				TF1  *Fit_Gauss = new TF1("Fit_Gauss","[0]* exp(-0.5*pow(x-[1])/[2]) ,2 )) ", [3], [4];
-				Fit_Gauss-> setParNames("amp_gauss", "Mean_Gauss", "sigma_gauss", "min", "max");
+				Fit_Gauss-> SetParNames("amp_gauss", "Mean_Gauss", "sigma_gauss", "min", "max");
         Fit_Gauss->SetParameters(amp, Q, sigma, Q-3*sigma, Q+3*sigma);
 				//Fit_Gauss->SetNpx(10000);
 				Fit_Gauss -> Draw();
