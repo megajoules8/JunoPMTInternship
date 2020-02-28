@@ -4,12 +4,12 @@
 #include <math.h>
 using namespace std;
 
-
+//main function
 TH1F* hiss(TString path, TString filename){
   
   TString histname = filename;
-  histname.ReplaceAll(".","");
-  histname.ReplaceAll("/","");
+  histname.ReplaceAll(".",""); //remove all "."s from histname
+  histname.ReplaceAll("/",""); //remove all "/"s from histname
   ifstream read;
     read.open((path+filename).Data());
     //read.open("test.txt");
@@ -19,11 +19,11 @@ TH1F* hiss(TString path, TString filename){
     double charge_max;
     double bin_width;
     int count=0;
-
+//ignore first 5 lines
     for (int a=0; a<5; a++){
         read.ignore(1000000000000, '\n');
         }	
-
+//read to find charge_max and charge_min
     while(read >> charge >> amplitude)
 	{
      	//cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
@@ -42,8 +42,10 @@ TH1F* hiss(TString path, TString filename){
         charge_max = charge;
         ++count;
     }
+	
     //cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
 
+//start calculations
 	double charge_min_temp;
 	charge_min_temp = charge_min;
     charge_min = -1*charge_max*1.0e+9;
@@ -56,15 +58,16 @@ TH1F* hiss(TString path, TString filename){
    read.close();
    
    
-		
+//start histogram event		
   TH1F* hist = new TH1F(path+histname, histname, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
 	
 	ifstream scan;
     scan.open((path+filename).Data());
-	
+//ignore first 5 lines	
 	for (int a=0; a<5; a++){
         scan.ignore(1000000000000, '\n');
         }
+//fill	histogram while calculating each element	
     while(scan >> charge >> amplitude){
       
       charge = -1*charge*1.0e+9;
@@ -73,14 +76,15 @@ TH1F* hiss(TString path, TString filename){
   }
 //std::string name ="result_" + std::string (filename) + ".root";
 //scan2.close();
-  TFile* file = new TFile(path + "root_file.root","RECREATE");
-  hist->GetXaxis()->SetTitle("charge(nC)");
-  hist->GetYaxis()->SetTitle("amplitude");
+  TFile* file = new TFile(path + "root_file.root","RECREATE"); //new ROOT file event
+  hist->GetXaxis()->SetTitle("charge(nC)"); //set Xaxis title
+  hist->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
   hist->Draw();
-  file->Write();
+  file->Write(); //write to ROOT file
   file->Close();
+//modify and update the canvas  
   gPad->Modified(); 
-  gPad->Update();
+  gPad->Update(); 
   gSystem->ProcessEvents();
   return hist;
   return (0);
