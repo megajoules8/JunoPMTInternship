@@ -11,7 +11,10 @@ using namespace std;
 
 void runfile_working_first(TString path, TString filename)
 	{ 
-		
+	
+    TCanvas *c1 = new TCanvas( "c1", "" );
+	c1->SetLogy();
+	
 	vector< vector<TString> > PED_LED;
 	vector<TString> a;
 	a.clear();
@@ -34,12 +37,18 @@ void runfile_working_first(TString path, TString filename)
 	int j=0;
 	int PED_LED_Count =2;
 	int HV_Count = 5;
+	int num =1;
 	while (i<HV_Count)
 	{
 		while (j<PED_LED_Count)
 		{
 			hiss(path + HV[0][i] + PED_LED[0][j] , filename);
+			
+			c1->Update();
+			c1->WaitPrimitive();
+			
 			++j;
+			++num;
 		}
 		++i;
 		j=0;
