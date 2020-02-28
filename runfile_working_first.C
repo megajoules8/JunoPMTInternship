@@ -1,5 +1,6 @@
 
 
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -49,10 +50,11 @@ void runfile_working_first(TString path, TString filename)
 			//j=0 corresponds to PED and j=1 corresponds to LED
 			hiss_gram->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
 			hiss_gram->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
-			hiss_gram->Draw();
+			//hiss_gram->Draw();
 			//Mean and the SD
 			double Q ;
 			double sigma;
+			double amp;
 			//define choices for PED and LED
 			
 			if (j==0) //PED
@@ -60,17 +62,19 @@ void runfile_working_first(TString path, TString filename)
 				ofstream ff ("Q_sigma.txt");
 				Q 		= hiss_gram->GetMean();
 				sigma 	= hiss_gram->GetRMS();
+				amp		= hiss_gram->Integral();
 			//define the fit function instance	
-				TF1  *Fit_Gauss = new TF1("Fit_Gauss","(1/(2*[pi*[0])) * exp(-0.5* pow( ((x-[1])/[0]) ,2 )) ", Q - 3*sigma, Q + 3*sigma);
+				TF1  *Fit_Gauss = new TF1("Fit_Gauss","(1/(2*[pi*[0])) * exp(-0.5* pow( ((x-[1])/[0]) ,2 )) ", (Q - 3*sigma), (Q + 3*sigma));
 				//Fit_Gauss->SetParameters(Q,sigma);
 				//Fit_Gauss->SetNpx(10000);
 				//Fit_Gauss->Draw();
-				//hiss_gram->Fit_Gauss("Fit_Gauss");
-
-				cout<< "This is PED"<<endl;
-				cout <<"Q = "<< Q << " sigma = "<< sigma <<endl;
-				ff   <<Q << endl;
-				ff   << sigma <<endl;
+				hiss_gram->Fit("Fit_Gauss", "R");
+				cout << "This is PED"	<<endl;
+				cout <<"Q = "	<< Q 	<< " sigma = "<< sigma << " Integral = "<< amp << endl;
+				ff   <<Q 		<< endl;
+				ff   << sigma 	<<endl;
+				ff   <<  amp		<< endl;
+				
 				}
 			
 			if (j==1) //LED
@@ -82,16 +86,17 @@ void runfile_working_first(TString path, TString filename)
 				while(scan >> Q >> sigma)
 					{
 					
-					cout << "Q from previous= " << Q << " " << "sigma from previous= " << sigma << endl;
+					cout << "Q from previous= " << Q << " " << "sigma from previous= " << sigma << " Integral from previous= " << amp <<endl;
       
 					}
 				scan.close();
 				}
 
-			c1->Update();
-			c1->WaitPrimitive(); //ROOT waits untill you hit enter
+			
 			++j;
 			++num;
+			c1->Update();
+			c1->WaitPrimitive(); //ROOT waits untill you hit enter
 		}
 		++i;
 		j=0;
