@@ -31,33 +31,44 @@ for (i=0; i<5; ++i)
 	{	
 	//define the 2 histograms for PED and LED
 	TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]));
-	//TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]));
+	TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]));
 	
 	histo_PED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
 	histo_PED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
 	
-	//histo_LED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
-	//histo_LED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
+	histo_LED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
+	histo_LED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
 	
 	Q 		= histo_PED->GetMean(); //Get Mean from PED
 	sigma 	= histo_PED->GetRMS();  // Get sigma from PED
 	amp		= histo_PED->Integral(); // Get amp from PED
 	
 	//define fit parameters
-	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 3*sigma), (Q + 3*sigma));
+	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 5*sigma));
 	Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 	Fit_Gauss->SetNpx(10000);
-	histo_PED->Draw("E histo_PED");
+	histo_PED->Draw("histo_PED");
 	histo_PED->Fit("Fit_Gauss","R");
-	//Fit_Gauss->Draw("histo_PED");
+	Fit_Gauss->Draw("same");
 	
+	c1->Update();
+	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+		
+	histo_LED->Draw();
+	histo_LED->Fit("Fit_Gauss","R");
+	SetParLimits(double sigma, double 0.5*sigma, double 1.5*sigma);
+	SetParLimits(double Q, double Q-sigma, double Q+sigma);
+	Fit_Gauss->Draw("same");
 	
-			c1->Update();
-			c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+	c1->Update();
+	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 	}
 
 return;	
 }
+
+
+
 //vectors storing pices of filenames	
 	// vector< vector <TString> > PED_LED;
 	// vector<TString> a;
@@ -155,7 +166,3 @@ return;
 	
 	
 	//https://root-forum.cern.ch/t/error-in-range-inf-nan-propagated-to-the-pad/29988 saving as pdf
-
-//resources: https://root-forum.cern.ch/t/open-files-in-a-directory-with-a-for-loop/12471
-//https://stackoverflow.com/questions/50139639/how-to-run-a-c-program-multiple-times-with-different-input-files/50139735
-https://root-forum.cern.ch/t/fitting-data-with-user-defined-function/30758/7
