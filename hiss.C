@@ -52,7 +52,7 @@ TH1F* hiss(TString Full_path){
     charge_min = -1*charge_max*1.0e+9;
     charge_max = -1*charge_min_temp*1.0e+9;
     bin_width  = bin_width*1.0e+9;
-	int i=0;
+	//int i=0;
  
 	//cout << charge_min << " " << charge_max <<" "<<bin_width<< "  " << count << endl;
 //create and allocate histogram
@@ -70,28 +70,34 @@ TH1F* hiss(TString Full_path){
         }
 		
 //fill	histogram while calculating each element	
-	for ( int i=0; i < hist->GetXaxis()->GetNbins(); i++ ) 
+
+
+
+   while(scan >> charge >> amplitude){
+      
+      charge = -1*charge*1.0e+9;
+	 // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
+      hist -> Fill(charge, amplitude);
+  }
+  
+  	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
 		{
 		
-		scan >> charge >> amplitude;
-		charge = -1*charge*1.0e+9;
-		//cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
 		
-		hist -> Fill(charge, amplitude);
-		hist -> SetBinError( i, sqrt( hist-> GetBinContent( i ) ) );
-		Double_t BC = hist -> GetBinContent(i);
-        Double_t BE = hist -> GetBinError(i);		
-		//cout << "charge = " << charge << " " << "amplitude= " << amplitude << " error = "<< BE <<" Bin content = "<< BC<<endl;	
+		// hist -> Fill(charge, amplitude);
+		hist -> SetBinError(l, sqrt( hist->GetBinContent( l ) ));
+		
+		//cout << hist->GetBinContent( l ) << endl;
+		//if ( hist->GetBinContent( l )!=0 )getchar();
+		
+		// Double_t BC = hist -> GetBinContent(l);
+        // Double_t BE = hist -> GetBinError(l);		
+		// cout << "charge = " << charge << " " << "amplitude= " << amplitude << " error = "<< BE <<" Bin content = "<< BC<<endl;	
+		// if ( BC!=0 )getchar();
 		//hist->Sumw2();
 		}
-
-
-   // while(scan >> charge >> amplitude){
-      
-      // charge = -1*charge*1.0e+9;
-	 // // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
-      // hist -> Fill(charge, amplitude);
-  // }
+		
+		
   //hist->Sumw2();
 //std::string name ="result_" + std::string (filename) + ".root";
 //scan2.close();
@@ -126,6 +132,7 @@ TH1F* hiss(TString Full_path){
   //return (0);
   
 }
+
 
 // for ( int l=1; l<=hSG->GetXaxis()->GetNbins(); l++ )
 // hSG->SetBinError( l, sqrt( hSG->GetBinContent( l ) ) );
