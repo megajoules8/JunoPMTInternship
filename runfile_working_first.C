@@ -46,7 +46,9 @@ for (i=0; i<5; ++i)
 	//define fit parameters
 	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 5*sigma));
 	Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
-	Fit_Gauss->SetNpx(10000);
+	Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
+	Fit_Gauss->SetParLimits(1, Q-sigma, Q+sigma); //[1] is for Q, predefined by "gaus"
+	Fit_Gauss->SetNpx(10000); 
 	histo_PED->Draw("histo_PED");
 	histo_PED->Fit("Fit_Gauss","R");
 	Fit_Gauss->Draw("same");
@@ -55,10 +57,12 @@ for (i=0; i<5; ++i)
 	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 		
 	histo_LED->Draw();
+
 	histo_LED->Fit("Fit_Gauss","R");
-	SetParLimits(double sigma, double 0.5*sigma, double 1.5*sigma);
-	SetParLimits(double Q, double Q-sigma, double Q+sigma);
+	
 	Fit_Gauss->Draw("same");
+	double N = histo_LED->GetXaxis()->FindBin(Q+5*sigma) - histo_LED->GetXaxis()->FindBin(Q - 5*sigma);
+	cout << N << endl;
 	
 	c1->Update();
 	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
