@@ -33,36 +33,56 @@ for (i=0; i<5; ++i)
 	TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]));
 	TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]));
 	
+	Q = histo_PED->GetMean(); //get Q initially
+	sigma = histo_PED->GetRMS(); //get sigma initially
+	
 	histo_PED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
 	histo_PED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
 	
 	histo_LED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
 	histo_LED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
 	
-	Q 		= histo_PED->GetMean(); //Get Mean from PED
-	sigma 	= histo_PED->GetRMS();  // Get sigma from PED
-	amp		= histo_PED->Integral(); // Get amp from PED
-	
 	//define fit parameters
-	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 5*sigma));
+	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 3*sigma));
 	Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
-	Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
-	Fit_Gauss->SetParLimits(1, Q-sigma, Q+sigma); //[1] is for Q, predefined by "gaus"
 	Fit_Gauss->SetNpx(10000); 
-	histo_PED->Draw("histo_PED");
+	
+	histo_PED->Draw("PE");
 	histo_PED->Fit("Fit_Gauss","R");
-	Fit_Gauss->Draw("same");
+	Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
+	sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
+	//Fit_Gauss->Draw("same");
 	
 	c1->Update();
 	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 		
+	Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
+	Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
+		
 	histo_LED->Draw();
-
 	histo_LED->Fit("Fit_Gauss","R");
+	//Fit_Gauss -> Draw("same");
+		
+	Q 		= histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
+	sigma 	= histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
+	cout <<"Q_New = "<< Q <<" sigma_New = "<< sigma<< endl;
 	
-	Fit_Gauss->Draw("same");
-	double N = histo_LED->GetXaxis()->FindBin(Q+5*sigma) - histo_LED->GetXaxis()->FindBin(Q - 5*sigma);
-	cout << N << endl;
+	double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
+	cout <<"N_Tot = "<< N_Tot << endl;
+
+	//double N = histo_LED->GetXaxis()->FindBin(50.0) - h->GetXaxis()->FindBin(0.)
+	double N = histo_LED -> Integral(histo_LED->FindFixBin(Q - 5*sigma), histo_LED->FindFixBin(Q + 3*sigma), ""); //get N from LED
+	
+	//Leo told me not to use this integral, and to use a method to find the number of "Entries" within the range of the fit.
+	// No. of "Entries" (N) = Sum of all amplitudes within the range of interest
+	// so we need to figure out a way to get the sum of the amplitudes within the range of interest WITHOUT using the integral (or if you do, we need to divide by the correct factors) 
+	//So line 71 is what we used yesterday, but you may get something from line 70 (in comments).
+	
+	cout <<"N = "<< N << endl;
+	
+	double MU = -log(N/N_Tot); //calculate Mu
+	cout <<"Mu = " << MU << endl;
+	
 	
 	c1->Update();
 	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
