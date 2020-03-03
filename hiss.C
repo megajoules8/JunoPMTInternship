@@ -12,6 +12,9 @@ TH1F* hiss(TString Full_path){
   histname.ReplaceAll("/",""); //remove all "/"s from histname
   ifstream read;
     read.open(Full_path);
+    if (!read){
+      cout << "the file does not exist" << endl;
+    } 
     //read.open("test.txt");
 	//cout << Full_path;
     double charge;
@@ -59,7 +62,8 @@ TH1F* hiss(TString Full_path){
 
    read.close();
     
-//start histogram event		
+//start histogram event	
+//cout << count << endl; getchar();	
   TH1F* hist = new TH1F(Full_path, histname, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
 	ifstream scan;
     scan.open(Full_path);
@@ -136,3 +140,4 @@ TH1F* hiss(TString Full_path){
 
 // for ( int l=1; l<=hSG->GetXaxis()->GetNbins(); l++ )
 // hSG->SetBinError( l, sqrt( hSG->GetBinContent( l ) ) );
+
