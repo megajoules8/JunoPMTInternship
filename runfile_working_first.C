@@ -26,8 +26,8 @@ void runfile_working_first(TString path_to_M1)
 	int num =1;
 
 //run through each folder and file	
-TString PED = "HVSCAN/%d/PED/F1--Trace--00000.txt";
-TString LED = "HVSCAN/%d/LED/F1--Trace--00000.txt";
+TString PED = "/HVSCAN/%d/PED/F1--Trace--00000.txt";
+TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
 double Q ;
 double sigma;
 double amp;
@@ -205,8 +205,9 @@ return;
 	//https://root-forum.cern.ch/t/error-in-range-inf-nan-propagated-to-the-pad/29988 saving as pdf
 int main(int argc, char ** argv){
 	if(argc < 2) return 1;
+	TString path = argv[1];
 	TApplication app("app", &argc, argv);
-	runfile_working_first(argv[1]);
+	runfile_working_first(path);
 	app.Run();
 	return 0;
 }
