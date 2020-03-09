@@ -6,12 +6,13 @@
 #include <vector>
 #include <TString.h>
 #include <TH1F.h>
-#include "hiss.cxx"
+#include "hiss.h"
 #include <TCanvas.h>
 #include <TF1.h>
 #include <TROOT.h>
 #include <TStyle.h>
 #include <TApplication.h>
+
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
