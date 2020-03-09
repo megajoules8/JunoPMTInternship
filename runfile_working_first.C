@@ -28,8 +28,8 @@ void runfile_working_first(TString path_to_M1)
 	int num =1;
 
 //run through each folder and file	
-TString PED = "/HVSCAN/%d/PED/F1--Trace--00000.txt";
-TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
+TString PED = "HVSCAN/%d/PED/F1--Trace--00000.txt";
+TString LED = "HVSCAN/%d/LED/F1--Trace--00000.txt";
 //new TString definitions
 TString HV_Value_PED;
 TString HV_Value_LED;
