@@ -11,11 +11,11 @@
 using namespace std;
 
 //main function
-TH1F* hiss(TString Full_path){
+TH1F* hiss(TString Full_path, TString HV_Value){
   
   TString histname = Full_path;
-  histname.ReplaceAll(".",""); //remove all "."s from histname
-  histname.ReplaceAll("/",""); //remove all "/"s from histname
+//  histname.ReplaceAll(".",""); //remove all "."s from histname
+//  histname.ReplaceAll("/",""); //remove all "/"s from histname
   ifstream read;
     read.open(Full_path);
     if (!read){
@@ -68,9 +68,9 @@ TH1F* hiss(TString Full_path){
 
    read.close();
     
-//start histogram event	
-//cout << count << endl; getchar();	
-  TH1F* hist = new TH1F(Full_path, histname, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
+//start histogram event	//The new argument has been set as the name of the histogram	
+  TH1F* hist = new TH1F(HV_Value, HV_Value, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
+   gStyle->SetOptFit(1111); //used to display the stat window on the canvas
 	ifstream scan;
     scan.open(Full_path);
 //ignore first 5 lines	
