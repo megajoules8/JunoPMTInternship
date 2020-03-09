@@ -3,6 +3,6 @@
 
 #include <TString.h>
 
-TH1F* hiss(TString Full_path, HV_Value_PED_LED);
+TH1F* hiss(TString Full_path, TString HV_Value);
 
 #endif
