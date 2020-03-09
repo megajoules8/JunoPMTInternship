@@ -2,15 +2,15 @@
 #include <string>
 #include <fstream>
 #include <math.h>
-#include "Riostream.h"
+#include <Riostream.h>
 #include <vector>
 #include <TString.h>
-#include <TCanvas.h>
 #include <TH1F.h>
+#include "hiss.C"
+#include <TCanvas.h>
 #include <TF1.h>
-#include "hiss.h"
-#include <TApplication.h>
-
+#include <TROOT.h>
+#include <TStyle.h>
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
@@ -28,24 +28,32 @@ void runfile_working_first(TString path_to_M1)
 //run through each folder and file	
 TString PED = "/HVSCAN/%d/PED/F1--Trace--00000.txt";
 TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
+//new TString definitions
+TString HV_Value_PED;
+TString HV_Value_LED;
 double Q ;
 double sigma;
 double amp;
 
 for (i=0; i<5; ++i)
 	{	
+	
+	//define 2 strings to specify to hiss whether we are in PED or LED
+	HV_Value_PED = TString ("Pedestal Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
+	HV_Value_LED = TString ("LED Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
 	//define the 2 histograms for PED and LED
-	TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]));
-	TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]));
+	TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED);
+	TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED);
+	
 	//cout << Form(PED, HV[i]) << endl; getchar();
 	Q = histo_PED->GetMean(); //get Q initially
 	sigma = histo_PED->GetRMS(); //get sigma initially
 	
 	histo_PED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
-	histo_PED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
+	histo_PED->GetYaxis()->SetTitle("amplitude (No. of events)"); //set Yaxis title
 	
 	histo_LED->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
-	histo_LED->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
+	histo_LED->GetYaxis()->SetTitle("amplitude (No. of events)"); //set Yaxis title
 	
 	//define fit parameters
 	TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 10*sigma), (Q + 10*sigma));
@@ -203,11 +211,14 @@ return;
 	
 	
 	//https://root-forum.cern.ch/t/error-in-range-inf-nan-propagated-to-the-pad/29988 saving as pdf
+
 int main(int argc, char ** argv){
 	if(argc < 2) return 1;
 	TString path = argv[1];
 	TApplication app("app", &argc, argv);
+	runfile_working_first(argv[1]);
 	runfile_working_first(path);
 	app.Run();
 	return 0;
 }
+
