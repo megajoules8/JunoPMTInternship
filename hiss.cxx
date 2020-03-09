@@ -2,10 +2,12 @@
 #include <string>
 #include <fstream>
 #include <math.h>
-#include <TString.h>
 #include <TCanvas.h>
 #include <TH1F.h>
 #include <TF1.h>
+
+#include "hiss.h"
+
 using namespace std;
 
 //main function

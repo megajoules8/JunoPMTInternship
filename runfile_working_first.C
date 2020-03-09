@@ -8,7 +8,7 @@
 #include <TCanvas.h>
 #include <TH1F.h>
 #include <TF1.h>
-#include "hiss.C"
+#include "hiss.h"
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)

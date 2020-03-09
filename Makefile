@@ -1,7 +1,6 @@
 #Makefile
 CFLAGS += $(shell root-config --cflags)
 LDFLAGS += $(shell root-config --libs --ldflags)
-LDFLAGS += $(shell root-config --libdir)/lib*.so
 
 SRCS_H=$(wildcard *.cxx)
 SRCS_M=$(wildcard *.C)
