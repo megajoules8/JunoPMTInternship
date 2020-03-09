@@ -5,6 +5,7 @@
 #include <TCanvas.h>
 #include <TH1F.h>
 #include <TF1.h>
+#include <TStyle.h>
 
 #include "hiss.h"
 
