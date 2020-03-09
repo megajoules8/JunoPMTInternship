@@ -8,7 +8,9 @@
 #include <TCanvas.h>
 #include <TH1F.h>
 #include <TF1.h>
-#include "hiss.C"
+#include "hiss.h"
+#include <TApplication.h>
+
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
@@ -201,3 +203,10 @@ return;
 	
 	
 	//https://root-forum.cern.ch/t/error-in-range-inf-nan-propagated-to-the-pad/29988 saving as pdf
+int main(int argc, char ** argv){
+	if(argc < 2) return 1;
+	TApplication app("app", &argc, argv);
+	runfile_working_first(argv[1]);
+	app.Run();
+	return 0;
+}
