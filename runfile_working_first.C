@@ -13,10 +13,24 @@
 #include <TStyle.h>
 #include <TApplication.h>
 
+#include "PMTStyle.h"
+#include "PMType.h"
+#include "Pedestal.h"
+#include "SPEResponse.h"
+#include "PMT.h"
+#include "DFTmethod.h"
+#include "SPEFitter.h"
+
+
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
-	{ 
+{
+
+  gROOT->Reset();
+  
+  PMTStyle::SetDefaultStyle();
+  
 //define Canvas event	
     TCanvas *c1 = new TCanvas( "c1", "" );
 	//c1->SetLogy(); //set log Y
@@ -84,7 +98,7 @@ for (i=0; i<5; ++i)
 		
 	Q 		= Fit_Gauss->GetParameter(1); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
 	sigma 	= Fit_Gauss->GetParameter(2); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
-	cout <<"Q_New = "<< Q <<" sigma_New = "<< sigma<< endl;
+	cout << "Q_New = " << Q << " sigma_New = " << sigma << endl;
 	
 	double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
 	cout <<"N_Tot = "<< N_Tot << endl;
@@ -109,9 +123,76 @@ for (i=0; i<5; ++i)
 	
 	c1->Update();
 	c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+	
+	/* ... */
+	
+	cout << "" << endl;
+	cout << "" << endl;
+	
+	histo_LED->GetListOfFunctions()->Remove( histo_LED->GetFunction( "Fit_Gauss") );
+	histo_LED->SetMarkerStyle( 20 );
+	histo_LED->SetMarkerSize( 0.4 );
+	histo_LED->SetLineColor( kBlack );
+	histo_LED->SetMarkerColor( kBlack );
+	histo_LED->SetStats(0);
+	histo_LED->Draw( "" );
+	
+	
+	Double_t _G = ( histo_LED->GetMean() - Q )/MU;
+	cout << " Esimated G : " << _G << endl;
+	
+	SPEFitter fit;
+	Double_t p_test[4] = { 1.0/_G, 7.0, 1.0/(0.5*_G), 0.2 };
+	SPEResponse gamma_test( PMType::GAMMA, p_test );
+	
+	Int_t nbins = histo_LED->GetNbinsX();
+	Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
+	Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
+	cout << " No. of bins : " << nbins << endl;
+	cout << " ( " << xmin << ", " << xmax << " ) " << endl;
+	
+	DFTmethod dft( 2.0*nbins, xmin, xmax, gamma_test );
+	dft.wbin = histo_LED->GetBinWidth(1);
+	dft.Norm = histo_LED->Integral();
+	dft.Q0 = Q;
+	dft.s0 = sigma;
+	dft.mu = MU;
+	
+	fit.SetDFTmethod( dft );
+	fit.FitwDFTmethod( histo_LED );
+	
+		
+	dft.Norm = fit.vals[0];
+	dft.Q0 = fit.vals[1];
+	dft.s0 = fit.vals[2];
+	dft.mu = fit.vals[3]; 
+	Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
+	dft.spef.SetParams( p_fit );
+
+	TGraph *grBF = dft.GetGraph();
+	grBF->Draw( "SAME,L" );
+
+	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
+	cout << " Gain : " << Gfit << endl;
+	  
+	cout << "" << endl;
+	cout << "" << endl;
+	
+	c1->Update();
+	c1->WaitPrimitive();
+
+	
+	/* ... */
+
+
+
+
+
+
 	}
 
-return;	
+ return;	
+
 }
 
 
