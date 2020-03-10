@@ -91,6 +91,10 @@ TH1F* hiss(TString Full_path, TString HV_Value){
       hist -> Fill(charge, amplitude);
   }
   
+ //rebinning 
+     int Bin_Size = 2; 
+     hist-> Rebin(Bin_Size); 
+	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
 		{
 		
