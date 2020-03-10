@@ -138,7 +138,7 @@ for (i=0; i<5; ++i)
 	histo_LED->Draw( "" );
 	
 	
-	Double_t _G = ( histo_LED->GetMean() - Q )/(MU*50*1.60217662e-10); //calculated in e
+	Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
 	cout << " Esimated G : " << _G << endl;
 	
 	SPEFitter fit;
@@ -172,7 +172,7 @@ for (i=0; i<5; ++i)
 	TGraph *grBF = dft.GetGraph();
 	grBF->Draw( "SAME,L" );
 
-	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
+	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] )/(50*1.60217662e-10); //in e
 	cout << " Gain : " << Gfit << endl;
 	  
 	cout << "" << endl;
