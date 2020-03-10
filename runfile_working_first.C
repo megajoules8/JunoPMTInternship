@@ -138,7 +138,7 @@ for (i=0; i<5; ++i)
 	histo_LED->Draw( "" );
 	
 	
-	Double_t _G = 1.60217662e-19*( histo_LED->GetMean() - Q )/(MU*50); //calculated in e
+	Double_t _G = ( histo_LED->GetMean() - Q )/(MU*50*1.60217662e-19); //calculated in e
 	cout << " Esimated G : " << _G << endl;
 	
 	SPEFitter fit;
