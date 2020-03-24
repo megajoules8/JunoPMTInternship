@@ -50,7 +50,8 @@ TString HV_Value_LED;
 double Q ;
 double sigma;
 double amp;
-
+ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
+	
 for (i=0; i<5; ++i)
 	{	
 	
@@ -172,12 +173,10 @@ for (i=0; i<5; ++i)
 	TGraph *grBF = dft.GetGraph();
 	grBF->Draw( "SAME,L" );
 	
-	ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
-	
 	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 	cout << " Gain : " << Gfit/(50*1.60217662e-10) << endl;
 	cout << " Gain (no. of PEs) : " << Gfit << endl;
-	ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;
+	ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 	cout << "" << endl;
 	cout << "" << endl;
 	
