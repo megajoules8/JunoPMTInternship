@@ -172,7 +172,8 @@ for (i=0; i<5; ++i)
 	TGraph *grBF = dft.GetGraph();
 	grBF->Draw( "SAME,L" );
 
-	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] )/(50*1.60217662e-10); //in e
+	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); //in e
+	cout << " Gain (no. of PEs): " << Gfit/(50*1.60217662e-10) << endl;
 	cout << " Gain : " << Gfit << endl;
 	  
 	cout << "" << endl;
