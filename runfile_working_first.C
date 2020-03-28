@@ -152,9 +152,9 @@ for (i=0; i<5; ++i)
 	cout << " No. of bins : " << nbins << endl;
 	cout << " ( " << xmin << ", " << xmax << " ) " << endl;
 	
-	//Double_t rms = histo_LED->GetRMS();
-	//Double_t rmse = histo_LED->GetRMSError();
-	//cout << " RMS : " << rms <<" +/- "<< rmse << endl;
+	Double_t rms = histo_LED->GetRMS();
+	Double_t rmse = histo_LED->GetRMSError();
+	cout << " RMS : " << rms <<" +/- "<< rmse << endl;
 	
 	
 	DFTmethod dft( 2.0*nbins, xmin, xmax, gamma_test );
