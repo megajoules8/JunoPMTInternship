@@ -70,7 +70,8 @@ TH1F* hiss(TString Full_path, TString HV_Value){
    read.close();
     
 //start histogram event	//The new argument has been set as the name of the histogram	
-  TH1F* hist = new TH1F(HV_Value, HV_Value, count , charge_min-(bin_width/2), charge_max+(bin_width/2));
+	//new edit: changing the integration window to [-0.1,0.55] (observing previous fit data)
+  TH1F* hist = new TH1F(HV_Value, HV_Value, count , -0.1 - (bin_width/2), 0.55 +(bin_width/2));
    gStyle->SetOptFit(1111); //used to display the stat window on the canvas
 	ifstream scan;
     scan.open(Full_path);
