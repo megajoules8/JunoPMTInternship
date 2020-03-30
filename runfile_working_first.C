@@ -50,7 +50,7 @@ TString HV_Value_LED;
 double Q ;
 double sigma;
 double amp;
-ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
+//ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
 	
 for (i=0; i<5; ++i)
 	{	
@@ -181,20 +181,12 @@ for (i=0; i<5; ++i)
 	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 	cout << " Gain : " << Gfit/(50*1.60217662e-10) << endl;
 	cout << " Gain (no. of PEs) : " << Gfit << endl;
-	ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
+	//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 	cout << "" << endl;
 	cout << "" << endl;
 	
 	c1->Update();
 	c1->WaitPrimitive();
-
-	
-	/* ... */
-
-
-
-
-
 
 	}
 
@@ -203,104 +195,6 @@ for (i=0; i<5; ++i)
 }
 
 
-
-//vectors storing pices of filenames	
-	// vector< vector <TString> > PED_LED;
-	// vector<TString> a;
-	// a.clear();
-	// a.push_back("/PED/");
-	// a.push_back("/LED/");
-	// PED_LED.push_back(a);
-	// a.clear();
-	
-	// vector< vector<TString> > HV;
-	// vector<TString> b;
-	// b.clear();
-	// b.push_back("1250");
-	// b.push_back("1300");
-	// b.push_back("1350");
-	// b.push_back("1401");
-	// b.push_back("1450");
-	// HV.push_back(b);
-
-
-
-// while (i<HV_Count)
-	// {
-		// while (j<PED_LED_Count)
-		// {
-			// //histogram event definition
-			// TH1F *hiss_gram = hiss(path + HV[0][i] + PED_LED[0][j] , filename, j); 
-			// //j=0 corresponds to PED and j=1 corresponds to LED
-			// hiss_gram->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
-			// hiss_gram->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
-			// hiss_gram->Draw();
-			// //Mean and the SD
-			// double Q ;
-			// double sigma;
-			// double amp;
-			// //define choices for PED and LED
-			
-			// if (j==0) //PED
-				// {
-				// ofstream ff ("Q_sigma.txt");
-				// Q 		= hiss_gram->GetMean();
-				// sigma 	= hiss_gram->GetRMS();
-				// amp		= hiss_gram->Integral();
-				
-				
-				// // TF1  *Fit_Gauss = new TF1("Fit_Gauss","[0]* exp(-0.5*pow(x-[1])/[2]) ,2 )) ", (Q - 3*sigma), (Q + 3*sigma));
-				// // Fit_Gauss-> SetParNames("amp_gauss", "Mean_Gauss", "sigma_gauss", "min", "max");
-				// // Fit_Gauss->SetParameters(amp, Q, sigma);
-				
-				
-				
-			// //define the fit function instance	
-				// //TF1  *Fit_Gauss = new TF1("Fit_Gauss","(1/(2*[pi*[0])) * exp(-0.5* pow( ((x-[1])/[0]) ,2 )) ", (Q - 3*sigma), (Q + 3*sigma));
-				// TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 3*sigma), (Q + 3*sigma));
-				
-				// Fit_Gauss->SetParameters(amp*hiss_gram->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
-				// Fit_Gauss->SetNpx(10000);
-				// Fit_Gauss->Draw("same");
-				
-				// //hiss_gram->Fit("Fit_Gauss", "RI");
-				// //Fit_Gauss->Draw();
-				
-				// cout << "This is PED"	<<endl;
-				// cout <<"Q = "	<< Q 	<< " sigma = "<< sigma << " Integral = "<< amp << endl;
-				// ff   <<Q 		<< endl;
-				// ff   << sigma 	<<endl;
-				// ff   <<  amp		<< endl;
-				
-				// }
-			
-			// if (j==1) //LED
-				// {
-				// cout<< "This is LED"<<endl; 
-				// ifstream scan;
-				// scan.open("Q_sigma.txt");
-				
-				// while(scan >> Q >> sigma)
-					// {
-					
-					// cout << "Q from previous= " << Q << " " << "sigma from previous= " << sigma << " Integral from previous= " << amp <<endl;
-      
-					// }
-				// scan.close();
-				// } 
-
-			
-			//++j;
-			//++num; 
-			//ROOT waits untill you hit enter
-
-		//++i;
-		//j=0;
-
-	
-	
-	
-	//https://root-forum.cern.ch/t/error-in-range-inf-nan-propagated-to-the-pad/29988 saving as pdf
 
 int main(int argc, char ** argv){
 	if(argc < 2) return 1;
