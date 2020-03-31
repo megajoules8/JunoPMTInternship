@@ -36,7 +36,7 @@ int main(int argc, char ** argv)
 
 	TCanvas * c = new TCanvas();
 
-	int count = 0;
+	int count = 2000;
 	float t_min = 0;
 	float t_max = 0;
 	float Integral = 0;
