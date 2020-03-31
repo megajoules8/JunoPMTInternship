@@ -45,26 +45,26 @@ int main(int argc, char ** argv)
 //determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
 //and the no. of bins (count) within the range 
 
-	for (int j=0; j < wave_vector->size(); ++j)
-			{
-				if (( time_vector[j] > 400 ) && ( time_vector[j] < 550))
-					{
-						if (count ==0)
-						{
-							cout<<"hall!"<<endl;
-							//t_min =  time_vector[j];
-						}
-						if (count ==1)
-						{
-							//bin_width =  time_vector[j]- t_min;
-							cout<<"hall! hall!"<<endl;
-						}
+	// for (int j=0; j < wave_vector->size(); ++j)
+	// 		{
+	// 			if (( time_vector[j] > 400 ) && ( time_vector[j] < 550))
+	// 				{
+	// 					if (count ==0)
+	// 					{
+	// 						cout<<"hall!"<<endl;
+	// 						//t_min =  time_vector[j];
+	// 					}
+	// 					if (count ==1)
+	// 					{
+	// 						//bin_width =  time_vector[j]- t_min;
+	// 						cout<<"hall! hall!"<<endl;
+	// 					}
 
-						++count;
-						//t_max = time_vector[j];
-					}
+	// 					++count;
+	// 					//t_max = time_vector[j];
+	// 				}
 				
-			}
+	// 		}
 
 
 //definition of the histogram using previous findings
