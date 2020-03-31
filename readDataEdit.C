@@ -8,6 +8,7 @@
 #include <TAxis.h>
 #include <TVectorT.h>
 #include <TApplication.h>
+using namespace std
 
 int main(int argc, char ** argv)
 {
@@ -22,8 +23,10 @@ int main(int argc, char ** argv)
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 
 	std::vector<float> * wave_vector = 0;
+	std::vector<float> * time_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
+	pmt_tree->SetBranchAddress("time_vector", &time_vector);
 
 	TApplication TApp("TApp", &argc, argv);
 
@@ -47,7 +50,7 @@ int main(int argc, char ** argv)
 						}
 						if (count ==1)
 						{
-							bin_width = time_vector->at(j) - b_min;
+							bin_width = time_vector->at(j) - t_min;
 						}
 
 						++count;
