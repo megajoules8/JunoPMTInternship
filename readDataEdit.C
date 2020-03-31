@@ -31,8 +31,8 @@ int main(int argc, char ** argv)
 	std::vector<float> * wave_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-	pmt_tree->SetBranchAddress("time_vector", &time_vector);
-
+	//pmt_tree->SetBranchAddress("time_vector", &time_vector);
+	pmt_tree-> Print();
 	TApplication TApp("TApp", &argc, argv);
 
 	TCanvas * c = new TCanvas();
