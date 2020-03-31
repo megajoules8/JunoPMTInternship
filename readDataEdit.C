@@ -8,6 +8,8 @@
 #include <TAxis.h>
 #include <TVectorT.h>
 #include <TApplication.h>
+#include "TVectorT.h"
+#include "TClass.h"
 using namespace std;
 
 int main(int argc, char ** argv)
@@ -31,10 +33,10 @@ int main(int argc, char ** argv)
 	TCanvas * c = new TCanvas();
 
 	int count = 0;
-	Float_t t_min = 0;
-	Float_t t_max = 0;
-	Float_t Integral = 0;
-	Float_t bin_width = 0;
+	float t_min = 0;
+	float t_max = 0;
+	float Integral = 0;
+	float bin_width = 0;
 
 //determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
 //and the no. of bins (count) within the range 
@@ -45,15 +47,15 @@ int main(int argc, char ** argv)
 					{
 						if (count ==0)
 						{
-							t_min =  Float_t(time_vector[j]);
+							t_min =  time_vector[j];
 						}
 						if (count ==1)
 						{
-							bin_width =  Float_t(time_vector[j])- t_min;
+							bin_width =  time_vector[j]- t_min;
 						}
 
 						++count;
-						t_max = Float_t(time_vector[j]);
+						t_max = time_vector[j];
 					}
 				
 			}
