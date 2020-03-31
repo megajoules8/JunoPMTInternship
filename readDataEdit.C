@@ -26,7 +26,7 @@ int main(int argc, char ** argv)
 
 	// for (int k =0; k<10; ++k)
 	// {
-	cout<< time_vector[0]<<endl;
+	//cout<< time_vector[0]<<endl;
 	// }
 	std::vector<float> * wave_vector = 0;
 
@@ -68,7 +68,7 @@ int main(int argc, char ** argv)
 
 
 //definition of the histogram using previous findings
-	TH1F* Juno = new TH1F("Juno", "Juno", count , t_min - (bin_width/2), t_max +(bin_width/2));
+	TH1F* Juno = new TH1F("Juno", "Juno", count , 400, 550);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
@@ -94,6 +94,7 @@ int main(int argc, char ** argv)
 		g->SetMarkerStyle(24);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
+		Juno-> fill(pmt_tree);
 		pmt_tree->Draw();
 		c->Update();
 		c->WaitPrimitive();
