@@ -94,7 +94,7 @@ int main(int argc, char ** argv)
 		g->SetMarkerStyle(24);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
-
+		pmt_tree->Draw();
 		c->Update();
 		c->WaitPrimitive();
 		delete g;
