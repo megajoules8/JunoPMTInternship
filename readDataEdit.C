@@ -81,7 +81,7 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				Juno-> Fill(wave_vector->at(iWV));
+				Juno-> Fill(wave_vector_root[iWV]);
 				
 			}
 			
