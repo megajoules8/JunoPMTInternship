@@ -26,7 +26,7 @@ int main(int argc, char ** argv)
 
 	// for (int k =0; k<10; ++k)
 	// {
-	// 	cout<< time_vector[k]<<endl;
+	cout<< time_vector[0]<<endl;
 	// }
 	std::vector<float> * wave_vector = 0;
 
