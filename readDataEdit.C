@@ -27,9 +27,15 @@ int main(int argc, char ** argv)
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 
 	TApplication TApp("TApp", &argc, argv);
-	TVectorT<float> tminmax = {0,0};
+
 	TCanvas * c = new TCanvas();
-	
+
+	TVectorT<float> time_vector_root(time_vector->size());
+	for(int k=0; k < time_vector->size(); ++k)
+			{
+				time_vector_root[k] = time_vector->at(k);
+			}
+
 	int count = 0;
 	float t_min = 0;
 	float t_max = 0;
@@ -45,7 +51,7 @@ int main(int argc, char ** argv)
 					{
 						if (count ==0)
 						{
-							tminmax.push_back(time_vector[j]);
+							t_min =  time_vector[j];
 						}
 						if (count ==1)
 						{
@@ -53,7 +59,7 @@ int main(int argc, char ** argv)
 						}
 
 						++count;
-						tminmax.push_back(time_vector[j]);
+						t_max = time_vector[j];
 					}
 				
 			}
