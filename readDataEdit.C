@@ -80,10 +80,7 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				if (( time_vector[iWV] >= 400 ) && ( time_vector[iWV]<= 550 ))
-					{
-						Juno-> Fill(wave_vector_root[iWV]);
-					}
+				Juno-> Fill(wave_vector_root[iWV]);
 				
 			}
 
