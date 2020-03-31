@@ -47,26 +47,26 @@ int main(int argc, char ** argv)
 //determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
 //and the no. of bins (count) within the range 
 
-	for (int j=0; j < wave_vector->size(); ++j)
-			{
-				if (( *time_vector >= 400 ) && ( *time_vector < 550))
-					{
-						if (count ==0)
-						{
-							cout<<"hall!"<<endl;
-							t_min =  *time_vector;
-						}
-						if (count ==1)
-						{
-							bin_width =  *time_vector- t_min;
-							cout<<"hall! hall!"<<endl;
-						}
+	// for (int j=0; j < wave_vector->size(); ++j)
+	// 		{
+	// 			if (( *time_vector >= 400 ) && ( *time_vector < 550))
+	// 				{
+	// 					if (count ==0)
+	// 					{
+	// 						cout<<"hall!"<<endl;
+	// 						t_min =  *time_vector;
+	// 					}
+	// 					if (count ==1)
+	// 					{
+	// 						bin_width =  *time_vector- t_min;
+	// 						cout<<"hall! hall!"<<endl;
+	// 					}
 
-						++count;
-						t_max = *time_vector;
-					}
+	// 					++count;
+	// 					t_max = *time_vector;
+	// 				}
 				
-			}
+	// 		}
 
 
 //definition of the histogram using previous findings
@@ -81,10 +81,10 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				//Juno-> Fill(wave_vector_root[iWV]);
+				
 				
 			}
-
+			Juno-> Fill(f->Get("time_vector"));
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		g->GetXaxis()->SetTitle("Time (ns)");
@@ -95,7 +95,7 @@ int main(int argc, char ** argv)
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
 		
-		//Juno->Draw();
+		Juno->Draw();
 		c->Update();
 		c->WaitPrimitive();
 		delete g;
