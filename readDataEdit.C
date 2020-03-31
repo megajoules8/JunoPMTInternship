@@ -8,7 +8,7 @@
 #include <TAxis.h>
 #include <TVectorT.h>
 #include <TApplication.h>
-using namespace std
+using namespace std;
 
 int main(int argc, char ** argv)
 {
@@ -31,10 +31,10 @@ int main(int argc, char ** argv)
 	TCanvas * c = new TCanvas();
 	
 	int count = 0;
-	Float_t t_min = 0;
-	Float_t t_max = 0;
-	Float_t Integral = 0;
-	Float_t bin_width = 0;
+	float t_min = 0;
+	float t_max = 0;
+	float Integral = 0;
+	float bin_width = 0;
 
 //determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
 //and the no. of bins (count) within the range 
@@ -71,7 +71,7 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				if (( time_vector->at(iWV) >= t_min ) && ( time_vector->at(iWV) <= t_max ))
+				if (( time_vector[iWV] >= t_min ) && ( time_vector[iWV]<= t_max ))
 					{
 						Integral += wave_vector->at(iWV);
 					}
