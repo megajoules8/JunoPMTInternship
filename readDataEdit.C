@@ -49,21 +49,21 @@ int main(int argc, char ** argv)
 
 	for (int j=0; j < wave_vector->size(); ++j)
 			{
-				if (( *time_vector->at(j) >= 400 ) && ( *time_vector->at(j) < 550))
+				if (( *time_vector >= 400 ) && ( *time_vector < 550))
 					{
 						if (count ==0)
 						{
 							cout<<"hall!"<<endl;
-							t_min =  *time_vector->at(j);
+							t_min =  *time_vector;
 						}
 						if (count ==1)
 						{
-							bin_width =  *time_vector->at(j)- t_min;
+							bin_width =  *time_vector- t_min;
 							cout<<"hall! hall!"<<endl;
 						}
 
 						++count;
-						t_max = *time_vector->at(j);
+						t_max = *time_vector;
 					}
 				
 			}
