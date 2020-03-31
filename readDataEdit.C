@@ -25,8 +25,10 @@ int main(int argc, char ** argv)
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 
 	std::vector<float> * wave_vector = 0;
+	std::vector<float> * wtime_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
+	pmt_tree->SetBranchAddress("time_vector", &time_vector);
 
 	TApplication TApp("TApp", &argc, argv);
 
