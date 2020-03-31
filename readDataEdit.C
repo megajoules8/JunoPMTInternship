@@ -24,21 +24,17 @@ int main(int argc, char ** argv)
 	TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 
+	for (int k =0; k<10; ++k)
+	{
+		cout<< time_vector[k]<<endl;
+	}
 	std::vector<float> * wave_vector = 0;
-	std::vector<float> * wtime_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-	pmt_tree->SetBranchAddress("time_vector", &time_vector);
 
 	TApplication TApp("TApp", &argc, argv);
 
 	TCanvas * c = new TCanvas();
-
-	TVectorT<float> time_vector_root(wave_vector->size());
-	for(int k=0; k < wave_vector->size(); ++k)
-			{
-				time_vector_root[k] = time_vector->at(k);
-			}
 
 	int count = 0;
 	float t_min = 0;
@@ -55,15 +51,15 @@ int main(int argc, char ** argv)
 					{
 						if (count ==0)
 						{
-							t_min =  time_vector[j];
+							//t_min =  time_vector[j];
 						}
 						if (count ==1)
 						{
-							bin_width =  time_vector[j]- t_min;
+							//bin_width =  time_vector[j]- t_min;
 						}
 
 						++count;
-						t_max = time_vector[j];
+						//t_max = time_vector[j];
 					}
 				
 			}
