@@ -80,11 +80,11 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				// if (( time_vector[iWV] >= t_min ) && ( time_vector[iWV]<= t_max ))
-				// 	{
-				// 		Integral += wave_vector->at(iWV);
-				// 	}
-				Juno-> Fill(wave_vector_root[iWV]);
+				if (( time_vector[iWV] >= t_min ) && ( time_vector[iWV]<= t_max ))
+					{
+						Juno-> Fill(wave_vector_root[iWV]);
+					}
+				
 			}
 
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
