@@ -24,10 +24,10 @@ int main(int argc, char ** argv)
 	TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 
-	for (int k =0; k<10; ++k)
-	{
-		cout<< time_vector[k]<<endl;
-	}
+	// for (int k =0; k<10; ++k)
+	// {
+	// 	cout<< time_vector[k]<<endl;
+	// }
 	std::vector<float> * wave_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
