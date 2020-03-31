@@ -30,12 +30,6 @@ int main(int argc, char ** argv)
 
 	TCanvas * c = new TCanvas();
 
-	TVectorT<float> time_vector_root(time_vector->size());
-	for(int k=0; k < time_vector->size(); ++k)
-			{
-				time_vector_root[k] = time_vector->at(k);
-			}
-
 	int count = 0;
 	float t_min = 0;
 	float t_max = 0;
@@ -51,15 +45,15 @@ int main(int argc, char ** argv)
 					{
 						if (count ==0)
 						{
-							t_min =  time_vector[j];
+							t_min =  float(time_vector[j]);
 						}
 						if (count ==1)
 						{
-							bin_width =  time_vector[j]- t_min;
+							bin_width =  float(time_vector[j])- t_min;
 						}
 
 						++count;
-						t_max = time_vector[j];
+						t_max = float(time_vector[j]);
 					}
 				
 			}
