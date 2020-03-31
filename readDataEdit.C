@@ -23,10 +23,8 @@ int main(int argc, char ** argv)
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 
 	std::vector<float> * wave_vector = 0;
-	std::vector<float> * time_vector = 0;
 
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-	pmt_tree->SetBranchAddress("time_vector", &time_vector);
 
 	TApplication TApp("TApp", &argc, argv);
 
@@ -42,20 +40,21 @@ int main(int argc, char ** argv)
 
 	for (int j=0; j < wave_vector->size(); ++j)
 			{
-				if (( time_vector->at(j) > 400 ) && ( time_vector->at(j) < 550))
+				if (( time_vector[j] > 400 ) && ( time_vector[j] < 550))
 					{
 						if (count ==0)
 						{
-							t_min = time_vector->at(j);
+							t_min =  time_vector[j];
 						}
 						if (count ==1)
 						{
-							bin_width = time_vector->at(j) - t_min;
+							bin_width =  time_vector[j]- t_min;
 						}
 
 						++count;
+						t_max = time_vector[j];
 					}
-				t_max = time_vector->at(j);
+				
 			}
 
 
