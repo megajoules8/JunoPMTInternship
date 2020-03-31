@@ -94,8 +94,8 @@ int main(int argc, char ** argv)
 		g->SetMarkerStyle(24);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
-		Juno-> fill(pmt_tree);
-		pmt_tree->Draw();
+		Juno-> Fill(pmt_tree);
+		pmt_tree->Draw("Juno");
 		c->Update();
 		c->WaitPrimitive();
 		delete g;
