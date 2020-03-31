@@ -33,6 +33,7 @@ int main(int argc, char ** argv)
 	pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 	//pmt_tree->SetBranchAddress("time_vector", &time_vector);
 	pmt_tree-> Print();
+	pmt_tree-> Scan("wave_vector");
 	TApplication TApp("TApp", &argc, argv);
 
 	TCanvas * c = new TCanvas();
