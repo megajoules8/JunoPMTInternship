@@ -79,13 +79,13 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				if (( time_vector[iWV] >= t_min ) && ( time_vector[iWV]<= t_max ))
-					{
-						Integral += wave_vector->at(iWV);
-					}
+				// if (( time_vector[iWV] >= t_min ) && ( time_vector[iWV]<= t_max ))
+				// 	{
+				// 		Integral += wave_vector->at(iWV);
+				// 	}
 			}
 
-		cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
+		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		g->GetXaxis()->SetTitle("Time (ns)");
 		g->GetYaxis()->SetTitle("Amplitude");
