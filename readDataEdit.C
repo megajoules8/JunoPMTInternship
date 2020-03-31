@@ -31,9 +31,10 @@ int main(int argc, char ** argv)
 	TCanvas * c = new TCanvas();
 	
 	int count = 0;
-	double t_min = 0;
-	double t_max = 0;
-	double Integral = 0;
+	Float_t t_min = 0;
+	Float_t t_max = 0;
+	Float_t Integral = 0;
+	Float_t bin_width = 0;
 
 //determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
 //and the no. of bins (count) within the range 
