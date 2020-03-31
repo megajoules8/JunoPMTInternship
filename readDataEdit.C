@@ -51,11 +51,13 @@ int main(int argc, char ** argv)
 					{
 						if (count ==0)
 						{
+							cout<<"hall!"<<endl;
 							//t_min =  time_vector[j];
 						}
 						if (count ==1)
 						{
 							//bin_width =  time_vector[j]- t_min;
+							cout<<"hall! hall!"<<endl;
 						}
 
 						++count;
