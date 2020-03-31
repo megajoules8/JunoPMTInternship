@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-
+#include <TH1F.h>
 #include <TFile.h>
 #include <TTree.h>
 #include <TGraph.h>
