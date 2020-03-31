@@ -34,6 +34,12 @@ int main(int argc, char ** argv)
 
 	TCanvas * c = new TCanvas();
 
+	TVectorT<float> time_vector_root(wave_vector->size());
+	for(int k=0; k < wave_vector->size(); ++k)
+			{
+				time_vector_root[k] = time_vector->at(k);
+			}
+
 	int count = 0;
 	float t_min = 0;
 	float t_max = 0;
