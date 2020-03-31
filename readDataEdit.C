@@ -84,6 +84,7 @@ int main(int argc, char ** argv)
 				// 	{
 				// 		Integral += wave_vector->at(iWV);
 				// 	}
+				Juno-> Fill(wave_vector_root[iWV]);
 			}
 
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
@@ -95,8 +96,8 @@ int main(int argc, char ** argv)
 		g->SetMarkerStyle(24);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
-		//Juno-> Fill(pmt_tree);
-		//pmt_tree->Draw("Juno");
+		
+		Juno->Draw();
 		c->Update();
 		c->WaitPrimitive();
 		delete g;
