@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
 
 
 //definition of the histogram using previous findings
-	TH1F* Juno = new TH1F("Juno", "Juno", count , 400, 550);
+	TH1F *Juno = new TH1F("Juno", "Juno", count , 400, 550);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
@@ -81,10 +81,10 @@ int main(int argc, char ** argv)
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				
+				Juno-> Fill(wave_vector->at(iWV));
 				
 			}
-			Juno-> Fill(f->Get("time_vector"));
+			
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		g->GetXaxis()->SetTitle("Time (ns)");
