@@ -55,19 +55,21 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 					}
 			}
 		Juno-> Fill(Integral);	
-		cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
+		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
-		g->GetXaxis()->SetTitle("Time (ns)");
-		g->GetYaxis()->SetTitle("Amplitude");
-		g->SetTitle(TString::Format("Event %d", i));
-		g->SetMarkerSize(.5);
-		g->SetMarkerStyle(24);
-		g->SetMarkerColor(kBlue);
-		g->Draw("ALP");
+		//g->GetXaxis()->SetTitle("Time (ns)");
+		//g->GetYaxis()->SetTitle("Amplitude");
+		Juno->GetXaxis()->SetTitle("Integral");
+		Juno->GetYaxis()->SetTitle("Counts");
+		//g->SetTitle(TString::Format("Event %d", i));
+		//g->SetMarkerSize(.5);
+		//g->SetMarkerStyle(24);
+		//g->SetMarkerColor(kBlue);
+		//g->Draw("ALP");
 		Juno->Draw();
 		//c->Update();
 		//c->WaitPrimitive();
-		delete g;
+		//delete g;
 		Integral = 0;
 	}
 	 ofstream ff ("Juno_data.txt");
