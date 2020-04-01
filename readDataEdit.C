@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
 //and the no. of bins (count) within the range 
 
 //definition of the histogram using previous findings
-TH1F *Juno = new TH1F("Juno", "Juno", nbins , -1.2e+07, -400);
+TH1F *Juno = new TH1F("Juno", "Juno", nbins , -1.12e+07, -400);
 	
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
@@ -66,10 +66,9 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -1.2e+07, -400);
 		g->SetMarkerStyle(24);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
-		Juno->Rebin(4);
 		Juno->Draw();
-		//c->Update();
-		//c->WaitPrimitive();
+		c->Update();
+		c->WaitPrimitive();
 		delete g;
 	}
 
