@@ -51,9 +51,9 @@ TH1F *Juno = new TH1F("Juno", "Juno", count , t_min, t_max);
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV); 
-				if ( ( (*time_vector)(j) >= t_min ) && ( (*time_vector)(j) < t_max) )
+				if ( ( (*time_vector)(iWV) >= t_min ) && ( (*time_vector)(iWV) < t_max) )
 					{
-						Integral += (*time_vector)(j); 
+						Integral += (*time_vector)(iWV); 
 					}
 				Juno-> Fill(Integral);
 				
