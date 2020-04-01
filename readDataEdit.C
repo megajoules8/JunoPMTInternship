@@ -69,6 +69,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -1.3e+07, 0);
 		//c->Update();
 		//c->WaitPrimitive();
 		delete g;
+		Integral = 0;
 	}
 
 	TApp.Run();
