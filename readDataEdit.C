@@ -31,7 +31,7 @@ int main(int argc, char ** argv)
 
 	int nbins = 2000;
 	float t_min = 425;
-	float t_max = 475;
+	float t_max = 500;
 	float Integral = 0;
 	float bin_width = 0;
 
