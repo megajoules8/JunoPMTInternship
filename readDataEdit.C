@@ -58,7 +58,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, nbins);
 			}
 			//cout << Integral << endl;
 		Juno-> Fill(Integral);	
-		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
+		cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		g->GetXaxis()->SetTitle("Time (ns)");
 		g->GetYaxis()->SetTitle("Amplitude");
