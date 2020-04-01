@@ -55,10 +55,8 @@ TH1F *Juno = new TH1F("Juno", "Juno", count , t_min, t_max);
 					{
 						Integral += (*time_vector)(iWV); 
 					}
-				Juno-> Fill(Integral);
-				
 			}
-			
+		Juno-> Fill(Integral);	
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		g->GetXaxis()->SetTitle("Time (ns)");
@@ -69,8 +67,8 @@ TH1F *Juno = new TH1F("Juno", "Juno", count , t_min, t_max);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
 		Juno->Draw();
-		c->Update();
-		c->WaitPrimitive();
+		//c->Update();
+		//c->WaitPrimitive();
 		delete g;
 	}
 
