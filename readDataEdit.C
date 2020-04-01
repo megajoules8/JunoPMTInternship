@@ -30,8 +30,8 @@ int main(int argc, char ** argv)
 	TCanvas * c = new TCanvas();
 
 	int nbins = 2000;
-	float t_min = 425;
-	float t_max = 525;
+	float t_min = 400;
+	float t_max = 500;
 	float Integral = 0;
 	float bin_width = 0;
 
