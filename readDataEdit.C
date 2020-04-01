@@ -53,7 +53,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, 1e+09);
 				wave_vector_root[iWV] = wave_vector->at(iWV); 
 				if ( ( (*time_vector)(iWV) >= t_min ) && ( (*time_vector)(iWV) < t_max) )
 					{
-						Integral += (*time_vector)(iWV); 
+						Integral += wave_vector_root[iWV]; 
 					}
 			}
 			cout << Integral << endl;
