@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
 
 	TCanvas * c = new TCanvas();
 
-	int nbins = 2000;
+	int nbins = 1000;
 	float t_min = 400;
 	float t_max = 550;
 	float Integral = 0;
