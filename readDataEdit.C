@@ -70,7 +70,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 		Juno->Draw();
 		//c->Update();
 		//c->WaitPrimitive();
-		delete g;
+		//delete g;
 		Integral = 0;
 	}
 
