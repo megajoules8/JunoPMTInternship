@@ -69,7 +69,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 		delete g;
 		Integral = 0;
 	}
-	 oofstream ff ("Juno_data.txt");
+	 ofstream ff ("Juno_data.txt");
 	 ff <<"Juno PMT data"<<endl;
 	 ff <<"Histogram of Integral vs. Counts"<<endl;
 	 ff<<"No. of bins = "<<nbins<<endl;
