@@ -69,14 +69,14 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 		delete g;
 		Integral = 0;
 	}
-	 ofstream ff ("Junodata.txt");
+	 oofstream ff ("Juno_data.txt");
 	 ff <<"Juno PMT data"<<endl;
 	 ff <<"Histogram of Integral vs. Counts"<<endl;
 	 ff<<"No. of bins = "<<nbins<<endl;
 	 ff<<"************************************"<<endl;
 	 ff<<"Integral"<<" "<<"counts"<<endl;
 	 
-	 for (i=0; i <Juno->GetNbinsX(); i++)
+	 for (int i=0; i <Juno->GetNbinsX(); i++)
 		{
 	        ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl; //write to file
 	  	}
