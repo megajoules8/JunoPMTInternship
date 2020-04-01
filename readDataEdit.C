@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
 //and the no. of bins (count) within the range 
 
 //definition of the histogram using previous findings
-TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, nbins);
+TH1F *Juno = new TH1F("Juno", "Juno", nbins , -1.2e+07, -400);
 	
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
@@ -56,7 +56,6 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, nbins);
 						Integral += wave_vector_root[iWV]; 
 					}
 			}
-			//cout << Integral << endl;
 		Juno-> Fill(Integral);	
 		cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
