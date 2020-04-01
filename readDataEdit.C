@@ -56,6 +56,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", count , t_min, t_max);
 						Integral += (*time_vector)(iWV); 
 					}
 			}
+			cout << Integral << endl;
 		Juno-> Fill(Integral);	
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
