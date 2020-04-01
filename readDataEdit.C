@@ -56,7 +56,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, nbins);
 						Integral += wave_vector_root[iWV]; 
 					}
 			}
-			cout << Integral << endl;
+			//cout << Integral << endl;
 		Juno-> Fill(Integral);	
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
 		TGraph * g = new TGraph(*time_vector, wave_vector_root);
@@ -68,8 +68,8 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, nbins);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
 		Juno->Draw();
-		//c->Update();
-		//c->WaitPrimitive();
+		c->Update();
+		c->WaitPrimitive();
 		delete g;
 	}
 
