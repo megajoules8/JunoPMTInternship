@@ -60,7 +60,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 		//TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		//g->GetXaxis()->SetTitle("Time (ns)");
 		Juno->GetXaxis()->SetTitle("Integral");
-		g->GetYaxis()->SetTitle("Counts");
+		Juno->GetYaxis()->SetTitle("Counts");
 		//g->GetYaxis()->SetTitle("Amplitude");
 		//g->SetTitle(TString::Format("Event %d", i));
 		//g->SetMarkerSize(.5);
