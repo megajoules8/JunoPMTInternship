@@ -68,8 +68,8 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , 0, 1e+09);
 		g->SetMarkerColor(kBlue);
 		g->Draw("ALP");
 		Juno->Draw();
-		c->Update();
-		c->WaitPrimitive();
+		//c->Update();
+		//c->WaitPrimitive();
 		delete g;
 	}
 
