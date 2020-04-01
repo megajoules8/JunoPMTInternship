@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
 //and the no. of bins (count) within the range 
 
 //definition of the histogram using previous findings
-TH1F *Juno = new TH1F("Juno", "Juno", nbins , -7000, 2000);
+TH1F *Juno = new TH1F("Juno", "Juno", nbins , -7000, 1000);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
