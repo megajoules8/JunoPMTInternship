@@ -21,6 +21,7 @@ int main(int argc, char ** argv)
 	}
 
 	TFile * f = TFile::Open(argv[1]);
+
 	TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 	std::vector<float> * wave_vector = 0;
@@ -35,10 +36,7 @@ int main(int argc, char ** argv)
 	float Integral = 0;
 	float bin_width = 0;
 
-//determining the bin width, the times (x value) corresponding to 400ns and 550ns, 
-//and the no. of bins (count) within the range 
-
-//definition of the histogram using previous findings
+//definition of the histogram
 TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
@@ -56,23 +54,34 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 					}
 			}
 		Juno-> Fill(Integral);	
-		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
-		//TGraph * g = new TGraph(*time_vector, wave_vector_root);
-		//g->GetXaxis()->SetTitle("Time (ns)");
-		Juno->GetXaxis()->SetTitle("Integral");
-		Juno->GetYaxis()->SetTitle("Counts");
-		//g->GetYaxis()->SetTitle("Amplitude");
-		//g->SetTitle(TString::Format("Event %d", i));
-		//g->SetMarkerSize(.5);
-		//g->SetMarkerStyle(24);
-		//g->SetMarkerColor(kBlue);
-		//g->Draw("ALP");
+		cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
+		TGraph * g = new TGraph(*time_vector, wave_vector_root);
+		g->GetXaxis()->SetTitle("Time (ns)");
+		g->GetYaxis()->SetTitle("Amplitude");
+		g->SetTitle(TString::Format("Event %d", i));
+		g->SetMarkerSize(.5);
+		g->SetMarkerStyle(24);
+		g->SetMarkerColor(kBlue);
+		g->Draw("ALP");
 		Juno->Draw();
 		//c->Update();
 		//c->WaitPrimitive();
-		//delete g;
+		delete g;
 		Integral = 0;
 	}
+	 ofstream ff ("Junodata.txt");
+	 ff <<"Juno PMT data"<<endl;
+	 ff <<"Histogram of Integral vs. Counts"<<endl;
+	 ff<<"No. of bins = "<<nbins<<endl;
+	 ff<<"************************************"<<endl;
+	 ff<<"Integral"<<" "<<"counts"<<endl;
+	 
+	 for (i=0; i <Juno->GetNbinsX(); i++)
+		{
+	        ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl; //write to file
+	  	}
+	  	ff.close();
+
 
 	TApp.Run();
 	return 0;
