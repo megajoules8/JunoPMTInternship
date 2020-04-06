@@ -51,6 +51,7 @@ int main(int argc, char ** argv){
 		//delete g;
 	}
 		mg->Draw("ALP");
+		mg->GetYaxis()->SetLimits(-10000000,100);
 
 		//c->Update();
 		//c->WaitPrimitive();	
