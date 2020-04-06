@@ -27,6 +27,7 @@ int main(int argc, char ** argv){
 
 	TCanvas * c = new TCanvas();
 
+	TGraph *g[pmt_tree->GetEntries()];
 	TMultiGraph * mg = new TMultiGraph();
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 	{
