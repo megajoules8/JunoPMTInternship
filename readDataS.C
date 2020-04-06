@@ -26,9 +26,9 @@ int main(int argc, char ** argv){
 	TApplication TApp("TApp", &argc, argv);
 
 	TCanvas * c = new TCanvas();
-
+	TMultiGraph *mg = new TMultiGraph();
 	TGraph *g[pmt_tree->GetEntries()];
-	TMultiGraph * mg = new TMultiGraph();
+	
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 	{
 		pmt_tree->GetEntry(i);
