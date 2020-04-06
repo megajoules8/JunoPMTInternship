@@ -49,7 +49,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , t_min, t_max);
 		for(int iWV=0; iWV < wave_vector->size(); ++iWV)
 			{
 				wave_vector_root[iWV] = wave_vector->at(iWV);
-				Juno-> Fill(wave_vector_root[iWV]); 
+				Juno-> Fill(iWV, wave_vector_root[iWV]); 
 
 			}
 			
