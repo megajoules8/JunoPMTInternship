@@ -4,6 +4,7 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TGraph.h>
+#include <TMultiGraph.h>
 #include <TCanvas.h>
 #include <TAxis.h>
 #include <TVectorT.h>
