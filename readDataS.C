@@ -4,7 +4,6 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TGraph.h>
-#include <TMultiGraph.h>
 #include <TCanvas.h>
 #include <TAxis.h>
 #include <TVectorT.h>
@@ -27,9 +26,7 @@ int main(int argc, char ** argv){
 	TApplication TApp("TApp", &argc, argv);
 
 	TCanvas * c = new TCanvas();
-	TMultiGraph *mg = new TMultiGraph();
-	TGraph *g[pmt_tree->GetEntries()];
-	
+
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 	{
 		pmt_tree->GetEntry(i);
@@ -40,21 +37,19 @@ int main(int argc, char ** argv){
 			wave_vector_root[iWV] = wave_vector->at(iWV);
 		}
 
-		g[i] = new TGraph(*time_vector, wave_vector_root);
-		g[i]->GetXaxis()->SetTitle("Time (ns)");
-		g[i]->GetYaxis()->SetTitle("Amplitude");
-		g[i]->SetTitle(TString::Format("Event %d", i));
-		g[i]->SetMarkerSize(.5);
-		g[i]->SetMarkerStyle(24);
-		g[i]->SetMarkerColor(kBlue);
-		mg->Add(g[i]); 
+		TGraph * g = new TGraph(*time_vector, wave_vector_root);
+		g->GetXaxis()->SetTitle("Time (ns)");
+		g->GetYaxis()->SetTitle("Amplitude");
+		g->SetTitle(TString::Format("Event %d", i));
+		g->SetMarkerSize(.5);
+		g->SetMarkerStyle(24);
+		g->SetMarkerColor(kBlue);
+		g->Draw("ALP");
+
+		c->Update();
+		c->WaitPrimitive();
 		//delete g;
 	}
-		mg->Draw("ALP");
-		mg->GetYaxis()->SetLimits(-10000000,100);
-
-		//c->Update();
-		//c->WaitPrimitive();	
 
 	TApp.Run();
 	return 0;
