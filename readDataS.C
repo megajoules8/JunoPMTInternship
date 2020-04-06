@@ -40,14 +40,14 @@ int main(int argc, char ** argv){
 		}
 
 		g[i] = new TGraph(*time_vector, wave_vector_root);
-		g->GetXaxis()->SetTitle("Time (ns)");
-		g->GetYaxis()->SetTitle("Amplitude");
-		g->SetTitle(TString::Format("Event %d", i));
-		g->SetMarkerSize(.5);
-		g->SetMarkerStyle(24);
-		g->SetMarkerColor(kBlue);
+		g[i]->GetXaxis()->SetTitle("Time (ns)");
+		g[i]->GetYaxis()->SetTitle("Amplitude");
+		g[i]->SetTitle(TString::Format("Event %d", i));
+		g[i]->SetMarkerSize(.5);
+		g[i]->SetMarkerStyle(24);
+		g[i]->SetMarkerColor(kBlue);
 		mg->Add(g[i]); 
-		delete g;
+		//delete g;
 	}
 		mg->Draw("ALP");
 
