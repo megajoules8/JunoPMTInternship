@@ -132,7 +132,7 @@ else
 
  //rebinning 
      int Bin_Size = 4; 
-     hist-> Rebin(Bin_Size); 
+     //hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
 		{
