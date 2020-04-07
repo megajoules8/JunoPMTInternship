@@ -28,7 +28,8 @@ TH1F* hiss_s(TString Full_path, TString HV_Value, double min, double max, int in
     double bin_width;
     int count=0;
 //ignore first 5 lines
-    for (int a=0; a<5; a++){
+    for (int a=0; a<5; a++)
+        {
         read.ignore(1000000000000, '\n');
         }	
 //read to find charge_max and charge_min
@@ -42,12 +43,12 @@ if (index ==0)
           if (count == 0)
   		    {
               charge_min = charge;
-  			//cout << "charge min = " << charge_min << endl;
+  			cout << "charge min = " << charge_min << endl;
           }
           if (count == 1)
   		    {
               bin_width = charge - charge_min;
-  		//	cout << "bin_width = " << bin_width << endl;
+  			cout << "bin_width = " << bin_width << endl;
           }
 
           charge_max = charge;
