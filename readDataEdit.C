@@ -42,7 +42,7 @@ int main(int argc, char ** argv)
 
 //definition of the histogram
 TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
-TH1F *JunoPED = new TH1F("JunoPED", "JunoPED", nbins , -1000, 1000);
+TH1F *JunoPED = new TH1F("JunoPED", "JunoPED", nbins , -400, 400);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
