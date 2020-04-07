@@ -65,8 +65,8 @@ if (index == 1)
 				HV_Value_PED = TString ("Pedestal Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
 				HV_Value_LED = TString ("LED Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
 				//define the 2 histograms for PED and LED
-				TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED);
-				TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED);
+				TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED, index);
+				TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED, index);
 				
 				//cout << Form(PED, HV[i]) << endl; getchar();
 				Q = histo_PED->GetMean(); //get Q initially
@@ -198,8 +198,8 @@ if (index == 1)
 				HV_Value_PED = TString ("/Juno_data_PED.txt");
 				HV_Value_LED = TString ("/Juno_data.txt");
 				//define the 2 histograms for PED and LED
-				TH1F *histo_PED = hiss(path_to_M1 + HV_Value_PED, "Juno PED");
-				TH1F *histo_LED = hiss(path_to_M1 + HV_Value_LED, "Juno LED");
+				TH1F *histo_PED = hiss(path_to_M1 + HV_Value_PED, "Juno PED", index);
+				TH1F *histo_LED = hiss(path_to_M1 + HV_Value_LED, "Juno LED", index);
 				
 				//cout << Form(PED, HV[i]) << endl; getchar();
 				Q = histo_PED->GetMean(); //get Q initially
