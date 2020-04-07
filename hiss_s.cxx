@@ -12,7 +12,7 @@
 using namespace std;
 
 //main function
-TH1F* hiss(TString Full_path, TString HV_Value, double max, double min, int index)
+TH1F* hiss(TString Full_path, TString HV_Value, double min, double max, int index)
 {
   
   TString histname = Full_path;
