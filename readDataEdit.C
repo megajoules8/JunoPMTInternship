@@ -34,11 +34,15 @@ int main(int argc, char ** argv)
 	int nbins = 2000;
 	float t_min = 400;
 	float t_max = 500;
+	float t_min_PED = 0;
+	float t_max_PED = 100;
 	float Integral = 0;
+	float Integral_PED = 0 ;
 	float bin_width = 0;
 
 //definition of the histogram
 TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
+TH1F *JunoPED = new TH1F("JunoPED", "JunoPED", nbins , -1000, 1000);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
@@ -53,37 +57,62 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , -8000, 1000);
 					{
 						Integral += wave_vector_root[iWV]; 
 					}
+				if ( ( (*time_vector)(iWV) >= t_min_PED ) && ( (*time_vector)(iWV) < t_max_PED) )
+					{
+						Integral_PED += wave_vector_root[iWV]; 
+					}	
 			}
-		Juno-> Fill(Integral);	
+		Juno-> Fill(Integral);
+		JunoPED-> Fill(Integral_PED);	
 		//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
-		TGraph * g = new TGraph(*time_vector, wave_vector_root);
+		//TGraph * g = new TGraph(*time_vector, wave_vector_root);
 		//g->GetXaxis()->SetTitle("Time (ns)");
 		//g->GetYaxis()->SetTitle("Amplitude");
 		Juno->GetXaxis()->SetTitle("Integral");
 		Juno->GetYaxis()->SetTitle("Counts");
+		JunoPED->GetXaxis()->SetTitle("Integral");
+		JunoPED->GetYaxis()->SetTitle("Counts");
 		//g->SetTitle(TString::Format("Event %d", i));
 		//g->SetMarkerSize(.5);
 		//g->SetMarkerStyle(24);
 		//g->SetMarkerColor(kBlue);
 		//g->Draw("ALP");
+		JunoPED->Draw();
+		c->Update();
+		c->WaitPrimitive();
+
 		Juno->Draw();
-		//c->Update();
-		//c->WaitPrimitive();
+		c->Update();
+		c->WaitPrimitive();
 		//delete g;
 		Integral = 0;
+		Integral_PED = 0;
 	}
 	 ofstream ff ("Juno_data.txt");
 	 ff <<"Juno PMT data"<<endl;
 	 ff <<"Histogram of Integral vs. Counts"<<endl;
-	 ff<<"No. of bins = "<<nbins<<endl;
-	 ff<<"************************************"<<endl;
-	 ff<<"Integral"<<" "<<"counts"<<endl;
+	 ff <<"No. of bins = "<<nbins<<endl;
+	 ff <<"************************************"<<endl;
+	 ff <<"Integral"<<" "<<"counts"<<endl;
+
+	 ofstream ffP ("Juno_data_PED.txt");
+	 ffP <<"Juno PMT data - Pedestal"<<endl;
+	 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
+	 ffP <<"No. of bins = "<<nbins<<endl;
+	 ffP <<"************************************"<<endl;
+	 ffP <<"Integral"<<" "<<"counts"<<endl;
 	 
 	 for (int i=0; i <Juno->GetNbinsX(); i++)
 		{
 	        ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl; //write to file
 	  	}
 	  	ff.close();
+
+	 for (int i=0; i <JunoPED->GetNbinsX(); i++)
+		{
+	        ffP << JunoPED->GetBinCenter(i) << "	" << JunoPED->GetBinContent(i) << endl; //write to file
+	  	}
+	  	ffP.close();
 
 
 	TApp.Run();
