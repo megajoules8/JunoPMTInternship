@@ -60,9 +60,9 @@ for (i=0; i<5; ++i)
 	HV_Value_PED = TString ("Pedestal Run");
 	HV_Value_LED = TString ("LED Run");
 	//define the 2 histograms for PED and LED
-	TH1F *histo_PED = hiss(path_to_M1 , HV_Value_PED);
+	TH1F *histo_PED = hiss_s(path_to_M1 , HV_Value_PED, -100, 200, 0);
 	
-	TH1F *histo_LED = hiss(path_to_M1 , HV_Value_LED);
+	TH1F *histo_LED = hiss_s(path_to_M1 , HV_Value_LED, -100, 200, 1);
 	
 	//cout << Form(PED, HV[i]) << endl; getchar();
 	Q = histo_PED->GetMean(); //get Q initially
@@ -206,3 +206,4 @@ int main(int argc, char ** argv){
 	app.Run();
 	return 0;
 }
+
