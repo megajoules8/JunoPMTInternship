@@ -111,12 +111,12 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
      int Bin_Size = 4; 
      
 
-     if (index == 0)
-     {
-      Bin_Size *= 2*Bin_Size; 
-       
-     }
-     hist-> Rebin(Bin_Size); 
+//     if (index == 0)
+//     {
+//      Bin_Size *= 2*Bin_Size; 
+//       
+//     }
+  hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
 		{
