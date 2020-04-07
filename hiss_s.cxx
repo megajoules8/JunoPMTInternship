@@ -7,7 +7,7 @@
 #include <TF1.h>
 #include <TStyle.h>
 
-#include "hiss.h"
+#include "hiss_s.h"
 
 using namespace std;
 
