@@ -12,7 +12,8 @@
 using namespace std;
 
 //main function
-TH1F* hiss(TString Full_path, TString HV_Value){
+TH1F* hiss(TString Full_path, TString HV_Value, int index )
+{
   
   TString histname = Full_path;
 //  histname.ReplaceAll(".",""); //remove all "."s from histname
@@ -40,12 +41,12 @@ TH1F* hiss(TString Full_path, TString HV_Value){
      	//cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
 		
         if (count == 0)
-		{
+		    {
             charge_min = charge;
 			//cout << "charge min = " << charge_min << endl;
         }
         if (count == 1)
-		{
+		    {
             bin_width = charge - charge_min;
 		//	cout << "bin_width = " << bin_width << endl;
         }
@@ -57,13 +58,23 @@ TH1F* hiss(TString Full_path, TString HV_Value){
     //cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
 
 //start calculations
-	double charge_min_temp;
-	charge_min_temp = charge_min;
+	  double charge_min_temp;
+
+
+    if (index == 0)
+    {
+      charge_min_temp = charge_min;
+      charge_min = -1*charge_max;
+      charge_max = -1*charge_min_temp;
+      //int i=0;
+    }
+    else if (index == 1)
+    {
+    charge_min_temp = charge_min;
     charge_min = -1*charge_max*1.0e+9;
     charge_max = -1*charge_min_temp*1.0e+9;
     bin_width  = bin_width*1.0e+9;
-	//int i=0;
- 
+    }
 	//cout << charge_min << " " << charge_max <<" "<<bin_width<< "  " << count << endl;
 //create and allocate histogram
 
@@ -85,15 +96,26 @@ TH1F* hiss(TString Full_path, TString HV_Value){
 
 
 
-   while(scan >> charge >> amplitude){
+   while(scan >> charge >> amplitude)
+   {
       
-      charge = -1*charge*1.0e+9;
-	 // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
+      if (index == 1)
+      {
+        charge = -1*charge*1.0e+9;
+      }
+      // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(charge, amplitude);
   }
   
  //rebinning 
      int Bin_Size = 4; 
+     
+
+     if (index == 0)
+     {
+      Bin_Size *= 2*Bin_Size; 
+       
+     }
      hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
@@ -102,48 +124,11 @@ TH1F* hiss(TString Full_path, TString HV_Value){
 		
 		// hist -> Fill(charge, amplitude);
 		hist -> SetBinError(l, sqrt( hist->GetBinContent( l ) ));
-		
-		//cout << hist->GetBinContent( l ) << endl;
-		//if ( hist->GetBinContent( l )!=0 )getchar();
-		
-		// Double_t BC = hist -> GetBinContent(l);
-        // Double_t BE = hist -> GetBinError(l);		
-		// cout << "charge = " << charge << " " << "amplitude= " << amplitude << " error = "<< BE <<" Bin content = "<< BC<<endl;	
-		// if ( BC!=0 )getchar();
-		//hist->Sumw2();
+
 		}
 		
 		
-  //hist->Sumw2();
-//std::string name ="result_" + std::string (filename) + ".root";
-//scan2.close();
-  //TFile* file = new TFile(path + "root_file.root","RECREATE"); //new ROOT file event
-  //hist->GetXaxis()->SetTitle("charge(nVs)"); //set Xaxis title
-  //hist->GetYaxis()->SetTitle("amplitude"); //set Yaxis title
-  //hist->Draw();
-  
- // if (num ==0)
-  // {
-	// ofstream ff ("Q_sigma.txt");
-	// double Q = hist->GetMean();
-	// double sigma = hist->GetRMS();
-	// cout<< "This is PED"<<endl;
-	// cout <<"Q = "<< Q << " sigma = "<< sigma <<endl;
-	// ff   <<Q << endl;
-	// ff   << sigma <<endl;
-  // }
- 
- // if (num==1)
- // {
-	// cout<< "This is LED"<<endl; 
- // }
- 
-  // file->Write(); //write to ROOT file
-  // file->Close();
-// //modify and update the canvas  
-  // gPad->Modified(); 
-  // gPad->Update(); 
-  // gSystem->ProcessEvents();
+
   return hist;
   //return (0);
   
