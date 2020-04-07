@@ -24,7 +24,7 @@
 
 using namespace std;
 //main function
-void runfile_working_first(TString path_to_M1)
+void runfile(TString path_to_M1)
 {
 
   gROOT->Reset();
