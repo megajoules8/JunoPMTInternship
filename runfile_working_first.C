@@ -52,7 +52,7 @@ double sigma;
 double amp;
 int index;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
-cout << "Input 0 for Juno sinle file analysis, 1 for HV folder analysis"<<endl;
+cout << "Input 0 for Juno single file analysis, 1 for HV folder analysis"<<endl;
 cin>>index;
 
 	
@@ -205,10 +205,10 @@ if (index == 1)
 				Q = histo_PED->GetMean(); //get Q initially
 				sigma = histo_PED->GetRMS(); //get sigma initially
 				
-				histo_PED->GetXaxis()->SetTitle("charge (nVs)"); //set Xaxis title
+				histo_PED->GetXaxis()->SetTitle("charge (DUQ)"); //set Xaxis title
 				histo_PED->GetYaxis()->SetTitle("No. of Entries"); //set Yaxis title
 				
-				histo_LED->GetXaxis()->SetTitle("charge (nVs)"); //set Xaxis title
+				histo_LED->GetXaxis()->SetTitle("charge (DUQ)"); //set Xaxis title
 				histo_LED->GetYaxis()->SetTitle("No. of Entries)"); //set Yaxis title
 				
 				//define fit parameters
