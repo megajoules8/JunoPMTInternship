@@ -24,7 +24,7 @@
 
 using namespace std;
 //main function
-void runfile_working_first(TString path_to_M1, Int_t index)
+void runfile_working_first(TString path_to_M1)
 {
 
   gROOT->Reset();
@@ -50,7 +50,11 @@ TString HV_Value_LED;
 double Q ;
 double sigma;
 double amp;
+int index;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
+cout << "Input 0 for Juno sinle file analysis, 1 for HV folder analysis"<<endl;
+cin>>index;
+
 	
 if (index == 1)
 	{	
@@ -316,6 +320,11 @@ if (index == 1)
 
 
 	 }	
+
+ else
+ 	 {
+ 	 	cout<<"Invalid value for index."<<endl;
+ 	 } 
  return;	
 
 }
@@ -325,9 +334,8 @@ if (index == 1)
 int main(int argc, char ** argv){
 	if(argc < 2) return 1;
 	TString path = argv[1];
-	//Int_t index = argv[2];
 	TApplication app("app", &argc, argv);
-	runfile_working_first(path, index);
+	runfile_working_first(path);
 	app.Run();
 	return 0;
 }
