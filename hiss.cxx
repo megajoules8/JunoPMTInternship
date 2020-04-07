@@ -104,7 +104,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
         charge = -1*charge*1.0e+9;
       }
       // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
-      hist -> Fill(charge, amplitude);
+      hist -> Fill(-1*charge, amplitude);
   }
   
  //rebinning 
