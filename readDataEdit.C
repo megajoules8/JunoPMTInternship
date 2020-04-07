@@ -77,17 +77,18 @@ TH1F *JunoPED = new TH1F("JunoPED", "JunoPED", nbins , -1000, 1000);
 		//g->SetMarkerStyle(24);
 		//g->SetMarkerColor(kBlue);
 		//g->Draw("ALP");
+
+		//delete g;
+		Integral = 0;
+		Integral_PED = 0;
+	}
+
 		JunoPED->Draw();
 		c->Update();
 		c->WaitPrimitive();
 
 		Juno->Draw();
-		c->Update();
-		c->WaitPrimitive();
-		//delete g;
-		Integral = 0;
-		Integral_PED = 0;
-	}
+
 	 ofstream ff ("Juno_data.txt");
 	 ff <<"Juno PMT data"<<endl;
 	 ff <<"Histogram of Integral vs. Counts"<<endl;
