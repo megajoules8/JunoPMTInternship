@@ -6,7 +6,7 @@
 #include <vector>
 #include <TString.h>
 #include <TH1F.h>
-#include "hiss.h"
+#include "hiss_s.h"
 #include <TCanvas.h>
 #include <TF1.h>
 #include <TROOT.h>
