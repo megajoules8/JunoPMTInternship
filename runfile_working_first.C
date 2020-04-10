@@ -207,8 +207,8 @@ if (index == 1)
 						histname_LED = histname + TString(" (LED)");
 						histname_PED = histname + TString(" (PED)");
 
-						HV_Value_PED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.root");
-						HV_Value_LED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.root");
+						HV_Value_PED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
+						HV_Value_LED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
 						cout<<HV_Value_LED<<endl;
 						cout<<HV_Value_PED<<endl;
 						//define the 2 histograms for PED and LED
