@@ -52,7 +52,7 @@ double sigma;
 double amp;
 int index;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
-cout << "Input 0 for Juno single file analysis, 1 for HV folder analysis"<<endl;
+cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
 cin>>index;
 TString filename;
 TString histname;
