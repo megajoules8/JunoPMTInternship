@@ -58,7 +58,7 @@ int main(int argc, char ** argv)
 				TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 				std::vector<float> * wave_vector = 0;
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-				TApplication TApp("TApp", &argc, argv);
+				//TApplication TApp("TApp", &argc, argv);
 
 				//TCanvas * c = new TCanvas();
 
@@ -139,7 +139,7 @@ int main(int argc, char ** argv)
 			}		
 
 	}			
-				TApp.Run();
+				//TApp.Run();
 				return 0;
 
 
