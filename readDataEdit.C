@@ -135,11 +135,13 @@ int main(int argc, char ** argv)
 				  	}
 				  	ffP.close();
 
-				TApp.Run();
-				return 0;
+
 			}		
 
 	}			
+				TApp.Run();
+				return 0;
+
 
 
 }
