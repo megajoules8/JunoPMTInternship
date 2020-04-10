@@ -25,7 +25,7 @@ int main(int argc, char ** argv)
 	TString LED;
 	TString Nom;
 				
-	for (int p = 0; p<8; ++p)
+	for (int p = 1; p<8; ++p)
 	{
 				
 		//run through each folder and file	
