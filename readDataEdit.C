@@ -52,7 +52,7 @@ int main(int argc, char ** argv)
 				filename_LED = Nom + Form("%d", 15*a) + TString("_LED.txt");
 				filename_PED = Nom + Form("%d", 15*a) + TString("_PED.txt");
 
-
+				cout << "accessing file "<<filename<<endl;
 				TFile * f = TFile::Open(filename);
 				TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
 				TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
@@ -72,8 +72,8 @@ int main(int argc, char ** argv)
 				float bin_width = 0;
 
 				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", "histname_LED", nbins , -8000, 1000);
-				TH1F *JunoPED = new TH1F("JunoPED", "histname_PED", nbins , -8000, 1000);
+				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -8000, 1000);
+				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -8000, 1000);
 
 				for(int i=0; i < pmt_tree->GetEntries(); ++i)
 					{
