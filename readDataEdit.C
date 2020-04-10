@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
 	{
 				
 		//run through each folder and file	
-		Nom = TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle");
+		Nom = argv[1] + TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle");
 		
 		for (int a = 0; a<24; ++a)
 			{				
