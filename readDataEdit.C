@@ -146,7 +146,8 @@ int main(int argc, char ** argv)
 				  	}
 				  	ffP.close();
 
-
+				delete (Juno);
+				delete (JunoPED);
 				TApp.Run();
 				return 0;
 			}		
