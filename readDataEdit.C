@@ -120,7 +120,7 @@ int main(int argc, char ** argv)
 				 ffP <<"Juno PMT data - Pedestal"<<endl;
 				 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
 				 ffP <<"No. of bins = "<<nbins<<endl;
-				 ff <<"position = "<< p <<" , angle = "<<15*a<<endl;
+				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
 				 ffP <<"Integral"<<" "<<"counts"<<endl;
 				 
 				 for (int i=0; i <Juno->GetNbinsX(); i++)
