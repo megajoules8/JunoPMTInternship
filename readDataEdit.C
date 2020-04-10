@@ -114,11 +114,11 @@ int main(int argc, char ** argv)
 					Integral_PED = 0;
 				}
 
-					JunoPED->Draw();
-					c->Update();
-					c->WaitPrimitive();
+					//JunoPED->Draw();
+					//c->Update();
+					//c->WaitPrimitive();
 
-					Juno->Draw();
+					//Juno->Draw();
 
 				 ofstream ff (filename_LED);
 				 ff <<"Juno PMT data"<<endl;
