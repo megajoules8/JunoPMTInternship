@@ -44,7 +44,7 @@ int main(int argc, char ** argv)
 				TString filename_PED;
 
 				filename = Nom + Form("%d", 15*a) + TString(".root");
-				histname = TString("position = ") + Form("%d",p) + TString("angle = ")+ Form("%d", 15*a);
+				histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 				
 				histname_LED = histname + TString(" (LED)");
 				histname_PED = histname + TString(" (PED)");
@@ -60,7 +60,7 @@ int main(int argc, char ** argv)
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 				TApplication TApp("TApp", &argc, argv);
 
-				TCanvas * c = new TCanvas();
+				//TCanvas * c = new TCanvas();
 
 				int nbins = 2000;
 				float t_min = 400;
@@ -95,21 +95,10 @@ int main(int argc, char ** argv)
 						}
 					Juno-> Fill(Integral);
 					JunoPED-> Fill(Integral_PED);	
-					//cout<<"Integral at Entry no: "<< i << " = "<< Integral <<endl;
-					//TGraph * g = new TGraph(*time_vector, wave_vector_root);
-					//g->GetXaxis()->SetTitle("Time (ns)");
-					//g->GetYaxis()->SetTitle("Amplitude");
 					Juno->GetXaxis()->SetTitle("Integral");
 					Juno->GetYaxis()->SetTitle("Counts");
 					JunoPED->GetXaxis()->SetTitle("Integral");
 					JunoPED->GetYaxis()->SetTitle("Counts");
-					//g->SetTitle(TString::Format("Event %d", i));
-					//g->SetMarkerSize(.5);
-					//g->SetMarkerStyle(24);
-					//g->SetMarkerColor(kBlue);
-					//g->Draw("ALP");
-
-					//delete g;
 					Integral = 0;
 					Integral_PED = 0;
 				}
@@ -146,8 +135,6 @@ int main(int argc, char ** argv)
 				  	}
 				  	ffP.close();
 
-				delete (Juno);
-				delete (JunoPED);
 				TApp.Run();
 				return 0;
 			}		
