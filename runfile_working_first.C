@@ -197,8 +197,12 @@ if (index == 1)
 
  else if (index == 0)
 	 {
+	 	
+	 	ofstream gaindata ("gain_data.txt");
 	 	for (int p = 1; p<8; ++p)
 	 	{	
+	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
+	 			gaindata <<"angle xbar Q Mu Gain"<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
 
@@ -231,22 +235,22 @@ if (index == 1)
 						Fit_Gauss->SetNpx(10000); 
 
 
-						histo_PED->Draw("PE");
+						//histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
 						//Fit_Gauss->Draw("same");
 						
-						c1->Update();
-						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						//c1->Update();
+						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
 						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 							
-						histo_LED->Draw();
+						//histo_LED->Draw();
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						//Fit_Gauss -> Draw("same");
 							
@@ -265,8 +269,8 @@ if (index == 1)
 						cout <<"Mu = " << MU << endl;
 						
 						
-						c1->Update();
-						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						//c1->Update();
+						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						/* ... */
 						
@@ -279,7 +283,7 @@ if (index == 1)
 						histo_LED->SetLineColor( kBlack );
 						histo_LED->SetMarkerColor( kBlack );
 						histo_LED->SetStats(0);
-						histo_LED->Draw( "" );
+						//histo_LED->Draw( "" );
 						
 						
 						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
@@ -319,18 +323,17 @@ if (index == 1)
 						dft.spef.SetParams( p_fit );
 
 						TGraph *grBF = dft.GetGraph();
-						grBF->Draw( "SAME,L" );
+						//grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
-						if (index == 1)
-						{cout << " Gain : " << Gfit/(50*1.60217662e-10) << endl;}
 						cout << " Gain (no. of PEs) : " << Gfit << endl;
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
-						
-						c1->Update();
-						c1->WaitPrimitive();
+						//gaindata <<"angle xbar Q Mu Gain"<< endl;
+						gaindata << a*15 << histo_LED->GetMean() << Q << Mu << Gfit << endl;
+						//c1->Update();
+						//c1->WaitPrimitive();
 					}	
 		}
 
