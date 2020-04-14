@@ -203,6 +203,7 @@ if (index == 1)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
 	 			gaindata <<"angle xbar Q Mu Gain"<< endl;
+	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
 
@@ -332,6 +333,7 @@ if (index == 1)
 						cout << "" << endl;
 						//gaindata <<"angle xbar Q Mu Gain"<< endl;
 						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<< Gfit << endl;
+						gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
 					}	
