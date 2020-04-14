@@ -331,7 +331,7 @@ if (index == 1)
 						cout << "" << endl;
 						cout << "" << endl;
 						//gaindata <<"angle xbar Q Mu Gain"<< endl;
-						gaindata << a*15 << histo_LED->GetMean() << Q << Mu << Gfit << endl;
+						gaindata << a*15 << histo_LED->GetMean() << Q << MU << Gfit << endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
 					}	
