@@ -202,7 +202,7 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle xbar Q Mu Gain"<< endl;
+	 			gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
@@ -331,8 +331,8 @@ if (index == 1)
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
-						//gaindata <<"angle xbar Q Mu Gain"<< endl;
-						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<< Gfit << endl;
+						//gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
 						gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
