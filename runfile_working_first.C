@@ -320,7 +320,7 @@ if (index == 1)
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[5]<<" "<<sig_reduced<<" "<< Gfit << endl;
-						gaindata <<" "<< endl;
+						//gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
 					}	
