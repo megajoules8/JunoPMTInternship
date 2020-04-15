@@ -51,6 +51,10 @@ double Q ;
 double sigma;
 double amp;
 int index;
+double gainerror;
+double sig_reduced;
+double xbar;
+double xbarErr;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
 cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
 cin>>index;
@@ -202,7 +206,7 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+	 			gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
@@ -331,8 +335,12 @@ if (index == 1)
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
-						//gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
-						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
+						// xbar = histo_LED->GetMean();
+						// xbarErr = histo_LED->GetMeanError();
+						// gainerror = Gfit*
+						sig_reduced = 1/sqrt(1 + fit.vals[5]);
+						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
+						gaindata << a*15 <<" "<<fit.vals[5]<<" "<<sig_reduced<<" "<< Gfit << endl;
 						gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
