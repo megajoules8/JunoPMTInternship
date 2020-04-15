@@ -140,7 +140,7 @@ if (index == 1)
 				histo_LED->SetLineColor( kBlack );
 				histo_LED->SetMarkerColor( kBlack );
 				histo_LED->SetStats(0);
-				histo_LED->Draw( "" );
+				//histo_LED->Draw( "" );
 				
 				
 				Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
