@@ -64,7 +64,7 @@ int main(int argc, char ** argv)
 
 				int nbins = 2000;
 				float t_min = 400;
-				float t_max = 500;
+				float t_max = 550;
 				float t_min_PED = 0;
 				float t_max_PED = 100;
 				float Integral = 0;
