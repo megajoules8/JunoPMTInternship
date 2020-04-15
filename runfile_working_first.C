@@ -240,15 +240,15 @@ if (index == 1)
 						Fit_Gauss->SetNpx(10000); 
 
 
-						//histo_PED->Draw("PE");
+						histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
-						//Fit_Gauss->Draw("same");
+						Fit_Gauss->Draw("same");
 						
-						//c1->Update();
-						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						c1->Update();
+						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 
@@ -288,7 +288,7 @@ if (index == 1)
 						histo_LED->SetLineColor( kBlack );
 						histo_LED->SetMarkerColor( kBlack );
 						histo_LED->SetStats(0);
-						//histo_LED->Draw( "" );
+						histo_LED->Draw( "" );
 						
 						
 						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
@@ -328,7 +328,7 @@ if (index == 1)
 						dft.spef.SetParams( p_fit );
 
 						TGraph *grBF = dft.GetGraph();
-						//grBF->Draw( "SAME,L" );
+						grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 						cout << " Gain (no. of PEs) : " << Gfit << endl;
@@ -341,8 +341,8 @@ if (index == 1)
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[5]<<" "<<sig_reduced<<" "<< Gfit << endl;
-						//c1->Update();
-						//c1->WaitPrimitive();
+						c1->Update();
+						c1->WaitPrimitive();
 					}	
 		}
 
