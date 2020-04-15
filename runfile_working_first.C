@@ -319,7 +319,7 @@ if (index == 1)
 						// gainerror = Gfit*
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
-						gaindata << a*15 <<" "<<fit.vals[5]<<" "<<sig_reduced<<" "<< Gfit << endl;
+						gaindata << a*15 <<" "<<fit.vals[0]<<" "<<fit.vals[1]<<" "<<fit.vals[2]<<" "<<fit.vals[3]<<" "<<fit.vals[4]<<" "<<fit.vals[5]<<" "<<fit.vals[6]<<" "<<fit.vals[7]<<" "<<sig_reduced<<" "<< Gfit << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
