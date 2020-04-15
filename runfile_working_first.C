@@ -190,7 +190,7 @@ if (index == 1)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
 	 			gaindata <<"angle Mu Theta Gain"<< endl;
-	 			gaindata <<"angle Theta Gain"<< endl;
+	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
@@ -313,7 +313,7 @@ if (index == 1)
 						cout << "" << endl;
 						cout << "" << endl;
 						//gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
-						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
+						//gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
 						// xbar = histo_LED->GetMean();
 						// xbarErr = histo_LED->GetMeanError();
 						// gainerror = Gfit*
