@@ -12,7 +12,6 @@
 #include <TROOT.h>
 #include <TStyle.h>
 #include <TApplication.h>
-
 #include "PMTStyle.h"
 #include "PMType.h"
 #include "Pedestal.h"
@@ -20,13 +19,10 @@
 #include "PMT.h"
 #include "DFTmethod.h"
 #include "SPEFitter.h"
-
-
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
 {
-
   gROOT->Reset();
   
   PMTStyle::SetDefaultStyle();
@@ -40,7 +36,6 @@ void runfile_working_first(TString path_to_M1)
 	int PED_LED_Count =2;
 	int HV_Count = 5;
 	int num =1;
-
 //run through each folder and file	
 TString PED = "/HVSCAN/%d/PED/F1--Trace--00000.txt";
 TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
@@ -63,7 +58,6 @@ TString histname;
 				
 TString histname_LED;
 TString histname_PED;
-
 if (index == 1)
 	{	
 			for (i=0; i<5; ++i)
@@ -90,8 +84,6 @@ if (index == 1)
 				TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 10*sigma), (Q + 10*sigma));
 				Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 				Fit_Gauss->SetNpx(10000); 
-
-
 				histo_PED->Draw("PE");
 				histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
 				Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
@@ -103,7 +95,6 @@ if (index == 1)
 				c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 				
 				Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
-
 				Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
 				Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 					
@@ -117,7 +108,6 @@ if (index == 1)
 				
 				double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
 				cout <<"N_Tot = "<< N_Tot << endl;
-
 				double N0 = Fit_Gauss->GetParameter(0);
 				N0 *= sqrt(2*M_PI)*sigma/histo_LED->GetBinWidth(1);
 				
@@ -140,7 +130,7 @@ if (index == 1)
 				histo_LED->SetLineColor( kBlack );
 				histo_LED->SetMarkerColor( kBlack );
 				histo_LED->SetStats(0);
-				//histo_LED->Draw( "" );
+				histo_LED->Draw( "" );
 				
 				
 				Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
@@ -178,7 +168,6 @@ if (index == 1)
 				dft.mu = fit.vals[3]; 
 				Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 				dft.spef.SetParams( p_fit );
-
 				TGraph *grBF = dft.GetGraph();
 				grBF->Draw( "SAME,L" );
 				
@@ -191,14 +180,8 @@ if (index == 1)
 				
 				c1->Update();
 				c1->WaitPrimitive();
-
 				}
-
-
-
-
 	}
-
  else if (index == 0)
 	 {
 	 	
@@ -206,16 +189,15 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle Theta sig_reduced Gain"<< endl;
+	 			gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+	 			gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
 	 			    {
-
 			 			//define 2 strings to specify to hiss whether we are in PED or LED
 						histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						histname_LED = histname + TString(" (LED)");
 						histname_PED = histname + TString(" (PED)");
-
 						HV_Value_PED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
 						HV_Value_LED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
 						cout<<HV_Value_LED<<endl;
@@ -238,8 +220,6 @@ if (index == 1)
 						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 10*sigma), (Q + 10*sigma));
 						Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetNpx(10000); 
-
-
 						//histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
@@ -251,7 +231,6 @@ if (index == 1)
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
-
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
 						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 							
@@ -265,7 +244,6 @@ if (index == 1)
 						
 						double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
 						cout <<"N_Tot = "<< N_Tot << endl;
-
 						double N0 = Fit_Gauss->GetParameter(0);
 						N0 *= sqrt(2*M_PI)*sigma/histo_LED->GetBinWidth(1);
 						
@@ -326,8 +304,7 @@ if (index == 1)
 						dft.mu = fit.vals[3]; 
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
-
-						//TGraph *grBF = dft.GetGraph();
+						TGraph *grBF = dft.GetGraph();
 						//grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
@@ -335,30 +312,26 @@ if (index == 1)
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
+						//gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+						gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
 						// xbar = histo_LED->GetMean();
 						// xbarErr = histo_LED->GetMeanError();
 						// gainerror = Gfit*
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[5]<<" "<<sig_reduced<<" "<< Gfit << endl;
+						gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
 					}	
 		}
-
-
 	 }	
-
  else
  	 {
  	 	cout<<"Invalid value for index."<<endl;
  	 } 
  return;	
-
 }
-
-
-
 int main(int argc, char ** argv){
 	if(argc < 2) return 1;
 	TString path = argv[1];
@@ -367,4 +340,3 @@ int main(int argc, char ** argv){
 	app.Run();
 	return 0;
 }
-
