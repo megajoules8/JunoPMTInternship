@@ -282,12 +282,12 @@ if (index == 1)
 						cout << "" << endl;
 						cout << "" << endl;
 						
-						histo_LED->GetListOfFunctions()->Remove( histo_LED->GetFunction( "Fit_Gauss") );
-						histo_LED->SetMarkerStyle( 20 );
-						histo_LED->SetMarkerSize( 0.4 );
-						histo_LED->SetLineColor( kBlack );
-						histo_LED->SetMarkerColor( kBlack );
-						histo_LED->SetStats(0);
+						//histo_LED->GetListOfFunctions()->Remove( histo_LED->GetFunction( "Fit_Gauss") );
+						//histo_LED->SetMarkerStyle( 20 );
+						//histo_LED->SetMarkerSize( 0.4 );
+						//histo_LED->SetLineColor( kBlack );
+						//histo_LED->SetMarkerColor( kBlack );
+						//histo_LED->SetStats(0);
 						//histo_LED->Draw( "" );
 						
 						
