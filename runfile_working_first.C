@@ -179,7 +179,7 @@ if (index == 1)
 				Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 				dft.spef.SetParams( p_fit );
 
-				TGraph *grBF = dft.GetGraph();
+				//TGraph *grBF = dft.GetGraph();
 				grBF->Draw( "SAME,L" );
 				
 				Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
@@ -327,7 +327,7 @@ if (index == 1)
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
 
-						TGraph *grBF = dft.GetGraph();
+						//TGraph *grBF = dft.GetGraph();
 						//grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
