@@ -189,7 +189,7 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+	 			gaindata <<"angle Mu Theta Gain"<< endl;
 	 			gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
