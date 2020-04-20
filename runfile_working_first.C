@@ -48,6 +48,7 @@ double amp;
 int index;
 double gainerror;
 double sig_reduced;
+double sig_reduced_err;
 double xbar;
 double xbarErr;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
@@ -189,7 +190,7 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle Mu Theta Gain"<< endl;
+	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 	 			for (int a=0; a<24; ++a)
@@ -318,8 +319,10 @@ if (index == 1)
 						// xbarErr = histo_LED->GetMeanError();
 						// gainerror = Gfit*
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
-						//gaindata <<"angle Theta sig_reduced Gain"<< endl;
-						gaindata << a*15 <<" "<<fit.vals[0]<<" "<<fit.vals[1]<<" "<<fit.vals[2]<<" "<<fit.vals[3]<<" "<<fit.vals[4]<<" "<<fit.vals[5]<<" "<<fit.vals[6]<<" "<<fit.vals[7]<<" "<<sig_reduced<<" "<< Gfit << endl;
+						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
+						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<fit.vals[7]<<" "<<fit.errs[7]<<fit.vals[6]<<" "<<fit.errs[6]<<fit.vals[4]<<" "<<fit.errs[4]<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit << gainerror<< endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
