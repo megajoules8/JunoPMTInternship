@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 
 				//TCanvas * c = new TCanvas();
 
-				int nbins = 2000;
+				int nbins = 2001;
 				float t_min = 400;
 				float t_max = 500;
 				float t_min_PED = 0;
@@ -110,7 +110,7 @@ int main(int argc, char ** argv)
 					//Juno->Draw();
 
 				 ofstream ff (filename_LED);
-				 ff <<"Juno PMT data"<<endl;
+				 //ff <<"Juno PMT data"<<endl;
 				 ff <<"Histogram of Integral vs. Counts"<<endl;
 				 ff <<"No. of bins = "<<nbins<<endl;
 				 ff <<"position = "<< p <<" , angle = "<<15*a<<endl;
