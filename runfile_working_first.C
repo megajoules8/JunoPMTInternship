@@ -225,7 +225,7 @@ if (index == 1)
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
-						//Fit_Gauss->Draw("same");
+						Fit_Gauss->Draw("same");
 						
 						c1->Update();
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
