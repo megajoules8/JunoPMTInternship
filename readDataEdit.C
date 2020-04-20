@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 
 				//TCanvas * c = new TCanvas();
 
-				int nbins = 2001;
+				int nbins = 1601;
 				float t_min = 400;
 				float t_max = 470;
 				float t_min_PED = 0;
