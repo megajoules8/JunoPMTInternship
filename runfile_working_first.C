@@ -217,11 +217,11 @@ if (index == 1)
 						histo_LED->GetYaxis()->SetTitle("No. of Entries)"); //set Yaxis title
 						
 						//define fit parameters
-						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 10*sigma), (Q + 10*sigma));
+						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 3*sigma));
 						Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetNpx(10000); 
 						histo_PED->Draw("PE");
-						histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
+						histo_PED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
