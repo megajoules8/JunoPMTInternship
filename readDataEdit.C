@@ -117,7 +117,7 @@ int main(int argc, char ** argv)
 				 ff <<"Integral"<<" "<<"counts"<<endl;
 
 				 ofstream ffP (filename_PED);
-				 ffP <<"Juno PMT data - Pedestal"<<endl;
+				 //ffP <<"Juno PMT data - Pedestal"<<endl;
 				 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
 				 ffP <<"No. of bins = "<<nbins<<endl;
 				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
