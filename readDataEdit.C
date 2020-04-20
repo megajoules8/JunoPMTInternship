@@ -66,7 +66,7 @@ int main(int argc, char ** argv)
 				float t_min = 400;
 				float t_max = 475;
 				float t_min_PED = 0;
-				float t_max_PED = 100;
+				float t_max_PED = 200;
 				float Integral = 0;
 				float Integral_PED = 0 ;
 				float bin_width = 0;
