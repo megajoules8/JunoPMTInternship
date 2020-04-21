@@ -64,7 +64,7 @@ if (index == 1)
 			ofstream labdata ("lab_data.txt");
 				labdata <<"Fit data for voltages"<< endl;
 	 			labdata <<"Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
-	 			gaindata <<" "<< endl;
+	 			labdata <<" "<< endl;
 			for (i=0; i<5; ++i)
 				{	
 				
