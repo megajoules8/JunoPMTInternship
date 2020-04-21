@@ -97,7 +97,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
   }
   
  //rebinning 
-     int Bin_Size = 4; 
+     int Bin_Size = 1; 
      
 //    if (index == 0)
   //   {
