@@ -6,11 +6,8 @@
 #include <TH1F.h>
 #include <TF1.h>
 #include <TStyle.h>
-
 #include "hiss.h"
-
 using namespace std;
-
 //main function
 TH1F* hiss(TString Full_path, TString HV_Value, int index )
 {
@@ -30,7 +27,6 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
     double charge_min;
     double charge_max;
     double bin_width;
-    int Bin_Size;
     int count=0;
 //ignore first 5 lines
     for (int a=0; a<5; a++){
@@ -51,17 +47,13 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
             bin_width = charge - charge_min;
 		//	cout << "bin_width = " << bin_width << endl;
         }
-
         charge_max = charge;
         ++count;
     }
 	
     //cout << charge_min << " " << charge_max <<" "<<bin_width<< endl;
-
 //start calculations
 	  double charge_min_temp;
-
-
     if (index == 0)
     {
       charge_min_temp = charge_min;
@@ -78,7 +70,6 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
     }
 	//cout << charge_min << " " << charge_max <<" "<<bin_width<< "  " << count << endl;
 //create and allocate histogram
-
    read.close();
     
 //start histogram event	//The new argument has been set as the name of the histogram	
@@ -94,34 +85,30 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
         }
 		
 //fill	histogram while calculating each element	
-
-
-
    while(scan >> charge >> amplitude)
    {
       
       if (index == 1)
       {
         charge = charge*1.0e+9;
-	  
+	      if(charge > 4000)
+	      {
+		      amplitude = 0;
+	      }
+
       }
       // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(-1*charge, amplitude);
   }
   
  //rebinning 
-if (index == 1)
-   {
-  Bin_Size = 2; 
-       
- }
+     int Bin_Size = 4; 
      
-
-if (index == 0)
-   {
-  Bin_Size = 4; 
+//    if (index == 0)
+  //   {
+    //  Bin_Size = 8; 
        
- }
+    // }
   hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
@@ -130,17 +117,12 @@ if (index == 0)
 		
 		// hist -> Fill(charge, amplitude);
 		hist -> SetBinError(l, sqrt( hist->GetBinContent( l ) ));
-
 		}
 		
 		
-
   return hist;
   //return (0);
   
 }
-
-
 // for ( int l=1; l<=hSG->GetXaxis()->GetNbins(); l++ )
 // hSG->SetBinError( l, sqrt( hSG->GetBinContent( l ) ) );
-
