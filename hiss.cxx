@@ -30,6 +30,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
     double charge_min;
     double charge_max;
     double bin_width;
+    int Bin_Size;
     int count=0;
 //ignore first 5 lines
     for (int a=0; a<5; a++){
