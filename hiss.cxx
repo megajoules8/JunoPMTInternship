@@ -95,15 +95,17 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
       // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(-1*charge, amplitude);
   }
-  
+  int Bin_Size;
  //rebinning 
-     int Bin_Size = 8; 
-     
-//    if (index == 0)
-  //   {
-    //  Bin_Size = 8; 
+     if (index == 1)
+     {
+	Bin_Size = 8; 
+     }
+    if (index == 0)
+     {
+       Bin_Size = 4; 
        
-    // }
+     }
   hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
