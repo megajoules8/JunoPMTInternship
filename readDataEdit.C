@@ -125,7 +125,7 @@ int main(int argc, char ** argv)
 				 
 				 for (int i=0; i <Juno->GetNbinsX(); i++)
 					{
-				       		if (Juno->GetBinCenter(i)<-4000) 
+				       		if (Juno->GetBinCenter(i)<-10000) 
 							{ff << Juno->GetBinCenter(i) << "	" << 0 << endl;}
 					 	else
 							{ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl;} //write to file
