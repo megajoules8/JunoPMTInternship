@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 
 				//TCanvas * c = new TCanvas();
 
-				int nbins = 1601;
+				int nbins = 2001;
 				float t_min = 400;
 				float t_max = 470;
 				float t_min_PED = 0;
@@ -72,8 +72,8 @@ int main(int argc, char ** argv)
 				float bin_width = 0;
 
 				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -4000, 1000);
-				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -4000, 1000);
+				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 1000);
+				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 1000);
 
 				for(int i=0; i < pmt_tree->GetEntries(); ++i)
 					{
@@ -125,7 +125,10 @@ int main(int argc, char ** argv)
 				 
 				 for (int i=0; i <Juno->GetNbinsX(); i++)
 					{
-				        ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl; //write to file
+				       		if (Juno->GetBinCenter(i)<-4000) 
+							{ff << Juno->GetBinCenter(i) << "	" << 0 << endl;}
+					 	else
+							{ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl;} //write to file
 				  	}
 				  	ff.close();
 
