@@ -91,11 +91,6 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index )
       if (index == 1)
       {
         charge = charge*1.0e+9;
-	      if(charge > 4000)
-	      {
-		      amplitude = 0;
-	      }
-
       }
       // cout << "charge = " << charge << " " << "amplitude= " << amplitude << endl;
       hist -> Fill(-1*charge, amplitude);
