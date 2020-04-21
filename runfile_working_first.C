@@ -61,6 +61,10 @@ TString histname_LED;
 TString histname_PED;
 if (index == 1)
 	{	
+			ofstream labdata ("lab_data.txt");
+				labdata <<"Fit data for voltages"<< endl;
+	 			labdata <<"Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+	 			gaindata <<" "<< endl;
 			for (i=0; i<5; ++i)
 				{	
 				
@@ -178,6 +182,11 @@ if (index == 1)
 				//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 				cout << "" << endl;
 				cout << "" << endl;
+				sig_reduced = 1/sqrt(1 + fit.vals[5]);
+				sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
+				gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+				//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+				labdata <<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
 				
 				c1->Update();
 				c1->WaitPrimitive();
