@@ -68,7 +68,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , t_min, t_max);
 		//delete g;
 		//Integral = 0;
 	}
-		Juno->SetMarkerSize(.5);
+		Juno->SetMarkerSize(1.0);
 		Juno->SetMarkerStyle(24);
 		Juno->SetMarkerColor(kBlue);
 	Juno->Draw();
