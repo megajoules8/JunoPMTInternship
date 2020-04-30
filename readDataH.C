@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
 	float bin_width = 0;
 
 //definition of the histogram
-TH1F *Juno = new TH1F("Juno", "Position = 1, angle = 0", nbins , t_min, t_max);
+TH1F *Juno = new TH1F("Juno", "Event Integration: Position = 1, angle = 0", nbins , t_min, t_max);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
 		{
