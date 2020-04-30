@@ -60,9 +60,7 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , t_min, t_max);
 		Juno->GetXaxis()->SetTitle("Time(ns)");
 		Juno->GetYaxis()->SetTitle("Total Counts");
 		//g->SetTitle(TString::Format("Event %d", i));
-		//g->SetMarkerSize(.5);
-		//g->SetMarkerStyle(24);
-		//g->SetMarkerColor(kBlue);
+
 		//g->Draw("ALP");
 		
 		//c->Update();
@@ -70,6 +68,9 @@ TH1F *Juno = new TH1F("Juno", "Juno", nbins , t_min, t_max);
 		//delete g;
 		//Integral = 0;
 	}
+		Juno->SetMarkerSize(.5);
+		Juno->SetMarkerStyle(24);
+		Juno->SetMarkerColor(kBlue);
 	Juno->Draw();
 	 // ofstream ff ("Juno_data.txt");
 	 // ff <<"Juno PMT data"<<endl;
