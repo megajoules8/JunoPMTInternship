@@ -95,9 +95,9 @@ int main(int argc, char ** argv)
 					Integral_PED = 0;
 				}
 					cout << "filled histogram"<<endl;
-					JunoPED->Draw();
-					c->Update();
-					c->WaitPrimitive();
+					JunoPED->Draw("PE");
+					c1->Update();
+					c1->WaitPrimitive();
 					Juno->Draw();
 				 ofstream ff (filename_LED);
 				 //ff <<"Juno PMT data"<<endl;
