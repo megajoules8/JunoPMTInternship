@@ -64,8 +64,8 @@ int main(int argc, char ** argv)
 				float Integral_PED = 0 ;
 				float bin_width = 0;
 				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 1000);
-				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 1000);
+				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 6000);
+				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 6000);
 				for(int i=0; i < pmt_tree->GetEntries(); ++i)
 					{
 					pmt_tree->GetEntry(i);
