@@ -24,12 +24,20 @@ int main(int argc, char ** argv)
 	TString PED;
 	TString LED;
 	TString Nom;
+	int dat;
+	
+	cout <<"Input the data set you wish to analyze:"<<endl;
+	cout <<"Input 248 for scan248"<<endl;
+	cout <<"Input 3737 for scan3737"<<endl;
+	cout <<"Input 3899 for scan3899"<<endl;
+	cout <<"Input 846 for scan846"<<endl;
+	cin >> dat;
 				
 	for (int p = 1; p<8; ++p)
 	{
 				
 		//run through each folder and file	
-		Nom = argv[1] + TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle");
+		Nom = argv[1] + TString("/scan") + Form("%d",dat)+ TString("/scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle");
 		
 		for (int a = 0; a<24; ++a)
 			{				
