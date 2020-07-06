@@ -104,12 +104,7 @@ int main(int argc, char ** argv)
 				 ff <<"No. of bins = "<<nbins<<endl;
 				 ff <<"position = "<< p <<" , angle = "<<15*a<<endl;
 				 ff <<"Integral"<<" "<<"counts"<<endl;
-				 ofstream ffP (filename_PED);
-				 //ffP <<"Juno PMT data - Pedestal"<<endl;
-				 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
-				 ffP <<"No. of bins = "<<nbins<<endl;
-				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
-				 ffP <<"Integral"<<" "<<"counts"<<endl;
+				 
 				 
 				 for (int i=0; i <Juno->GetNbinsX(); i++)
 					{
@@ -118,12 +113,20 @@ int main(int argc, char ** argv)
 					 	else
 							{ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl;} //write to file
 				  	}
-				  	ff.close();
+				  ff.close();
+			
+				ofstream ffP (filename_PED);
+				 //ffP <<"Juno PMT data - Pedestal"<<endl;
+				 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
+				 ffP <<"No. of bins = "<<nbins<<endl;
+				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
+				 ffP <<"Integral"<<" "<<"counts"<<endl;
+			
 				 for (int i=0; i <JunoPED->GetNbinsX(); i++)
 					{
 				        ffP << JunoPED->GetBinCenter(i) << "	" << JunoPED->GetBinContent(i) << endl; //write to file
 				  	}
-				  	ffP.close();
+				  ffP.close();
 			}		
 	}			
 				//TApp.Run();
