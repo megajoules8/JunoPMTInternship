@@ -23,12 +23,22 @@ int main(int argc, char ** argv)
 	TString PED;
 	TString LED;
 	TString Nom;
-				
+	int dat;
+	
+	cout <<"Input the data set you wish to analyze:"<<endl;
+	cout <<"Input 248 for scan248"<<endl;
+	cout <<"Input 3737 for scan3737"<<endl;
+	cout <<"Input 3899 for scan3899"<<endl;
+	cout <<"Input 846 for scan846"<<endl;
+	cin >> dat;
+	cin >> dat>> endl;
+	cout << dat << endl;
+
 	for (int p = 1; p<8; ++p)
 	{
 				
 		//run through each folder and file	
-		Nom = argv[1] + TString("/scan3899/scan3899_position") + Form("%d", p) + TString("_angle");
+		Nom = argv[1] + TString("/scan") + Form("%d",dat)+ TString("/scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle");
 		
 		for (int a = 0; a<24; ++a)
 			{				
@@ -53,22 +63,29 @@ int main(int argc, char ** argv)
 				TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
 				std::vector<float> * wave_vector = 0;
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-			
 				//TApplication TApp("TApp", &argc, argv);
-				TCanvas * c = new TCanvas();
-				
-			
+				//TCanvas * c = new TCanvas();
 				int nbins = 2001;
-				float t_min = 220;
-				float t_max = 280;
+				float t_min;
+				float t_max;
+				if (dat == 3737)
+					{
+						t_min = 400;
+						t_max = 470;
+					}
+				if (dat == 3899)
+					{
+						t_min = 220;
+						t_max = 280;	
+					}
 				float t_min_PED = 0;
-				float t_max_PED = 60;
+				float t_max_PED = t_max-t_min;
 				float Integral = 0;
 				float Integral_PED = 0 ;
 				float bin_width = 0;
 				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 6000);
-				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 6000);
+				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 1000);
+				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 1000);
 				for(int i=0; i < pmt_tree->GetEntries(); ++i)
 					{
 					pmt_tree->GetEntry(i);
@@ -94,13 +111,10 @@ int main(int argc, char ** argv)
 					Integral = 0;
 					Integral_PED = 0;
 				}
-					cout << "filled histogram"<<endl;
-					JunoPED->Draw("PE");
-					c->Update();
-					c->WaitPrimitive();
-					Juno->Draw();
-					c->Update();
-					c->WaitPrimitive();
+					//JunoPED->Draw();
+					//c->Update();
+					//c->WaitPrimitive();
+					//Juno->Draw();
 				 ofstream ff (filename_LED);
 				 //ff <<"Juno PMT data"<<endl;
 				 ff <<"Histogram of Integral vs. Counts"<<endl;
@@ -113,10 +127,9 @@ int main(int argc, char ** argv)
 				 ffP <<"No. of bins = "<<nbins<<endl;
 				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
 				 ffP <<"Integral"<<" "<<"counts"<<endl;
-
+				 
 				 for (int i=0; i <Juno->GetNbinsX(); i++)
 					{
-				       		if (Juno->GetBinCenter(i)<-4000) 
 				       		if (Juno->GetBinCenter(i)<-10000) 
 							{ff << Juno->GetBinCenter(i) << "	" << 0 << endl;}
 					 	else
@@ -128,7 +141,6 @@ int main(int argc, char ** argv)
 				        ffP << JunoPED->GetBinCenter(i) << "	" << JunoPED->GetBinContent(i) << endl; //write to file
 				  	}
 				  	ffP.close();
-			cout << "wrote files"<<endl;
 			}		
 	}			
 				//TApp.Run();
