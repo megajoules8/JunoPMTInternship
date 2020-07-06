@@ -128,6 +128,6 @@ int main(int argc, char ** argv)
 			cout << "wrote files"<<endl;
 			}		
 	}			
-				//TApp.Run();
+				TApp.Run();
 				return 0;
 }
