@@ -85,10 +85,10 @@ int main(int argc, char ** argv)
 					}
 				else if (dat == 248)
 					{
-						t_min = 310;
-						t_max = 340;
-						h_max = 50;
-						h_min = -350;
+						t_min = 300;
+						t_max = 350;
+						h_max = 200;
+						h_min = -3000;
 					} 
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
