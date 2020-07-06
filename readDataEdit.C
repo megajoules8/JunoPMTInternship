@@ -77,6 +77,11 @@ int main(int argc, char ** argv)
 						t_min = 220;
 						t_max = 280;	
 					}
+				if (dat == 248)
+					{
+						t_min = 300;
+						t_max = 360;	
+					} 
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
 				float Integral = 0;
