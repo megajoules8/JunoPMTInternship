@@ -23,20 +23,13 @@ int main(int argc, char ** argv)
 	TString PED;
 	TString LED;
 	TString Nom;
-	int dat;
-	
-	cout <<"Input the data set you wish to analyze:"<<endl;
-	cout <<"Input 248 for scan248"<<endl;
-	cout <<"Input 3737 for scan3737"<<endl;
-	cout <<"Input 3899 for scan3899"<<endl;
-	cout <<"Input 846 for scan846"<<endl;
-	cin >> dat;
+
 		
 	for (int p = 1; p<8; ++p)
 	{
 				
 		//run through each folder and file	
-		Nom = argv[1] + TString("/scan") + Form("%d",dat)+ TString("/scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle");
+		Nom = argv[1] + TString("/scan248/scan248_position") + Form("%d", p) + TString("_angle");
 		
 		for (int a = 0; a<24; ++a)
 			{				
@@ -66,21 +59,8 @@ int main(int argc, char ** argv)
 				int nbins = 2001;
 				float t_min;
 				float t_max;
-				if (dat == 3737)
-					{
-						t_min = 400;
-						t_max = 470;
-					}
-				if (dat == 3899)
-					{
-						t_min = 220;
-						t_max = 280;	
-					}
-				if (dat == 248)
-					{
-						t_min = 300;
-						t_max = 360;	
-					} 
+				t_min = 300;
+				t_max = 360;	
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
 				float Integral = 0;
