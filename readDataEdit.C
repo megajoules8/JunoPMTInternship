@@ -54,7 +54,7 @@ int main(int argc, char ** argv)
 				std::vector<float> * wave_vector = 0;
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 			
-				TApplication TApp("TApp", &argc, argv);
+				//TApplication TApp("TApp", &argc, argv);
 				TCanvas * c = new TCanvas();
 			
 				int nbins = 2001;
@@ -128,6 +128,6 @@ int main(int argc, char ** argv)
 			cout << "wrote files"<<endl;
 			}		
 	}			
-				TApp.Run();
+				//TApp.Run();
 				return 0;
 }
