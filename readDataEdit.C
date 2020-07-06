@@ -31,7 +31,7 @@ int main(int argc, char ** argv)
 	cout <<"Input 3737 for scan3737"<<endl;
 	cout <<"Input 3899 for scan3899"<<endl;
 	cout <<"Input 846 for scan846"<<endl;
-	cin >> dat>> endl;
+	cin >> dat >> endl;
 	cout << dat << endl;
 				
 	for (int p = 1; p<8; ++p)
