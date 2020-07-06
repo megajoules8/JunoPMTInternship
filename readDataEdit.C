@@ -55,7 +55,8 @@ int main(int argc, char ** argv)
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 			
 				//TApplication TApp("TApp", &argc, argv);
-				TCanvas * c = new TCanvas();
+				//TCanvas * c = new TCanvas();
+				TCanvas *c1 = new TCanvas( "c1", "" );
 			
 				int nbins = 2001;
 				float t_min = 220;
