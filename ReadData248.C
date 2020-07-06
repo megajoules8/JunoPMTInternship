@@ -41,13 +41,13 @@ int main(int argc, char ** argv)
 				TString filename_LED;
 				TString filename_PED;
 				filename = Nom + Form("%d", 15*a) + TString(".root");
-				histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
+				histname = TString("position = ") + Form("%d",p) + TString(" angle = ") + Form("%d", 15*a);
 				
 				histname_LED = histname + TString(" (LED)");
 				histname_PED = histname + TString(" (PED)");
 				
-				filename_LED = TString("scan248_position") + Form("%d", p) + TString("_angle")Form("%d", 15*a) + TString("_LED.txt");
-				filename_PED = TString("scan248_position") + Form("%d", p) + TString("_angle")Form("%d", 15*a) + TString("_PED.txt");
+				filename_LED = TString("scan248_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
+				filename_PED = TString("scan248_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
 				cout << "accessing file "<<filename<<endl;
 				TFile * f = TFile::Open(filename);
 				TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
