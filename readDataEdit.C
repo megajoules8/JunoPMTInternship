@@ -56,7 +56,7 @@ int main(int argc, char ** argv)
 			
 				//TApplication TApp("TApp", &argc, argv);
 				//TCanvas * c = new TCanvas();
-				TCanvas *c1 = new TCanvas( "c1", "" );
+				TCanvas * c = new TCanvas( "c", "" );
 			
 				int nbins = 2001;
 				float t_min = 220;
@@ -96,8 +96,8 @@ int main(int argc, char ** argv)
 				}
 					cout << "filled histogram"<<endl;
 					JunoPED->Draw("PE");
-					c1->Update();
-					c1->WaitPrimitive();
+					c->Update();
+					c->WaitPrimitive();
 					Juno->Draw();
 				 ofstream ff (filename_LED);
 				 //ff <<"Juno PMT data"<<endl;
