@@ -42,6 +42,7 @@ TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
 //new TString definitions
 TString HV_Value_PED;
 TString HV_Value_LED;
+TString Filename;
 double Q ;
 double sigma;
 double amp;
@@ -51,6 +52,7 @@ double sig_reduced;
 double sig_reduced_err;
 double xbar;
 double xbarErr;
+int dat;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
 cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
 cin>>index;
@@ -195,7 +197,14 @@ if (index == 1)
  else if (index == 0)
 	 {
 	 	
-	 	ofstream gaindata ("gain_data.txt");
+	 	cout <<"Input the data set you wish to analyze:"<<endl;
+	 	cout <<"Input 248 for scan248"<<endl;
+	 	cout <<"Input 3737 for scan3737"<<endl;
+	 	cout <<"Input 3899 for scan3899"<<endl;
+	 	cout <<"Input 846 for scan846"<<endl;
+	 	cin >> dat;
+	 	filename = TString("gain_data_scan") + Form("%d",dat);
+	 	ofstream gaindata (filename);
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -208,8 +217,8 @@ if (index == 1)
 						histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						histname_LED = histname + TString(" (LED)");
 						histname_PED = histname + TString(" (PED)");
-						HV_Value_PED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
-						HV_Value_LED = path_to_M1 +  TString("/scan3737/scan3737_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
+						HV_Value_PED = path_to_M1 +  TString("/scan") + Form ("%d",dat) + Tstring("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
+						HV_Value_LED = path_to_M1 +  TString("/scan") + Form ("%d",dat) + Tstring("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
 						cout<<HV_Value_LED<<endl;
 						cout<<HV_Value_PED<<endl;
 						//define the 2 histograms for PED and LED
