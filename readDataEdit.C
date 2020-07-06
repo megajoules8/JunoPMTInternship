@@ -54,7 +54,7 @@ int main(int argc, char ** argv)
 				std::vector<float> * wave_vector = 0;
 				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
 			
-				TApplication TApp("TApp", &argc, argv);
+				//TApplication TApp("TApp", &argc, argv);
 				TCanvas * c = new TCanvas();
 				
 			
@@ -99,6 +99,8 @@ int main(int argc, char ** argv)
 					c->Update();
 					c->WaitPrimitive();
 					Juno->Draw();
+					c->Update();
+					c->WaitPrimitive();
 				 ofstream ff (filename_LED);
 				 //ff <<"Juno PMT data"<<endl;
 				 ff <<"Histogram of Integral vs. Counts"<<endl;
