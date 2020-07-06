@@ -88,7 +88,7 @@ int main(int argc, char ** argv)
 						t_min = 300;
 						t_max = 350;
 						h_max = 200;
-						h_min = -4000;
+						h_min = -2000;
 					} 
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
