@@ -91,6 +91,7 @@ int main(int argc, char ** argv)
 					Integral = 0;
 					Integral_PED = 0;
 				}
+					cout << "filled histogram"<<endl;
 					//JunoPED->Draw();
 					//c->Update();
 					//c->WaitPrimitive();
@@ -122,6 +123,7 @@ int main(int argc, char ** argv)
 				        ffP << JunoPED->GetBinCenter(i) << "	" << JunoPED->GetBinContent(i) << endl; //write to file
 				  	}
 				  	ffP.close();
+			cout << "wrote files"<<endl;
 			}		
 	}			
 				//TApp.Run();
