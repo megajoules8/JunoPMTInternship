@@ -71,10 +71,20 @@ int main(int argc, char ** argv)
 				//TCanvas * c = new TCanvas();
 
 				int nbins = 2001;
-				float t_min = 400;
-				float t_max = 470;
+				float t_min;
+				float t_max;
+				if (dat == 3737)
+					{
+						t_min = 400;
+						t_max = 470;
+					}
+				if (dat == 3899)
+					{
+						t_min = 220;
+						t_max = 280;	
+					}
 				float t_min_PED = 0;
-				float t_max_PED = 100;
+				float t_max_PED = t_max-t_min;
 				float Integral = 0;
 				float Integral_PED = 0 ;
 				float bin_width = 0;
