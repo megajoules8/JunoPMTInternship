@@ -54,7 +54,7 @@ int main(int argc, char ** argv)
 				histname_PED = histname + TString(" (PED)");
 				
 				filename_LED = TString("scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle")+ Form("%d", 15*a) + TString("_LED.txt");
-				filename_PED = TString("scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle")+ Form("%d", 15*a) + TString("_PED.txt");");
+				filename_PED = TString("scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle")+ Form("%d", 15*a) + TString("_PED.txt");
 				cout << "accessing file "<<filename<<endl;
 				TFile * f = TFile::Open(filename);
 				TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
