@@ -66,20 +66,29 @@ int main(int argc, char ** argv)
 				int nbins = 2001;
 				float t_min;
 				float t_max;
+				float h_max;
+				float h_min;
 				if (dat == 3737)
 					{
 						t_min = 400;
 						t_max = 470;
+						h_max = 1000;
+						h_min = -6000;
+					
 					}
 				if (dat == 3899)
 					{
 						t_min = 220;
-						t_max = 280;	
+						t_max = 280;
+						h_max = 1000;
+						h_min = -6000;
 					}
 				if (dat == 248)
 					{
 						t_min = 300;
-						t_max = 360;	
+						t_max = 360;
+						h_max = 3000;
+						h_min = -200;
 					} 
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
@@ -87,8 +96,8 @@ int main(int argc, char ** argv)
 				float Integral_PED = 0 ;
 				float bin_width = 0;
 				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , -6000, 1000);
-				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , -6000, 1000);
+				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , h_min, h_max);
+				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , h_min, h_max);
 				for(int i=0; i < pmt_tree->GetEntries(); ++i)
 					{
 					pmt_tree->GetEntry(i);
