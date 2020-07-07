@@ -90,6 +90,16 @@ int main(int argc, char ** argv)
 						h_max = 200;
 						h_min = -2000;
 					} 
+			
+				else if (dat == 248)
+					{
+						t_min = 330;
+						t_max = 390;
+						h_max = 200;
+						h_min = -2000;
+					}
+				else {cout <<"ERROR! Invalid Input!"<< endl;}
+			
 				float t_min_PED = 0;
 				float t_max_PED = t_max-t_min;
 				float Integral = 0;
