@@ -95,8 +95,8 @@ int main(int argc, char ** argv)
 					{
 						t_min = 330;
 						t_max = 390;
-						h_max = 200;
-						h_min = -2000;
+						h_max = 500;
+						h_min = -4000;
 					}
 				else {cout <<"ERROR! Invalid Input!"<< endl;}
 			
