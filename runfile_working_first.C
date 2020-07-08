@@ -326,7 +326,7 @@ if (index == 1)
 						TGraph *grBF = dft.GetGraph();
 						grBF->Draw( "SAME,L" );
 						
-						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
+						Double_t Gfit = ( (fit.vals[7]/fit.vals[6]) + ((1.0-fit.vals[7])*fit.vals[1])/fit.vals[4] ); 
 						cout << " Gain (no. of PEs) : " << Gfit << endl;
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
