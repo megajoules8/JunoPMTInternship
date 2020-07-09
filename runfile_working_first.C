@@ -217,6 +217,8 @@ if (index == 1)
 						histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						histname_LED = histname + TString(" (LED)");
 						histname_PED = histname + TString(" (PED)");
+						HV_Value_PED = path_to_M1 +   TString("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
+						HV_Value_LED = path_to_M1 +   TString("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
 						HV_Value_PED = path_to_M1 +   TString("scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
 						HV_Value_LED = path_to_M1 +   TString("scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
 						cout<<HV_Value_LED<<endl;
@@ -292,8 +294,8 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { _G, 0.3*_G, 1.0/(0.2*_G), 0.2 };
-						SPEResponse gamma_test( PMType::GAUSS, p_test );
+						Double_t p_test[4] = { 1.0/_G, 7.0, 1.0/(0.5*_G), 0.2 };
+						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
@@ -326,7 +328,7 @@ if (index == 1)
 						TGraph *grBF = dft.GetGraph();
 						grBF->Draw( "SAME,L" );
 						
-						Double_t Gfit = ( (fit.vals[7]/fit.vals[6]) + ((1.0-fit.vals[7])*_G)/fit.vals[4] ); 
+						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 						cout << " Gain (no. of PEs) : " << Gfit << endl;
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
