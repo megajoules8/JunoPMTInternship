@@ -1,170 +1,365 @@
-#include <vector>
 #include <iostream>
+#include <string>
 #include <fstream>
+#include <math.h>
+#include <Riostream.h>
+#include <vector>
+#include <TString.h>
 #include <TH1F.h>
-#include <TFile.h>
-#include <TTree.h>
-#include <TGraph.h>
+#include "hiss.h"
 #include <TCanvas.h>
-#include <TAxis.h>
-#include <TVectorT.h>
+#include <TF1.h>
+#include <TROOT.h>
+#include <TStyle.h>
 #include <TApplication.h>
-#include "TVectorT.h"
-#include "TClass.h"
+#include "PMTStyle.h"
+#include "PMType.h"
+#include "Pedestal.h"
+#include "SPEResponse.h"
+#include "PMT.h"
+#include "DFTmethod.h"
+#include "SPEFitter.h"
 using namespace std;
-int main(int argc, char ** argv)
+//main function
+void runfile_working_first(TString path_to_M1)
 {
-	if(argc != 2)
-	{
-		std::cout << "Usage: " << argv[0] << " file.root" << std::endl;
-		return 1;
-	}
-	
-	TString PED;
-	TString LED;
-	TString Nom;
-	int dat;
-	
-	cout <<"Input the data set you wish to analyze:"<<endl;
-	cout <<"Input 248 for scan248"<<endl;
-	cout <<"Input 3737 for scan3737"<<endl;
-	cout <<"Input 3899 for scan3899"<<endl;
-	cout <<"Input 846 for scan846"<<endl;
-	cin >> dat;
-		
-	for (int p = 1; p<8; ++p)
-	{
+  gROOT->Reset();
+  
+  PMTStyle::SetDefaultStyle();
+  
+//define Canvas event	
+    TCanvas *c1 = new TCanvas( "c1", "" );
+	//c1->SetLogy(); //set log Y
+	Int_t HV[5] = {1250,1300,1350,1401,1450};
+	int i=0;
+	int j=0;
+	int PED_LED_Count =2;
+	int HV_Count = 5;
+	int num =1;
+//run through each folder and file	
+TString PED = "/HVSCAN/%d/PED/F1--Trace--00000.txt";
+TString LED = "/HVSCAN/%d/LED/F1--Trace--00000.txt";
+//new TString definitions
+TString HV_Value_PED;
+TString HV_Value_LED;
+TString Filename;
+double Q ;
+double sigma;
+double amp;
+int index;
+double gainerror;
+double sig_reduced;
+double sig_reduced_err;
+double xbar;
+double xbarErr;
+int dat;
+//ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
+cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
+cin>>index;
+TString filename;
+TString histname;
 				
-		//run through each folder and file	
-		Nom = argv[1] + TString("/scan") + Form("%d",dat)+ TString("/scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle");
-		
-		for (int a = 0; a<24; ++a)
-			{				
-				TString filename;
-				TString histname;
+TString histname_LED;
+TString histname_PED;
+if (index == 1)
+	{	
+			ofstream labdata ("lab_data.txt");
+				labdata <<"Fit data for voltages"<< endl;
+	 			labdata <<"Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+	 			labdata <<" "<< endl;
+			for (i=0; i<5; ++i)
+				{	
 				
-				TString histname_LED;
-				TString histname_PED;
-				TString filename_LED;
-				TString filename_PED;
-				filename = Nom + Form("%d", 15*a) + TString(".root");
-				histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
+				//define 2 strings to specify to hiss whether we are in PED or LED
+				HV_Value_PED = TString ("Pedestal Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
+				HV_Value_LED = TString ("LED Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
+				//define the 2 histograms for PED and LED
+				TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED, index);
+				TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED, index);
 				
-				histname_LED = histname + TString(" (LED)");
-				histname_PED = histname + TString(" (PED)");
+				//cout << Form(PED, HV[i]) << endl; getchar();
+				Q = histo_PED->GetMean(); //get Q initially
+				sigma = histo_PED->GetRMS(); //get sigma initially
 				
-				filename_LED = TString("scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle")+ Form("%d", 15*a) + TString("_LED.txt");
-				filename_PED = TString("scan") +Form("%d", dat) + TString("_position") + Form("%d", p) + TString("_angle")+ Form("%d", 15*a) + TString("_PED.txt");
-				cout << "accessing file "<<filename<<endl;
-				TFile * f = TFile::Open(filename);
-				TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
-				TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
-				std::vector<float> * wave_vector = 0;
-				pmt_tree->SetBranchAddress("wave_vector", &wave_vector);
-				//TApplication TApp("TApp", &argc, argv);
-				//TCanvas * c = new TCanvas();
-				int nbins = 2001;
-				float t_min;
-				float t_max;
-				float h_max;
-				float h_min;
-				if (dat == 3737)
-					{
-						t_min = 400;
-						t_max = 470;
-						h_max = 1000;
-						h_min = -6000;
+				histo_PED->GetXaxis()->SetTitle("charge (nVs)"); //set Xaxis title
+				histo_PED->GetYaxis()->SetTitle("No. of Entries"); //set Yaxis title
+				
+				histo_LED->GetXaxis()->SetTitle("charge (nVs)"); //set Xaxis title
+				histo_LED->GetYaxis()->SetTitle("No. of Entries)"); //set Yaxis title
+				
+				//define fit parameters
+				TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 10*sigma), (Q + 10*sigma));
+				Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
+				Fit_Gauss->SetNpx(10000); 
+				histo_PED->Draw("PE");
+				histo_PED->Fit("Fit_Gauss","","", Q-3.0*sigma,Q+3*sigma);
+				Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
+				sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
+				cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
+				//Fit_Gauss->Draw("same");
+				
+				c1->Update();
+				c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+				
+				Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
+				Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
+				Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 					
-					}
-				else if (dat == 3899)
-					{
-						t_min = 220;
-						t_max = 280;
-						h_max = 1000;
-						h_min = -6000;
-					}
-				else if (dat == 248)
-					{
-						t_min = 300;
-						t_max = 350;
-						h_max = 200;
-						h_min = -3000;
-					} 
-			
-				else if (dat == 846)
-					{
-						t_min = 330;
-						t_max = 390;
-						h_max = 500;
-						h_min = -6000;
-					}
-				else {cout <<"ERROR! Invalid Input!"<< endl;}
-			
-				float t_min_PED = 0;
-				float t_max_PED = t_max-t_min;
-				float Integral = 0;
-				float Integral_PED = 0 ;
-				float bin_width = 0;
-				//definition of the histogram
-				TH1F *Juno = new TH1F("Juno", histname_LED, nbins , h_min, h_max);
-				TH1F *JunoPED = new TH1F("JunoPED", histname_PED, nbins , h_min, h_max);
-				for(int i=0; i < pmt_tree->GetEntries(); ++i)
-					{
-					pmt_tree->GetEntry(i);
-					TVectorT<float> wave_vector_root(wave_vector->size());
-					for(int iWV=0; iWV < wave_vector->size(); ++iWV)
-						{
-							wave_vector_root[iWV] = wave_vector->at(iWV); 
-							if ( ( (*time_vector)(iWV) >= t_min ) && ( (*time_vector)(iWV) < t_max) )
-								{
-									Integral += wave_vector_root[iWV]; 
-								}
-							if ( ( (*time_vector)(iWV) >= t_min_PED ) && ( (*time_vector)(iWV) < t_max_PED) )
-								{
-									Integral_PED += wave_vector_root[iWV]; 
-								}	
-						}
-					Juno-> Fill(Integral);
-					JunoPED-> Fill(Integral_PED);	
-					Juno->GetXaxis()->SetTitle("Integral");
-					Juno->GetYaxis()->SetTitle("Counts");
-					JunoPED->GetXaxis()->SetTitle("Integral");
-					JunoPED->GetYaxis()->SetTitle("Counts");
-					Integral = 0;
-					Integral_PED = 0;
+				histo_LED->Draw();
+				histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
+				//Fit_Gauss -> Draw("same");
+					
+				Q 		= Fit_Gauss->GetParameter(1); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
+				sigma 	= Fit_Gauss->GetParameter(2); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
+				cout << "Q_New = " << Q << " sigma_New = " << sigma << endl;
+				
+				double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
+				cout <<"N_Tot = "<< N_Tot << endl;
+				double N0 = Fit_Gauss->GetParameter(0);
+				N0 *= sqrt(2*M_PI)*sigma/histo_LED->GetBinWidth(1);
+				
+				cout <<"N0 = "<< N0 << endl;
+				double MU = -log(N0/N_Tot); //calculate Mu
+				cout <<"Mu = " << MU << endl;
+				
+				
+				c1->Update();
+				c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+				
+				/* ... */
+				
+				cout << "" << endl;
+				cout << "" << endl;
+				
+				histo_LED->GetListOfFunctions()->Remove( histo_LED->GetFunction( "Fit_Gauss") );
+				histo_LED->SetMarkerStyle( 20 );
+				histo_LED->SetMarkerSize( 0.4 );
+				histo_LED->SetLineColor( kBlack );
+				histo_LED->SetMarkerColor( kBlack );
+				histo_LED->SetStats(0);
+				histo_LED->Draw( "" );
+				
+				
+				Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
+				cout << " Esimated G : " << _G << endl;
+				
+				SPEFitter fit;
+				Double_t p_test[4] = { 1.0/_G, 7.0, 1.0/(0.5*_G), 0.2 };
+				SPEResponse gamma_test( PMType::GAMMA, p_test );
+				
+				Int_t nbins = histo_LED->GetNbinsX();
+				Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
+				Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
+				cout << " No. of bins : " << nbins << endl;
+				cout << " ( " << xmin << ", " << xmax << " ) " << endl;
+				
+				Double_t rms = histo_LED->GetRMS();
+				Double_t rmse = histo_LED->GetRMSError();
+				cout << " RMS : " << rms <<" +/- "<< rmse << endl;
+				
+				
+				DFTmethod dft( 2.0*nbins, xmin, xmax, gamma_test );
+				dft.wbin = histo_LED->GetBinWidth(1);
+				dft.Norm = histo_LED->Integral();
+				dft.Q0 = Q;
+				dft.s0 = sigma;
+				dft.mu = MU;
+				
+				fit.SetDFTmethod( dft );
+				fit.FitwDFTmethod( histo_LED );
+				
+					
+				dft.Norm = fit.vals[0];
+				dft.Q0 = fit.vals[1];
+				dft.s0 = fit.vals[2];
+				dft.mu = fit.vals[3]; 
+				Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
+				dft.spef.SetParams( p_fit );
+				TGraph *grBF = dft.GetGraph();
+				grBF->Draw( "SAME,L" );
+				
+				Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
+				cout << " Gain : " << Gfit/(50*1.60217662e-10) << endl;
+				cout << " Gain (no. of PEs) : " << Gfit << endl;
+				//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
+				cout << "" << endl;
+				cout << "" << endl;
+				sig_reduced = 1/sqrt(1 + fit.vals[5]);
+				sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
+				gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+				//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+				labdata <<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit/(50*1.60217662e-10) <<" "<< gainerror/(50*1.60217662e-10)<< endl;
+				
+				c1->Update();
+				c1->WaitPrimitive();
 				}
-					//JunoPED->Draw();
-					//c->Update();
-					//c->WaitPrimitive();
-					//Juno->Draw();
-				 ofstream ff (filename_LED);
-				 //ff <<"Juno PMT data"<<endl;
-				 ff <<"Histogram of Integral vs. Counts"<<endl;
-				 ff <<"No. of bins = "<<nbins<<endl;
-				 ff <<"position = "<< p <<" , angle = "<<15*a<<endl;
-				 ff <<"Integral"<<" "<<"counts"<<endl;
-				 ofstream ffP (filename_PED);
-				 //ffP <<"Juno PMT data - Pedestal"<<endl;
-				 ffP <<"Histogram of Integral vs. Counts - Pedestal"<<endl;
-				 ffP <<"No. of bins = "<<nbins<<endl;
-				 ffP <<"position = "<< p <<" , angle = "<<15*a<<endl;
-				 ffP <<"Integral"<<" "<<"counts"<<endl;
-				 
-				 for (int i=0; i <Juno->GetNbinsX(); i++)
-					{
-				       		if (Juno->GetBinCenter(i)<-10000) 
-							{ff << Juno->GetBinCenter(i) << "	" << 0 << endl;}
-					 	else
-							{ff << Juno->GetBinCenter(i) << "	" << Juno->GetBinContent(i) << endl;} //write to file
-				  	}
-				  	ff.close();
-				 for (int i=0; i <JunoPED->GetNbinsX(); i++)
-					{
-				        ffP << JunoPED->GetBinCenter(i) << "	" << JunoPED->GetBinContent(i) << endl; //write to file
-				  	}
-				  	ffP.close();
-			}		
-	}			
-				//TApp.Run();
-				return 0;
+	}
+ else if (index == 0)
+	 {
+	 	
+	 	cout <<"Input the data set you wish to analyze:"<<endl;
+	 	cout <<"Input 248 for scan248"<<endl;
+	 	cout <<"Input 3737 for scan3737"<<endl;
+	 	cout <<"Input 3899 for scan3899"<<endl;
+	 	cout <<"Input 846 for scan846"<<endl;
+	 	cin >> dat;
+	 	filename = TString("gain_data_scan") + Form("%d",dat);
+	 	ofstream gaindata (filename);
+	 	for (int p = 1; p<8; ++p)
+	 	{	
+	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
+	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+	 			//gaindata <<"angle Theta Gain"<< endl;
+	 			gaindata <<" "<< endl;
+	 			for (int a=0; a<24; ++a)
+	 			    {
+			 			//define 2 strings to specify to hiss whether we are in PED or LED
+						histname = TString("position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
+						histname_LED = histname + TString(" (LED)");
+						histname_PED = histname + TString(" (PED)");
+						HV_Value_PED = path_to_M1 +   TString("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
+						HV_Value_LED = path_to_M1 +   TString("/scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
+						HV_Value_PED = path_to_M1 +   TString("scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_PED.txt");
+						HV_Value_LED = path_to_M1 +   TString("scan") +Form ("%d",dat) + TString("_position") + Form("%d", p) + TString("_angle") + Form("%d", 15*a) + TString("_LED.txt");
+						cout<<HV_Value_LED<<endl;
+						cout<<HV_Value_PED<<endl;
+						//define the 2 histograms for PED and LED
+						TH1F *histo_PED = hiss(HV_Value_PED, histname_PED, index);
+						TH1F *histo_LED = hiss(HV_Value_LED, histname_LED, index);
+						
+						//cout << Form(PED, HV[i]) << endl; getchar();
+						Q = histo_PED->GetMean(); //get Q initially
+						sigma = histo_PED->GetRMS(); //get sigma initially
+						
+						histo_PED->GetXaxis()->SetTitle("charge (DUQ)"); //set Xaxis title
+						histo_PED->GetYaxis()->SetTitle("No. of Entries"); //set Yaxis title
+						
+						histo_LED->GetXaxis()->SetTitle("charge (DUQ)"); //set Xaxis title
+						histo_LED->GetYaxis()->SetTitle("No. of Entries)"); //set Yaxis title
+						
+						//define fit parameters
+						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 3*sigma));
+						Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
+						Fit_Gauss->SetNpx(10000); 
+						histo_PED->Draw("PE");
+						histo_PED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
+						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
+						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
+						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
+						Fit_Gauss->Draw("same");
+						
+						c1->Update();
+						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						
+						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
+						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
+						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
+							
+						histo_LED->Draw();
+						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
+						Fit_Gauss -> Draw("same");
+							
+						Q 		= Fit_Gauss->GetParameter(1); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
+						sigma 	= Fit_Gauss->GetParameter(2); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
+						cout << "Q_New = " << Q << " sigma_New = " << sigma << endl;
+						
+						double N_Tot	= histo_LED->Integral(); // Get N_Tot from LED
+						cout <<"N_Tot = "<< N_Tot << endl;
+						double N0 = Fit_Gauss->GetParameter(0);
+						N0 *= sqrt(2*M_PI)*sigma/histo_LED->GetBinWidth(1);
+						
+						cout <<"N0 = "<< N0 << endl;
+						double MU = -log(N0/N_Tot); //calculate Mu
+						cout <<"Mu = " << MU << endl;
+						
+						
+						c1->Update();
+						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						
+						/* ... */
+						
+						cout << "" << endl;
+						cout << "" << endl;
+						
+						histo_LED->GetListOfFunctions()->Remove( histo_LED->GetFunction( "Fit_Gauss") );
+						histo_LED->SetMarkerStyle( 20 );
+						histo_LED->SetMarkerSize( 0.4 );
+						histo_LED->SetLineColor( kBlack );
+						histo_LED->SetMarkerColor( kBlack );
+						histo_LED->SetStats(0);
+						histo_LED->Draw( "" );
+						
+						
+						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
+						cout << " Esimated G : " << _G << endl;
+						
+						SPEFitter fit;
+						Double_t p_test[4] = { 1.0/_G, 7.0, 1.0/(0.5*_G), 0.2 };
+						SPEResponse gamma_test( PMType::GAMMA, p_test );
+						
+						Int_t nbins = histo_LED->GetNbinsX();
+						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
+						Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
+						cout << " No. of bins : " << nbins << endl;
+						cout << " ( " << xmin << ", " << xmax << " ) " << endl;
+						
+						Double_t rms = histo_LED->GetRMS();
+						Double_t rmse = histo_LED->GetRMSError();
+						cout << " RMS : " << rms <<" +/- "<< rmse << endl;
+						
+						
+						DFTmethod dft( 2.0*nbins, xmin, xmax, gamma_test );
+						dft.wbin = histo_LED->GetBinWidth(1);
+						dft.Norm = histo_LED->Integral();
+						dft.Q0 = Q;
+						dft.s0 = sigma;
+						dft.mu = MU;
+						
+						fit.SetDFTmethod( dft );
+						fit.FitwDFTmethod( histo_LED );
+						
+							
+						dft.Norm = fit.vals[0];
+						dft.Q0 = fit.vals[1];
+						dft.s0 = fit.vals[2];
+						dft.mu = fit.vals[3]; 
+						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
+						dft.spef.SetParams( p_fit );
+						TGraph *grBF = dft.GetGraph();
+						grBF->Draw( "SAME,L" );
+						
+						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
+						cout << " Gain (no. of PEs) : " << Gfit << endl;
+						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
+						cout << "" << endl;
+						cout << "" << endl;
+						//gaindata <<"angle xbar Q Mu w Theta Gain"<< endl;
+						//gaindata << a*15 <<" "<< histo_LED->GetMean() <<" "<< Q <<" "<< MU <<" "<<fit.vals[7]<<" "<<fit.vals[5]<<" "<< Gfit << endl;
+						// xbar = histo_LED->GetMean();
+						// xbarErr = histo_LED->GetMeanError();
+						// gainerror = Gfit*
+						sig_reduced = 1/sqrt(1 + fit.vals[5]);
+						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
+						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
+						//gaindata <<" "<< endl;
+						c1->Update();
+						c1->WaitPrimitive();
+					}	
+		}
+	 }	
+ else
+ 	 {
+ 	 	cout<<"Invalid value for index."<<endl;
+ 	 } 
+ return;	
+}
+int main(int argc, char ** argv){
+	if(argc < 2) return 1;
+	TString path = argv[1];
+	TApplication app("app", &argc, argv);
+	runfile_working_first(path);
+	app.Run();
+	return 0;
 }
