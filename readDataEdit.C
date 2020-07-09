@@ -93,8 +93,8 @@ int main(int argc, char ** argv)
 
 				else if (dat == 846)
 					{
-						t_min = 330;
-						t_max = 390;
+						t_min = 340;
+						t_max = 380;
 						h_max = 500;
 						h_min = -6000;
 					}
