@@ -135,10 +135,12 @@ int main(int argc, char ** argv)
 					Integral = 0;
 					Integral_PED = 0;
 				}
-					//JunoPED->Draw();
-					//c->Update();
-					//c->WaitPrimitive();
-					//Juno->Draw();
+					//
+			
+					JunoPED->Draw();
+					c->Update();
+					c->WaitPrimitive();
+					Juno->Draw();
 				 ofstream ff (filename_LED);
 				 //ff <<"Juno PMT data"<<endl;
 				 ff <<"Histogram of Integral vs. Counts"<<endl;
