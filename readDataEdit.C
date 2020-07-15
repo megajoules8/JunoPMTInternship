@@ -103,6 +103,7 @@ int main(int argc, char ** argv)
 				float t_min_PED = 0;
 				if (dat == 248) {t_min_PED = 100;}
 				float t_max_PED = t_max-t_min;
+				if (dat == 248) {t_max_PED += 100;}
 				float Integral = 0;
 				float Integral_PED = 0 ;
 				float bin_width = 0;
