@@ -42,7 +42,7 @@ int main(int argc, char ** argv)
 	cin >> ang ;
 	cout << " " << endl;
 	
-	TString fname = argv[1] + TString("/scan") + Form("%d",sc) + TString ("_position") + Form("%d",pos) + TString("_angle") + Form ("%d", ang) + TString(".root");
+	TString fname = argv[1] + TString("scan") + Form("%d",sc) + TString("/scan") + Form("%d",sc) +TString ("_position") + Form("%d",pos) + TString("_angle") + Form ("%d", ang) + TString(".root");
 	TFile * f = TFile::Open(fname);
 
 	TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
