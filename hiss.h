@@ -3,6 +3,6 @@
 
 #include <TString.h>
 
-TH1F* hiss(TString Full_path, TString HV_Value, int index);
+TH1F* hiss(TString Full_path, TString HV_Value, int index, int sc);
 
 #endif
