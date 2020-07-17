@@ -59,7 +59,7 @@ int main(int argc, char ** argv)
 	float bin_width = 0;
 
 //definition of the histogram
-	TString h_name = TString("Event Integration: Position = ") + Form("%d", pos) + TString(" angle = ") + Form("%d", ang);
+	TString h_name = TString("Event Integration: scan") + Form("%d", sc) + TString(" position = ") + Form("%d", pos) + TString(" angle = ") + Form("%d", ang);
 TH1F *Juno = new TH1F("Juno", h_name, nbins , t_min, t_max);
 
 	for(int i=0; i < pmt_tree->GetEntries(); ++i)
