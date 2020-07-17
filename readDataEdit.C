@@ -83,6 +83,13 @@ int main(int argc, char ** argv)
 						h_max = 1000;
 						h_min = -6000;
 					}
+			else if (dat == 3712)
+					{
+						t_min = 705;
+						t_max = 740;
+						h_max = 1000;
+						h_min = -6000;
+					}
 				else if (dat == 248)
 					{
 						t_min = 300;
