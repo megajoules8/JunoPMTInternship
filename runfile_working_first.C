@@ -74,8 +74,8 @@ if (index == 1)
 				HV_Value_PED = TString ("Pedestal Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
 				HV_Value_LED = TString ("LED Run, V_supply = ") + Form("%d",HV[i]) + TString("V");
 				//define the 2 histograms for PED and LED
-				TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED, index);
-				TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED, index);
+				TH1F *histo_PED = hiss(path_to_M1 + Form(PED, HV[i]) , HV_Value_PED, index, 0);
+				TH1F *histo_LED = hiss(path_to_M1 + Form(LED, HV[i]) , HV_Value_LED, index, 0);
 				
 				//cout << Form(PED, HV[i]) << endl; getchar();
 				Q = histo_PED->GetMean(); //get Q initially
@@ -227,8 +227,8 @@ if (index == 1)
 						cout<<HV_Value_LED<<endl;
 						cout<<HV_Value_PED<<endl;
 						//define the 2 histograms for PED and LED
-						TH1F *histo_PED = hiss(HV_Value_PED, histname_PED, index);
-						TH1F *histo_LED = hiss(HV_Value_LED, histname_LED, index);
+						TH1F *histo_PED = hiss(HV_Value_PED, histname_PED, index, dat);
+						TH1F *histo_LED = hiss(HV_Value_LED, histname_LED, index, dat);
 						
 						//cout << Form(PED, HV[i]) << endl; getchar();
 						Q = histo_PED->GetMean(); //get Q initially
