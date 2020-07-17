@@ -203,6 +203,9 @@ if (index == 1)
 	 	cout <<"Input 3712 for scan3712"<<endl;
 	 	cout <<"Input 3737 for scan3737"<<endl;
 	 	cout <<"Input 3899 for scan3899"<<endl;
+	 	cout <<"Input 4050 for scan4050"<<endl;
+	 	cout <<"Input 4230 for scan4230"<<endl;
+	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
