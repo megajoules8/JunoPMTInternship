@@ -27,7 +27,6 @@ int main(int argc, char ** argv)
 	cout << "248 for scan248" << endl;
 	cout << "846 for scan846" << endl;
 	cout << "3712 for scan3712" << endl;
-	cout << "248 for scan248" << endl;
 	cout << "3737 for scan3737" << endl;
 	cout << "3899 for scan3899" << endl;
 	cout << "4050 for scan4050" << endl;
