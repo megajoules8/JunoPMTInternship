@@ -99,7 +99,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index, int sc )
  //rebinning 
     if (index == 1)	{Bin_Size = 8;}
     if (index == 0)	{Bin_Size = 4;}
-    if (sc == 3737)	{Bin_Size = 16;}
+    if (sc == 3737)	{Bin_Size = 10;}
     if (sc == 248) 	{Bin_Size = 25;}
     if (sc == 4050)	{Bin_Size = 16;}
   hist-> Rebin(Bin_Size); 
