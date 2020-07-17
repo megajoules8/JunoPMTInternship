@@ -15,13 +15,35 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
-	if(argc != 2)
+	/*if(argc != 2)
 	{
 		std::cout << "Usage: " << argv[0] << " file.root" << std::endl;
 		return 1;
-	}
-
-	TFile * f = TFile::Open(argv[1]);
+	}*/
+	int pos;
+	int ang;
+	int sc;
+	cout << "Input the dataset you wish to analyze:"<< endl;
+	cout << "248 for scan248" << endl;
+	cout << "846 for scan846" << endl;
+	cout << "3712 for scan3712" << endl;
+	cout << "248 for scan248" << endl;
+	cout << "3737 for scan3737" << endl;
+	cout << "3899 for scan3899" << endl;
+	cout << "4050 for scan4050" << endl;
+	cout << "4230 for scan4230" << endl;
+	cout << "4232 for scan4232" << endl;
+	cin >> sc ;
+	cout << " " << endl;
+	cout << "Input the position" << endl;
+	cin >> pos ;
+	cout << " " << endl;
+	cout << "Input the angle" << endl;
+	cin >> ang ;
+	cout << " " << endl;
+	
+	TString fname = argv[1] + TString("/scan") + Form("%d",sc) + TString ("_position") + Form("%d",pos) + TString("_angle") + Form ("%d", ang) + TString(".root");
+	TFile * f = TFile::Open(fname);
 
 	TTree * pmt_tree = (TTree*) f->Get("pmt_tree");
 	TVectorT<float> * time_vector = (TVectorT<float> *) f->Get("time_vector");
