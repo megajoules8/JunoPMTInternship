@@ -105,8 +105,8 @@ int main(int argc, char ** argv)
 					{
 						t_min = 730;
 						t_max = 800;
-						h_max = 1000;
-						h_min = -6000;
+						h_max = 500;
+						h_min = -5000;
 					}
 				else if (dat == 248)
 					{
