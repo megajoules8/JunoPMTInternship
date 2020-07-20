@@ -32,6 +32,7 @@ int main(int argc, char ** argv)
 	cout <<"Input 3712 for scan3712"<<endl;
 	cout <<"Input 3899 for scan3899"<<endl;
 	cout <<"Input 4050 for scan4050"<<endl;
+	cout <<"Input 4230 for scan4230"<<endl;
 	
 	cin >> dat;
 		
