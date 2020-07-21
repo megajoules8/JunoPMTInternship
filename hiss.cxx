@@ -102,7 +102,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index, int sc )
     if (sc == 3737)	{Bin_Size = 10;}
     if (sc == 248) 	{Bin_Size = 25;}
     if (sc == 4050)	{Bin_Size = 4;}
-    if (sc == 4232)	{Bin_Size = 2;}
+    if (sc == 4232)	{Bin_Size = 1;}
     hist-> Rebin(Bin_Size); 
 	
   	for ( int l=1; l <= hist->GetXaxis()->GetNbins(); l++ ) 
