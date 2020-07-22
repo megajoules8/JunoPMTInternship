@@ -403,7 +403,7 @@ if (index == 1)
 						if (p==6) {POSITION_6[a] = Gfit;	POSITION_6_ERR = gainerror;}
 						if (p==7) {POSITION_7[a] = Gfit;	POSITION_7_ERR = gainerror;}*/
 						PMT_DATA[2*p-2][a] = Gfit;
-						PMT_DATA_ERR[2*p-1][a] = gainerror;
+						PMT_DATA[2*p-1][a] = gainerror;
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
