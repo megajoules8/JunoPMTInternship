@@ -381,7 +381,7 @@ if (index == 1)
 						grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
-						cout << " Gain (no. of PEs) : " << Gfit << endl;
+						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
@@ -408,7 +408,7 @@ if (index == 1)
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
-						c1->WaitPrimitive();
+						//c1->WaitPrimitive();
 					}	
 			
 			
