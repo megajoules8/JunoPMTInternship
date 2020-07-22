@@ -236,6 +236,7 @@ if (index == 1)
 	 	Double_t PMT_DATA[24];
 	 	Double_t PMT_DATA_ERR[24];
 	 	Double_t ANGLES[24];
+	 	TString gr_name;
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
 	 	{	
@@ -244,7 +245,7 @@ if (index == 1)
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {ANGLES[f] = f*15;}
-				TString gr_name = TString("GR_") + Form("%d", p);
+				gr_name = TString("GR_") + Form("%d", p);
 			
 	 			for (int a=0; a<24; ++a)
 	 			    {
