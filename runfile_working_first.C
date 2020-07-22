@@ -218,7 +218,7 @@ if (index == 1)
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {PMT_DATA[0][f] = f*15;}
-				arr_name = TString("Position_") + Form ("%d",p);
+				TString arr_name = TString("Position_") + Form ("%d",p);
 				Double_t arr_name[24];
 	 			for (int a=0; a<24; ++a)
 	 			    {
