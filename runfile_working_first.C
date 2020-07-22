@@ -19,6 +19,7 @@
 #include "PMT.h"
 #include "DFTmethod.h"
 #include "SPEFitter.h"
+#include "TGraph.h"
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
