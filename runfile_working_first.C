@@ -36,6 +36,7 @@
 #include "TMath.h"
 #include "TSystem.h"
 #include <stdlib.h>
+#include "TCanvas.h"
 
 #include "HFitInterface.h"
 #include "Fit/DataRange.h"
