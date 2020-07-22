@@ -298,7 +298,7 @@ if (index == 1)
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
-						Fit_Gauss->Draw("same");
+						//Fit_Gauss->Draw("same");
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
@@ -309,7 +309,7 @@ if (index == 1)
 							
 						//histo_LED->Draw();
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
-						Fit_Gauss -> Draw("same");
+						//Fit_Gauss -> Draw("same");
 							
 						Q 		= Fit_Gauss->GetParameter(1); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
 						sigma 	= Fit_Gauss->GetParameter(2); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
