@@ -20,6 +20,7 @@
 #include "DFTmethod.h"
 #include "SPEFitter.h"
 #include "TGraph.h"
+#include "TGraphErrors.h"
 
 #include "TROOT.h"
 #include "TEnv.h"
