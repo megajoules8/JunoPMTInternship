@@ -413,13 +413,13 @@ if (index == 1)
 			
 			
 		}
-	    		auto gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
-			TGraphErrors *gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
-			TGraphErrors *gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
-			TGraphErrors *gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
-			TGraphErrors *gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);
-			TGraphErrors *gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);
-			TGraphErrors *gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);
+	    		auto gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetMarkerStyle(8);
+			auto gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetMarkerStyle(8);
+			auto gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetMarkerStyle(8);
+			auto gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetMarkerStyle(8);
+			auto gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetMarkerStyle(8);
+			auto gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);	gr_6->SetMarkerColor(6); gr_6->SetMarkerStyle(8);
+			auto gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);	gr_7->SetMarkerColor(7); gr_7->SetMarkerStyle(8);
 			mg->Add(gr_1);
 			mg->Add(gr_2);
 			mg->Add(gr_3);
