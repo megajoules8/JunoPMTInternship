@@ -215,8 +215,8 @@ if (index == 1)
 				//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 				labdata <<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit/(50*1.60217662e-10) <<" "<< gainerror/(50*1.60217662e-10)<< endl;
 				
-				c1->Update();
-				c1->WaitPrimitive();
+				//c1->Update();
+				//c1->WaitPrimitive();
 				}
 	}
  else if (index == 0)
