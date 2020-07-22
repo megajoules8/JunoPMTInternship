@@ -244,6 +244,8 @@ if (index == 1)
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {ANGLES[0][f] = f*15;}
+				TString gr_name = TString("GR_") + Form("%d", p);
+			
 	 			for (int a=0; a<24; ++a)
 	 			    {
 			 			//define 2 strings to specify to hiss whether we are in PED or LED
@@ -378,12 +380,13 @@ if (index == 1)
 						PMT_DATA_ERR[a] = gainerror;
 						cout << PMT_DATA[a] << "    " << PMT_DATA_ERR[a] << endl;
 						//gaindata <<" "<< endl;
-						TString gr_name = TString("GR_") + Form("%d", p);
-						TGraphErrors *gr_name = new TGraphErrors(24,ANGLES,PMT_DATA,0,PMT_DATA_ERR);
-						mg->Add(gr_name);
 						c1->Update();
 						c1->WaitPrimitive();
 					}	
+			
+			TGraphErrors *gr_name = new TGraphErrors(24,ANGLES,PMT_DATA,0,PMT_DATA_ERR);
+			mg->Add(gr_name);
+			
 		}
 	 }	
  else
