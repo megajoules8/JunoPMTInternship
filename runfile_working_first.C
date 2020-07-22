@@ -210,7 +210,7 @@ if (index == 1)
 	 	cin >> dat;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
-	 	float PMT_DATA[15][24];
+	 	Double_t PMT_DATA[15][24];
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -218,6 +218,8 @@ if (index == 1)
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {PMT_DATA[0][f] = f*15;}
+				arr_name = TString("Position_") + Form ("%d",p);
+				Double_t arr_name[24];
 	 			for (int a=0; a<24; ++a)
 	 			    {
 			 			//define 2 strings to specify to hiss whether we are in PED or LED
@@ -361,6 +363,24 @@ if (index == 1)
  	 {
  	 	cout<<"Invalid value for index."<<endl;
  	 } 
+	
+	Double_t POSITION_1[24];
+	Double_t POSITION_1_err[24];
+	Double_t POSITION_2[24];
+	Double_t POSITION_2_err[24];
+	Double_t POSITION_3[24];
+	Double_t POSITION_3_err[24];
+	Double_t POSITION_4[24];
+	Double_t POSITION_4_err[24];
+	Double_t POSITION_5[24];
+	Double_t POSITION_5_err[24];
+	Double_t POSITION_6[24];
+	Double_t POSITION_6_err[24];
+	Double_t POSITION_7[24];
+	Double_t POSITION_7_err[24];
+	
+	
+	
  return;	
 }
 int main(int argc, char ** argv){
