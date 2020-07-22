@@ -388,7 +388,7 @@ if (index == 1)
 						c1->WaitPrimitive();
 					}	
 			
-			TGraphErrors *gr_name = new TGraphErrors(n,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
+			gr_name = new TGraphErrors(n,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
 			mg->Add(gr_name);
 			
 		}
