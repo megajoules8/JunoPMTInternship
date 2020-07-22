@@ -300,8 +300,8 @@ if (index == 1)
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
 						Fit_Gauss->Draw("same");
 						
-						c1->Update();
-						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						//c1->Update();
+						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
@@ -325,8 +325,8 @@ if (index == 1)
 						cout <<"Mu = " << MU << endl;
 						
 						
-						c1->Update();
-						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						//c1->Update();
+						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						/* ... */
 						
@@ -407,8 +407,8 @@ if (index == 1)
 						PMT_DATA[2*p-1][a] = gainerror;
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
-						//c1->Update();
-						//c1->WaitPrimitive();
+						c1->Update();
+						c1->WaitPrimitive();
 					}	
 			
 			
