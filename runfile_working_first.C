@@ -235,6 +235,8 @@ if (index == 1)
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
 	 	Int_t n = 24;
+		Float_t X_ERR[n];
+	 	Float_t ANGLES[n];
 		/*Float_t POSITION_1[n];
 	 	Float_t POSITION_1_ERR[n];
 	 	Float_t POSITION_2[n];
@@ -402,19 +404,19 @@ if (index == 1)
 						if (p==7) {POSITION_7[a] = Gfit;	POSITION_7_ERR = gainerror;}*/
 						PMT_DATA[2*p-2][a] = Gfit;
 						PMT_DATA_ERR[2*p-1][a] = gainerror;
-						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA_ERR[2*p-1][a] << endl;
+						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
 					}	
 			
-			TGraphErrors *gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
-			TGraphErrors *gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
-			TGraphErrors *gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
-			TGraphErrors *gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
-			TGraphErrors *gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);
-			TGraphErrors *gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);
-			TGraphErrors *gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);
+			TGraphErrors gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
+			TGraphErrors gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
+			TGraphErrors gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
+			TGraphErrors gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
+			TGraphErrors gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);
+			TGraphErrors gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);
+			TGraphErrors gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);
 			mg->Add(gr_1);
 			mg->Add(gr_2);
 			mg->Add(gr_3);
