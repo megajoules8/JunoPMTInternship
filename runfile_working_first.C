@@ -412,18 +412,7 @@ if (index == 1)
 			
 			
 		}
-	 
-	 
-	 
-	 
-	 
-	 }	
- else
- 	 {
- 	 	cout<<"Invalid value for index."<<endl;
- 	 } 
-
-   			TGraphErrors *gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
+	    		TGraphErrors *gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
 			TGraphErrors *gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
 			TGraphErrors *gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
 			TGraphErrors *gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
@@ -436,13 +425,20 @@ if (index == 1)
 			mg->Add(gr_4);
 			mg->Add(gr_5);
 			mg->Add(gr_6);
-			mg->Add(gr_7);	 
-	
-	
-	
-	
-	
-	mg->Draw("ALP");	
+			mg->Add(gr_7);
+	 		mg->Draw("ALP");
+	 
+	 
+	 
+	 
+	 }	
+ else
+ 	 {
+ 	 	cout<<"Invalid value for index."<<endl;
+ 	 } 
+
+
+		
 
 	
 	
