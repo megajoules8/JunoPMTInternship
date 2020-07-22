@@ -38,7 +38,7 @@
 #include <stdlib.h>
 #include "TCanvas.h"
 
-//#include "HFitInterface.h"
+#include "HFitInterface.h"
 #include "Fit/DataRange.h"
 #include "Math/MinimizerOptions.h"
 
