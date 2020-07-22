@@ -407,8 +407,8 @@ if (index == 1)
 						PMT_DATA[2*p-1][a] = gainerror;
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
-						c1->Update();
-						c1->WaitPrimitive();
+						//c1->Update();
+						//c1->WaitPrimitive();
 					}	
 			
 			
