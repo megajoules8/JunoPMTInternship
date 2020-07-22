@@ -234,10 +234,10 @@ if (index == 1)
 	 	cin >> dat;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
-	 	Double_t PMT_DATA[24];
-	 	Double_t PMT_DATA_ERR[24];
-	 	Double_t ANGLES[24];
-	 	Double_t X_ERR[24];
+	 	Float_t PMT_DATA[24];
+	 	Float_t PMT_DATA_ERR[24];
+	 	Float_t ANGLES[24];
+	 	Float_t X_ERR[24];
 	 	TString gr_name;
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
