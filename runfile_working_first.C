@@ -236,6 +236,7 @@ if (index == 1)
 	 	Double_t PMT_DATA[24];
 	 	Double_t PMT_DATA_ERR[24];
 	 	Double_t ANGLES[24];
+	 	Double_t X_ERR[24];
 	 	TString gr_name;
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
@@ -244,7 +245,7 @@ if (index == 1)
 	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
-				for (int f=0; f<24; ++f) {ANGLES[f] = f*15;}
+				for (int f=0; f<24; ++f) {ANGLES[f] = f*15;	X_ERR[f] = 0;}
 				gr_name = TString("GR_") + Form("%d", p);
 			
 	 			for (int a=0; a<24; ++a)
@@ -385,7 +386,7 @@ if (index == 1)
 						c1->WaitPrimitive();
 					}	
 			
-			TGraphErrors *gr_name = new TGraphErrors(24,ANGLES,PMT_DATA,0,PMT_DATA_ERR);
+			TGraphErrors *gr_name = new TGraphErrors(24,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
 			mg->Add(gr_name);
 			
 		}
