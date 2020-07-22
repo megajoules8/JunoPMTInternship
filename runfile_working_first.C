@@ -20,6 +20,28 @@
 #include "DFTmethod.h"
 #include "SPEFitter.h"
 #include "TGraph.h"
+#include "TROOT.h"
+#include "TEnv.h"
+#include "TBrowser.h"
+#include "TMultiGraph.h"
+#include "TGraph.h"
+#include "TH1.h"
+#include "TH2.h"
+#include "TPolyLine3D.h"
+#include "TVirtualPad.h"
+#include "Riostream.h"
+#include "TVirtualFitter.h"
+#include "TPluginManager.h"
+#include "TClass.h"
+#include "TMath.h"
+#include "TSystem.h"
+#include <stdlib.h>
+
+#include "HFitInterface.h"
+#include "Fit/DataRange.h"
+#include "Math/MinimizerOptions.h"
+
+#include <ctype.h>
 using namespace std;
 //main function
 void runfile_working_first(TString path_to_M1)
