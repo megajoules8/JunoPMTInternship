@@ -234,10 +234,11 @@ if (index == 1)
 	 	cin >> dat;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
-	 	Float_t PMT_DATA[24];
-	 	Float_t PMT_DATA_ERR[24];
-	 	Float_t ANGLES[24];
-	 	Float_t X_ERR[24];
+	 	Int_t n = 24;
+	 	Float_t PMT_DATA[n];
+	 	Float_t PMT_DATA_ERR[n];
+	 	Float_t ANGLES[n];
+	 	Float_t X_ERR[n];
 	 	TString gr_name;
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
@@ -387,7 +388,7 @@ if (index == 1)
 						c1->WaitPrimitive();
 					}	
 			
-			TGraphErrors *gr_name = new TGraphErrors(24,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
+			TGraphErrors *gr_name = new TGraphErrors(n,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
 			mg->Add(gr_name);
 			
 		}
