@@ -293,7 +293,7 @@ if (index == 1)
 						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 3*sigma));
 						Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetNpx(10000); 
-						histo_PED->Draw("PE");
+						//histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
@@ -307,7 +307,7 @@ if (index == 1)
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
 						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 							
-						histo_LED->Draw();
+						//histo_LED->Draw();
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Fit_Gauss -> Draw("same");
 							
@@ -339,7 +339,7 @@ if (index == 1)
 						histo_LED->SetLineColor( kBlack );
 						histo_LED->SetMarkerColor( kBlack );
 						histo_LED->SetStats(0);
-						histo_LED->Draw( "" );
+						//histo_LED->Draw( "" );
 						
 						
 						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
