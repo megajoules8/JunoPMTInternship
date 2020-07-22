@@ -235,11 +235,23 @@ if (index == 1)
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
 	 	Int_t n = 24;
-	 	Float_t PMT_DATA[n];
-	 	Float_t PMT_DATA_ERR[n];
-	 	Float_t ANGLES[n];
-	 	Float_t X_ERR[n];
-	 	TString gr_name;
+		/*Float_t POSITION_1[n];
+	 	Float_t POSITION_1_ERR[n];
+	 	Float_t POSITION_2[n];
+	 	Float_t POSITION_2_ERR[n];
+	 	Float_t POSITION_3[n];
+	 	Float_t POSITION_3_ERR[n];
+	 	Float_t POSITION_4[n];
+	 	Float_t POSITION_4_ERR[n];
+	 	Float_t POSITION_5[n];
+	 	Float_t POSITION_5_ERR[n];
+	 	Float_t POSITION_6[n];
+	 	Float_t POSITION_6_ERR[n];
+	 	Float_t POSITION_7[n];
+	 	Float_t POSITION_7_ERR[n];*/
+	 
+	 	Float_t PMT_DATA[14][24];
+	 
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
 	 	{	
@@ -248,7 +260,7 @@ if (index == 1)
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {ANGLES[f] = f*15;	X_ERR[f] = 0;}
-				gr_name = TString("GR_") + Form("%d", p);
+				//gr_name = TString("GR_") + Form("%d", p);
 			
 	 			for (int a=0; a<24; ++a)
 	 			    {
@@ -380,16 +392,35 @@ if (index == 1)
 						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
-						PMT_DATA[a] = Gfit;
-						PMT_DATA_ERR[a] = gainerror;
-						cout << PMT_DATA[a] << "    " << PMT_DATA_ERR[a] << endl;
+						
+						/*if (p==1) {POSITION_1[a] = Gfit;	POSITION_1_ERR = gainerror;	}
+						if (p==2) {POSITION_2[a] = Gfit;	POSITION_2_ERR = gainerror;}
+						if (p==3) {POSITION_3[a] = Gfit;	POSITION_3_ERR = gainerror;}
+						if (p==4) {POSITION_4[a] = Gfit;	POSITION_4_ERR = gainerror;}
+						if (p==5) {POSITION_5[a] = Gfit;	POSITION_5_ERR = gainerror;}
+						if (p==6) {POSITION_6[a] = Gfit;	POSITION_6_ERR = gainerror;}
+						if (p==7) {POSITION_7[a] = Gfit;	POSITION_7_ERR = gainerror;}*/
+						
+						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA_ERR[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
 					}	
 			
-			TGraphErrors *gr_name = new TGraphErrors(n,ANGLES,PMT_DATA,X_ERR,PMT_DATA_ERR);
-			mg->Add(gr_name);
+			TGraphErrors *gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
+			TGraphErrors *gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
+			TGraphErrors *gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
+			TGraphErrors *gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
+			TGraphErrors *gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);
+			TGraphErrors *gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);
+			TGraphErrors *gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);
+			mg->Add(gr_1);
+			mg->Add(gr_2);
+			mg->Add(gr_3);
+			mg->Add(gr_4);
+			mg->Add(gr_5);
+			mg->Add(gr_6);
+			mg->Add(gr_7);
 			
 		}
 	 }	
