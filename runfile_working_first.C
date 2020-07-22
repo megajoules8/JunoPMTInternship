@@ -412,7 +412,7 @@ if (index == 1)
 			
 			
 		}
-	    		TGraphErrors *gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
+	    		auto gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);
 			TGraphErrors *gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);
 			TGraphErrors *gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);
 			TGraphErrors *gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);
