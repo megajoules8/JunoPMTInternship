@@ -381,7 +381,7 @@ if (index == 1)
 						grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
-						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
+						
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
@@ -395,7 +395,7 @@ if (index == 1)
 						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
-						
+						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
 						/*if (p==1) {POSITION_1[a] = Gfit;	POSITION_1_ERR = gainerror;	}
 						if (p==2) {POSITION_2[a] = Gfit;	POSITION_2_ERR = gainerror;}
 						if (p==3) {POSITION_3[a] = Gfit;	POSITION_3_ERR = gainerror;}
@@ -407,7 +407,7 @@ if (index == 1)
 						PMT_DATA[2*p-1][a] = gainerror;
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
-						c1->Update();
+						//c1->Update();
 						//c1->WaitPrimitive();
 					}	
 			
