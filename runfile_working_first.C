@@ -427,7 +427,7 @@ if (index == 1)
 			mg->Add(gr_5);
 			mg->Add(gr_6);
 			mg->Add(gr_7);
-	 		mg->Draw("A");
+	 		mg->Draw("P");
 	 
 	 
 	 
