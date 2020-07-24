@@ -250,6 +250,7 @@ if (index == 1)
 	 	Float_t PMT_DATA[14][24];
 	 
 	 	TMultiGraph  *mg  = new TMultiGraph();
+	 	TString PdfName_end;
 	 	PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
 	 	for (int p = 1; p<8; ++p)
 	 	{	
@@ -300,7 +301,7 @@ if (index == 1)
 					
 						TString PdfName_start;
 						TString PdfName_mid;
-						TString PdfName_end;
+						
 						PdfName_start = TString("scan") + Form("%d", dat) + TString("_Results.pdf(");
 						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
 						
