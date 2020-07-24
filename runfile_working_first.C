@@ -245,6 +245,7 @@ if (index == 1)
 	 Float_t ANGLES_5[n];
 	 Float_t ANGLES_6[n];
 	 Float_t ANGLES_7[n];
+	 Int_t counts[7];
 	 
 	 	Float_t PMT_DATA[14][24];
 	 
@@ -257,7 +258,7 @@ if (index == 1)
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {X_ERR[f] = 0;}
 				//gr_name = TString("GR_") + Form("%d", p);
-				int count = 0;
+				Int_t count = 0;
 	 			for (int a=0; a<24; ++a)
 	 			    {
 			 			//define 2 strings to specify to hiss whether we are in PED or LED
@@ -395,14 +396,6 @@ if (index == 1)
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
-						/*if (p==1) {POSITION_1[a] = Gfit;	POSITION_1_ERR = gainerror;	}
-						if (p==2) {POSITION_2[a] = Gfit;	POSITION_2_ERR = gainerror;}
-						if (p==3) {POSITION_3[a] = Gfit;	POSITION_3_ERR = gainerror;}
-						if (p==4) {POSITION_4[a] = Gfit;	POSITION_4_ERR = gainerror;}
-						if (p==5) {POSITION_5[a] = Gfit;	POSITION_5_ERR = gainerror;}
-						if (p==6) {POSITION_6[a] = Gfit;	POSITION_6_ERR = gainerror;}
-						if (p==7) {POSITION_7[a] = Gfit;	POSITION_7_ERR = gainerror;}*/
-						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a; ++count;  PMT_DATA[2*p-2][a] = Gfit;	PMT_DATA[2*p-1][a] = gainerror;}
 						
 						//gaindata <<" "<< endl;
@@ -410,23 +403,23 @@ if (index == 1)
 						c1->WaitPrimitive();
 						c1->Print("test.pdf","pdf");
 					}	
-			if (p == 1) {	for(int r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r];}	}
-			if (p == 2) {	for(int r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r];}	}
-			if (p == 3) {	for(int r=0; r<=count; ++r) {ANGLES_3[r] = ANGLES[r];}	}
-			if (p == 4) {	for(int r=0; r<=count; ++r) {ANGLES_4[r] = ANGLES[r];}	}
-			if (p == 5) {	for(int r=0; r<=count; ++r) {ANGLES_5[r] = ANGLES[r];}	}
-			if (p == 6) {	for(int r=0; r<=count; ++r) {ANGLES_6[r] = ANGLES[r];}	}
-			if (p == 7) {	for(int r=0; r<=count; ++r) {ANGLES_7[r] = ANGLES[r];}	}
+			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 2) {	for(Int_t r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 3) {	for(Int_t r=0; r<=count; ++r) {ANGLES_3[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 4) {	for(Int_t r=0; r<=count; ++r) {ANGLES_4[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 5) {	for(Int_t r=0; r<=count; ++r) {ANGLES_5[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 6) {	for(Int_t r=0; r<=count; ++r) {ANGLES_6[r] = ANGLES[r]; counts[p-1] = count;}	}
+			if (p == 7) {	for(Int_t r=0; r<=count; ++r) {ANGLES_7[r] = ANGLES[r]; counts[p-1] = count;}	}
 			
 			
 		}
-	    		auto gr_1 = new TGraphErrors(n,ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
-			auto gr_2 = new TGraphErrors(n,ANGLES_2,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetMarkerStyle(8); gr_2->SetName("Position 2"); gr_2->SetTitle("Position 2");
-			auto gr_3 = new TGraphErrors(n,ANGLES_3,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetMarkerStyle(8); gr_3->SetName("Position 3"); gr_3->SetTitle("Position 3");
-			auto gr_4 = new TGraphErrors(n,ANGLES_4,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetMarkerStyle(8); gr_4->SetName("Position 4"); gr_4->SetTitle("Position 4");
-			auto gr_5 = new TGraphErrors(n,ANGLES_5,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetMarkerStyle(8); gr_5->SetName("Position 5"); gr_5->SetTitle("Position 5");
-			auto gr_6 = new TGraphErrors(n,ANGLES_6,PMT_DATA[10],X_ERR,PMT_DATA[11]); gr_6->SetMarkerColor(6); gr_6->SetMarkerStyle(8); gr_6->SetName("Position 6"); gr_6->SetTitle("Position 6");
-			auto gr_7 = new TGraphErrors(n,ANGLES_7,PMT_DATA[12],X_ERR,PMT_DATA[13]); gr_7->SetMarkerColor(7); gr_7->SetMarkerStyle(8); gr_7->SetName("Position 7"); gr_7->SetTitle("Position 7");
+	    		auto gr_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
+			auto gr_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetMarkerStyle(8); gr_2->SetName("Position 2"); gr_2->SetTitle("Position 2");
+			auto gr_3 = new TGraphErrors(counts[2],ANGLES_3,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetMarkerStyle(8); gr_3->SetName("Position 3"); gr_3->SetTitle("Position 3");
+			auto gr_4 = new TGraphErrors(counts[3],ANGLES_4,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetMarkerStyle(8); gr_4->SetName("Position 4"); gr_4->SetTitle("Position 4");
+			auto gr_5 = new TGraphErrors(counts[4],ANGLES_5,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetMarkerStyle(8); gr_5->SetName("Position 5"); gr_5->SetTitle("Position 5");
+			auto gr_6 = new TGraphErrors(counts[5],ANGLES_6,PMT_DATA[10],X_ERR,PMT_DATA[11]); gr_6->SetMarkerColor(6); gr_6->SetMarkerStyle(8); gr_6->SetName("Position 6"); gr_6->SetTitle("Position 6");
+			auto gr_7 = new TGraphErrors(counts[6],ANGLES_7,PMT_DATA[12],X_ERR,PMT_DATA[13]); gr_7->SetMarkerColor(7); gr_7->SetMarkerStyle(8); gr_7->SetName("Position 7"); gr_7->SetTitle("Position 7");
 			mg->Add(gr_1);
 			mg->Add(gr_2);
 			mg->Add(gr_3);
