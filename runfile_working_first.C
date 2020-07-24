@@ -440,8 +440,8 @@ if (index == 1)
 			//c1->BuildLegend();
 	 		
    			//c1->BuildLegend();
-   			auto legend = new TLegend(0.1,0.7,0.48,0.9);
-   			legend->SetHeader("The Legend Title","C"); // option "C" allows to center the header
+   			auto legend = new TLegend(1.1,1.7,1.48,1.9);
+   			legend->SetHeader("Legend","C"); // option "C" allows to center the header
    			legend->AddEntry("gr_1","position 1","p");
 	 		legend->AddEntry("gr_2","position 2","p");
 	 		legend->AddEntry("gr_3","position 3","p");
