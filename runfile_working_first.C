@@ -420,13 +420,13 @@ if (index == 1)
 			
 			
 		}
-	    		auto gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetMarkerStyle(8);
-			auto gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetMarkerStyle(8);
-			auto gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetMarkerStyle(8);
-			auto gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetMarkerStyle(8);
-			auto gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetMarkerStyle(8);
-			auto gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);	gr_6->SetMarkerColor(6); gr_6->SetMarkerStyle(8);
-			auto gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);	gr_7->SetMarkerColor(7); gr_7->SetMarkerStyle(8);
+	    		auto gr_1 = new TGraphErrors(n,ANGLES,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1"");
+			auto gr_2 = new TGraphErrors(n,ANGLES,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetMarkerStyle(8); gr_1->SetName("Position 2"); gr_2->SetTitle("Position 2"");
+			auto gr_3 = new TGraphErrors(n,ANGLES,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetMarkerStyle(8); gr_1->SetName("Position 3"); gr_3->SetTitle("Position 3"");
+			auto gr_4 = new TGraphErrors(n,ANGLES,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetMarkerStyle(8); gr_1->SetName("Position 4"); gr_4->SetTitle("Position 4"");
+			auto gr_5 = new TGraphErrors(n,ANGLES,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetMarkerStyle(8); gr_1->SetName("Position 5"); gr_5->SetTitle("Position 5"");
+			auto gr_6 = new TGraphErrors(n,ANGLES,PMT_DATA[10],X_ERR,PMT_DATA[11]);	gr_6->SetMarkerColor(6); gr_6->SetMarkerStyle(8); gr_1->SetName("Position 6"); gr_6->SetTitle("Position 6"");
+			auto gr_7 = new TGraphErrors(n,ANGLES,PMT_DATA[12],X_ERR,PMT_DATA[13]);	gr_7->SetMarkerColor(7); gr_7->SetMarkerStyle(8); gr_1->SetName("Position 7"); gr_7->SetTitle("Position 7"");
 			mg->Add(gr_1);
 			mg->Add(gr_2);
 			mg->Add(gr_3);
@@ -437,7 +437,8 @@ if (index == 1)
 	 		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
 	 		mg->Draw("AP");
-	 		c1->Print("test.pdf)","pdf");
+			c->BuildLegend();
+			c1->Print("test.pdf)","pdf");
 	 
 	 
 	 
