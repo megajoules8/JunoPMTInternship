@@ -437,10 +437,10 @@ if (index == 1)
 	 		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
 	 		mg->Draw("AP");
-			//c1->BuildLegend();
+			c1->BuildLegend();
 	 		
-   			//c1->BuildLegend();
-   			auto legend = new TLegend(1.1,1.7,1.48,1.9);
+   			
+   			/*auto legend = new TLegend(1.1,1.7,1.48,1.9);
    			legend->SetHeader("Legend","C"); // option "C" allows to center the header
    			legend->AddEntry("gr_1","position 1","p");
 	 		legend->AddEntry("gr_2","position 2","p");
@@ -449,7 +449,7 @@ if (index == 1)
 	 		legend->AddEntry("gr_5","position 5","p");
 	 		legend->AddEntry("gr_6","position 6","p");
 	 		legend->AddEntry("gr_7","position 7","p");
-     			legend->Draw();
+     			legend->Draw();*/
 			c1->Print("test.pdf)","pdf");
 	 
 	 
