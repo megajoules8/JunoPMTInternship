@@ -289,7 +289,7 @@ if (index == 1)
 						Fit_Gauss->SetNpx(10000); 
 						histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
-						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
+						Q 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
 						Fit_Gauss->Draw("same");
@@ -297,9 +297,14 @@ if (index == 1)
 						c1->Update();
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 					
-						/*TString PdfName;
-						PdfName = TString("scan") + Form("%d", dat) + TString("_Results.pdf");*/
-						c1->Print("test.pdf(","pdf");
+						TString PdfName_start;
+						TString PdfName_mid;
+						TString PdfName_end;
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_Results.pdf(");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
+						
+						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
@@ -325,7 +330,7 @@ if (index == 1)
 						
 						c1->Update();
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
-						c1->Print("test.pdf","pdf");
+						c1->Print(PdfName_mid ,"pdf");
 						
 						/* ... */
 						
@@ -401,7 +406,7 @@ if (index == 1)
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
-						c1->Print("test.pdf","pdf");
+						c1->Print(PdfName_mid ,"pdf");
 					}	
 			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; counts[p-1] = count;}	}
 			if (p == 2) {	for(Int_t r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r]; counts[p-1] = count;}	}
@@ -443,7 +448,7 @@ if (index == 1)
 	 		legend->AddEntry("gr_6","position 6","p");
 	 		legend->AddEntry("gr_7","position 7","p");
      			legend->Draw();*/
-			c1->Print("test.pdf)","pdf");
+			c1->Print(PdfName_end ,"pdf");
 	 
 	 
 	 
