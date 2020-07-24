@@ -100,7 +100,7 @@ TH1F* hiss(TString Full_path, TString HV_Value, int index, int sc )
     if (index == 1)	{Bin_Size = 8;}
     if (index == 0)	{Bin_Size = 4;}
     if (sc == 3737)	{Bin_Size = 10;}
-    if (sc == 3899)	{Bin_Size = 8;}
+    if (sc == 3899)	{Bin_Size = 4;}
     if (sc == 248) 	{Bin_Size = 25;}
     if (sc == 4050)	{Bin_Size = 10;}
     if (sc == 4232)	{Bin_Size = 2;}
