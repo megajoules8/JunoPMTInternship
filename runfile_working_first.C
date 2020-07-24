@@ -418,7 +418,7 @@ if (index == 1)
 					}
 			
 			
-			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; g_sum_1 += PMT_DATA[2*p-2][r]}	counts[p-1] = count; g_pos_1 = g_sum_1/count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA_NORM[2*p-2][s]/g_pos_1;} }
+			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; g_sum_1 += PMT_DATA[2*p-2][r];}	counts[p-1] = count; g_pos_1 = g_sum_1/count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA_NORM[2*p-2][s]/g_pos_1;} }
 			if (p == 2) {	for(Int_t r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 3) {	for(Int_t r=0; r<=count; ++r) {ANGLES_3[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 4) {	for(Int_t r=0; r<=count; ++r) {ANGLES_4[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
