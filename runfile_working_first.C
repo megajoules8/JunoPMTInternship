@@ -396,7 +396,7 @@ if (index == 1)
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a; ++count;  PMT_DATA[2*p-2][a] = Gfit;	PMT_DATA[2*p-1][a] = gainerror;}
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;}
 						
 						//gaindata <<" "<< endl;
 						c1->Update();
