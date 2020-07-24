@@ -253,6 +253,10 @@ if (index == 1)
 	 	TMultiGraph  *mg2  = new TMultiGraph();
 	 	TString PdfName_end;
 	 	PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
+	 	TString PdfName_mid;
+		PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
+	 	Float_t g_pos_1;
+		Float_t g_sum_1;
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -301,10 +305,10 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 					
 						TString PdfName_start;
-						TString PdfName_mid;
+						
 						
 						PdfName_start = TString("scan") + Form("%d", dat) + TString("_Results.pdf(");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
+						
 						
 						
 						c1->Print(PdfName_start,"pdf");
@@ -411,8 +415,7 @@ if (index == 1)
 						c1->WaitPrimitive();
 						c1->Print(PdfName_mid ,"pdf");
 					}
-			Float_t g_pos_1;
-			Float_t g_sum_1;
+			
 			
 			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; g_sum += PMT_DATA[2*p-2][r]}	counts[p-1] = count; g_pos_1 = g_sum/count;}
 			if (p == 2) {	for(Int_t r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r]; }	counts[p-1] = count;}
