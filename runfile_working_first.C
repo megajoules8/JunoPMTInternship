@@ -331,7 +331,7 @@ if (index == 1)
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
-						c1->Print(test.pdf","pdf");
+						c1->Print("test.pdf","pdf");
 						
 						/* ... */
 						
