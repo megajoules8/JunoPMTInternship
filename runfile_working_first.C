@@ -440,13 +440,13 @@ if (index == 1)
 			//c1->BuildLegend();
 	 		auto legend = new TLegend(0.1,0.7,0.48,0.9);
    			legend->SetHeader("Positions","C"); // option "C" allows to center the header
-   			legend->AddEntry("gr_1","position 1","ep");
-	 		legend->AddEntry("gr_2","position 2","ep");
-	 		legend->AddEntry("gr_3","position 3","ep");
-	 		legend->AddEntry("gr_4","position 4","ep");
-	 		legend->AddEntry("gr_5","position 5","ep");
-	 		legend->AddEntry("gr_6","position 6","ep");
-	 		legend->AddEntry("gr_7","position 7","ep");
+   			legend->AddEntry("gr_1","position 1","lep");
+	 		legend->AddEntry("gr_2","position 2","lep");
+	 		legend->AddEntry("gr_3","position 3","lep");
+	 		legend->AddEntry("gr_4","position 4","lep");
+	 		legend->AddEntry("gr_5","position 5","lep");
+	 		legend->AddEntry("gr_6","position 6","lep");
+	 		legend->AddEntry("gr_7","position 7","lep");
    			legend->Draw();
 			c1->Print("test.pdf)","pdf");
 	 
