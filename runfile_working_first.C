@@ -438,9 +438,9 @@ if (index == 1)
 			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
 	 		mg->Draw("AP");
 			//c1->BuildLegend();
-	 		auto legend = new TLegend(1.1,1.7,1.48,1.9);
+	 		
    			c1->BuildLegend();
-   			legend->Draw();
+   			
 			c1->Print("test.pdf)","pdf");
 	 
 	 
