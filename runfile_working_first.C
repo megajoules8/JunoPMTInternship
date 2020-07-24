@@ -437,7 +437,7 @@ if (index == 1)
 	 		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
 	 		mg->Draw("AP");
-			c->BuildLegend();
+			c1->BuildLegend();
 			c1->Print("test.pdf)","pdf");
 	 
 	 
