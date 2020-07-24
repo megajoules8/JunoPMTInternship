@@ -250,6 +250,7 @@ if (index == 1)
 	 	Float_t PMT_DATA[14][24];
 	 
 	 	TMultiGraph  *mg  = new TMultiGraph();
+	 	PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -302,7 +303,7 @@ if (index == 1)
 						TString PdfName_end;
 						PdfName_start = TString("scan") + Form("%d", dat) + TString("_Results.pdf(");
 						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
+						
 						
 						c1->Print(PdfName_start,"pdf");
 						
@@ -448,7 +449,7 @@ if (index == 1)
 	 		legend->AddEntry("gr_6","position 6","p");
 	 		legend->AddEntry("gr_7","position 7","p");
      			legend->Draw();*/
-			c1->Print(PdfName_end ,"pdf");
+			c1->Print( PdfName_end ,"pdf");
 	 
 	 
 	 
