@@ -293,7 +293,7 @@ if (index == 1)
 						TF1  *Fit_Gauss = new TF1("Fit_Gauss","gaus", (Q - 5*sigma), (Q + 3*sigma));
 						Fit_Gauss->SetParameters(amp*histo_PED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetNpx(10000); 
-						histo_PED->Draw("PE");
+						//histo_PED->Draw("PE");
 						histo_PED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Q 		= histo_PED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from fit
 						sigma 	= histo_PED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from fit
@@ -302,14 +302,17 @@ if (index == 1)
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						TString PdfName;
+						PdfName = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
+						c1->Print(PdfName(","pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
 						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 							
-						histo_LED->Draw();
+						//histo_LED->Draw();
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
-						Fit_Gauss -> Draw("same");
+						//Fit_Gauss -> Draw("same");
 							
 						Q 		= Fit_Gauss->GetParameter(1); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(1); //get Q from new fit
 						sigma 	= Fit_Gauss->GetParameter(2); //histo_LED->GetFunction("Fit_Gauss")->GetParameter(2); //get sigma from new fit
@@ -327,6 +330,7 @@ if (index == 1)
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						c1->Print(PdfName","pdf");
 						
 						/* ... */
 						
@@ -339,7 +343,7 @@ if (index == 1)
 						histo_LED->SetLineColor( kBlack );
 						histo_LED->SetMarkerColor( kBlack );
 						histo_LED->SetStats(0);
-						histo_LED->Draw( "" );
+						//histo_LED->Draw( "" );
 						
 						
 						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
@@ -378,7 +382,7 @@ if (index == 1)
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
 						TGraph *grBF = dft.GetGraph();
-						grBF->Draw( "SAME,L" );
+						//grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 						
@@ -409,6 +413,7 @@ if (index == 1)
 						//gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
+						c1->Print(PdfName","pdf");
 					}	
 			
 			
@@ -428,7 +433,7 @@ if (index == 1)
 			mg->Add(gr_6);
 			mg->Add(gr_7);
 	 		mg->Draw("P");
-	 
+	 		c1->Print(PdfName)","pdf");
 	 
 	 
 	 
