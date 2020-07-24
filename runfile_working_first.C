@@ -300,8 +300,8 @@ if (index == 1)
 						cout <<"Q = "<< Q <<" sigma = "<< sigma<< endl;
 						Fit_Gauss->Draw("same");
 						
-						//c1->Update();
-						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						c1->Update();
+						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 					
 						/*TString PdfName;
 						PdfName = TString("scan") + Form("%d", dat) + TString("_Results.pdf");*/
@@ -329,8 +329,8 @@ if (index == 1)
 						cout <<"Mu = " << MU << endl;
 						
 						
-						//c1->Update();
-						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
+						c1->Update();
+						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						c1->Print("test.pdf","pdf");
 						
 						/* ... */
@@ -412,8 +412,8 @@ if (index == 1)
 						PMT_DATA[2*p-1][a] = gainerror;
 						cout << PMT_DATA[2*p-2][a] << "    " << PMT_DATA[2*p-1][a] << endl;
 						//gaindata <<" "<< endl;
-						//c1->Update();
-						//c1->WaitPrimitive();
+						c1->Update();
+						c1->WaitPrimitive();
 						c1->Print("test.pdf","pdf");
 					}	
 			
