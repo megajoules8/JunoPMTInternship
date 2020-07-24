@@ -383,6 +383,7 @@ if (index == 1)
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
 						TGraph *grBF = dft.GetGraph();
+						grBF->SetStats(0);
 						grBF->Draw( "SAME,L" );
 						
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
@@ -433,6 +434,8 @@ if (index == 1)
 			mg->Add(gr_5);
 			mg->Add(gr_6);
 			mg->Add(gr_7);
+	 		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
+			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
 	 		mg->Draw("AP");
 	 		c1->Print("test.pdf)","pdf");
 	 
