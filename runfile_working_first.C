@@ -253,7 +253,7 @@ if (index == 1)
 	 	Float_t POSITION_7[n];
 	 	Float_t POSITION_7_ERR[n];*/
 	 
-	 	Float_t PMT_DATA[14][24];
+	 	Float_t PMT_DATA[][];
 	 
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	for (int p = 1; p<8; ++p)
