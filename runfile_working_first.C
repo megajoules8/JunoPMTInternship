@@ -302,9 +302,10 @@ if (index == 1)
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
-						TString PdfName;
-						PdfName = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
-						c1->Print(PdfName(","pdf");
+					
+						/*TString PdfName;
+						PdfName = TString("scan") + Form("%d", dat) + TString("_Results.pdf");*/
+						c1->Print("test.pdf(","pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
 						Fit_Gauss->SetParLimits(1, Q-2.0*sigma, Q+2.0*sigma); //[1] is for Q, predefined by "gaus"	
@@ -330,7 +331,7 @@ if (index == 1)
 						
 						//c1->Update();
 						//c1->WaitPrimitive(); //ROOT waits until you hit ENTER
-						c1->Print(PdfName","pdf");
+						c1->Print(test.pdf","pdf");
 						
 						/* ... */
 						
@@ -413,7 +414,7 @@ if (index == 1)
 						//gaindata <<" "<< endl;
 						//c1->Update();
 						//c1->WaitPrimitive();
-						c1->Print(PdfName","pdf");
+						c1->Print("test.pdf","pdf");
 					}	
 			
 			
@@ -433,7 +434,7 @@ if (index == 1)
 			mg->Add(gr_6);
 			mg->Add(gr_7);
 	 		mg->Draw("P");
-	 		c1->Print(PdfName)","pdf");
+	 		c1->Print("test.pdf)","pdf");
 	 
 	 
 	 
