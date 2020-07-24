@@ -439,8 +439,17 @@ if (index == 1)
 	 		mg->Draw("AP");
 			//c1->BuildLegend();
 	 		
-   			c1->BuildLegend();
-   			
+   			//c1->BuildLegend();
+   			auto legend = new TLegend(0.1,0.7,0.48,0.9);
+   			legend->SetHeader("The Legend Title","C"); // option "C" allows to center the header
+   			legend->AddEntry("gr_1","position 1","p");
+	 		legend->AddEntry("gr_2","position 2","p");
+	 		legend->AddEntry("gr_3","position 3","p");
+	 		legend->AddEntry("gr_4","position 4","p");
+	 		legend->AddEntry("gr_5","position 5","p");
+	 		legend->AddEntry("gr_6","position 6","p");
+	 		legend->AddEntry("gr_7","position 7","p");
+     			legend->Draw();
 			c1->Print("test.pdf)","pdf");
 	 
 	 
