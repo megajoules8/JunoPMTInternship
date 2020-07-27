@@ -90,7 +90,7 @@ if (index == 1)
 	{	
 			ofstream labdata ("lab_data.txt");
 				labdata <<"Fit data for voltages"<< endl;
-	 			labdata <<"Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+	 			labdata <<"Mu	Mu_err	w	w_err	alpha 	alpha_err	lambda	lambda_err	Theta	Theta_err	sig_reduced	sig_reduced_err	Gain	Gain_err	Chi2r	Fit converged?"<< endl;
 	 			labdata <<" "<< endl;
 			for (i=0; i<5; ++i)
 				{	
@@ -392,7 +392,7 @@ if (index == 1)
 						TGraph *grBF = dft.GetGraph();
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
-						
+						TString STATUS;
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 						
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
@@ -407,9 +407,12 @@ if (index == 1)
 						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
 						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
-						gaindata << a*15 <<" "<<fit.vals[3]<<" "<<fit.errs[3]<<" "<<fit.vals[7]<<" "<<fit.errs[7]<<" "<<fit.vals[6]<<" "<<fit.errs[6]<<" "<<fit.vals[4]<<" "<<fit.errs[4]<<" "<<fit.vals[5]<<" "<<fit.errs[5]<<" "<< sig_reduced<<" "<<sig_reduced_err<<" "<<Gfit <<" "<< gainerror<< endl;
+						
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						else {STATUS = "No";}
+						gaindata << a*15 <<"	"<<fit.vals[3]<<"	"<<fit.errs[3]<<"	"<<fit.vals[7]<<"	"<<fit.errs[7]<<"	"<<fit.vals[6]<<"	"<<fit.errs[6]<<"	"<<fit.vals[4]<<"	"<<fit.errs[4]<<"	"<<fit.vals[5]<<"	"<<fit.errs[5]<<"	"<< sig_reduced<<"	"<<sig_reduced_err<<"	"\
+						<<Gfit <<"	"<< gainerror<<"	"<< fit.chi2r<<"	"<<STATUS<<endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;}
 						
 						//gaindata <<" "<< endl;
 						c1->Update();
