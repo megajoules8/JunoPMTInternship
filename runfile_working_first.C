@@ -246,6 +246,7 @@ if (index == 1)
 	 Float_t ANGLES_6[n];
 	 Float_t ANGLES_7[n];
 	 Int_t counts[7];
+	 Int_t REM = 0;
 	 
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
@@ -409,7 +410,7 @@ if (index == 1)
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
-						else {STATUS = "No";}
+						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<STATUS<<endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
@@ -447,7 +448,7 @@ if (index == 1)
 			mg->Add(gr_6);
 			mg->Add(gr_7);
 	 		TString gtitle;
-	 		gtitle = TString("Graph of Gain (No. of PEs) vs. Azimuthal angle for scan") + Form("%d",dat);
+	 		gtitle = TString("Graph of Gain (No. of PEs) vs. Azimuthal angle for scan") + Form("%d",dat) + TString(", ") + Form("%d", REM) + TString(" points removed");
 	 		mg->SetTitle (gtitle);
 	  		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
