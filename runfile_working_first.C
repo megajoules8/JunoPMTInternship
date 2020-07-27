@@ -471,7 +471,7 @@ if (index == 1)
 			mg2->Add(gr2_6);
 			mg2->Add(gr2_7);
 	 		TString gtitlenorm;
-	 		gtitlenorm = TString("Graph of Normallized Gain vs. Azimuthal angle for scan") + Form("%d",dat);
+	 		gtitlenorm = TString("Graph of Normallized Gain vs. Azimuthal angle for scan") + Form("%d",dat) + TString(", ") + Form("%d", REM) + TString(" points removed");;
 	 		mg2->SetTitle (gtitlenorm);
 	 		mg2->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg2->GetYaxis()->SetTitle("Normalized Gain"); //set Yaxis title
