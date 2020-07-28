@@ -414,7 +414,7 @@ if (index == 1)
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<STATUS<<endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
-						
+						cout << " Bin Width : " << histo_LED->GetBinWidth() << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
