@@ -77,8 +77,8 @@ int main(int argc, char ** argv)
 					{
 						t_min = 400;
 						t_max = 470;
-						h_max = 1000;
-						h_min = -6000;
+						h_max = 1500;
+						h_min = -6500;
 					
 					}
 				else if (dat == 3899)
