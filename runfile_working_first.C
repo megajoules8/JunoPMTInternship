@@ -307,7 +307,7 @@ if (index == 1)
 						c1->Update();
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
-						BW = histo_LED->GetBinWidth(2);
+						BW = ceil(histo_LED->GetBinWidth(2));
 						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%f", BW)+ TString("_Results.pdf)");
 						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%f", BW)+ TString("_Results.pdf");
 						TString PdfName_start;
