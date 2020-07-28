@@ -238,6 +238,7 @@ if (index == 1)
 	 	Int_t n = 24;
 		Float_t X_ERR[n];
 	 	Float_t ANGLES[n];
+	 	Float_t BW;
 	 Float_t ANGLES_1[n];
 	 Float_t ANGLES_2[n];
 	 Float_t ANGLES_3[n];
@@ -254,9 +255,9 @@ if (index == 1)
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
 	 	TString PdfName_end;
-	 	PdfName_end = TString("scan") + Form("%d", dat) + TString("_Results.pdf)");
+	 	PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
 	 	TString PdfName_mid;
-		PdfName_mid = TString("scan") + Form("%d", dat) + TString("_Results.pdf");
+		PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf");
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
 	 	for (int p = 1; p<8; ++p)
@@ -305,14 +306,12 @@ if (index == 1)
 						
 						c1->Update();
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
-					
+						
+						BW = histo_LED->GetBinWidth(2);
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf");
 						TString PdfName_start;
-						
-						
 						PdfName_start = TString("scan") + Form("%d", dat) + TString("_Results.pdf(");
-						
-						
-						
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
@@ -414,7 +413,8 @@ if (index == 1)
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<STATUS<<endl;
 						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
-						cout << " Bin Width : " << histo_LED->GetBinWidth(2) << endl;
+						BW = histo_LED->GetBinWidth(2);
+						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
 						c1->Update();
 						c1->WaitPrimitive();
