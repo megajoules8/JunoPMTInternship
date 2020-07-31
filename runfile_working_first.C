@@ -358,7 +358,7 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, 2.0, 1.0/(0.5*_G), 0.35 };
+						Double_t p_test[4] = { 1.05/_G, 2.0, 1.0/(0.5*_G), 0.35 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
