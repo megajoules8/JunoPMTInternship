@@ -372,7 +372,7 @@ if (index == 1)
 						cout << " RMS : " << rms <<" +/- "<< rmse << endl;
 						
 						
-						DFTmethod dft( 2.0*nbins, xmin, xmax, gamma_test );
+						DFTmethod dft( 4.0*nbins, xmin, xmax, gamma_test );
 						dft.wbin = histo_LED->GetBinWidth(1);
 						dft.Norm = histo_LED->Integral();
 						dft.Q0 = Q;
