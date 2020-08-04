@@ -412,7 +412,7 @@ if (index == 1)
 						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<STATUS<<endl;
-						cout << " Gain (no. of PEs) : " << Gfit <<" +/- "<< gainerror << endl;
+						cout << " Gain (DUQ) : " << Gfit <<" +/- "<< gainerror << endl;
 						BW = histo_LED->GetBinWidth(2);
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
@@ -451,8 +451,9 @@ if (index == 1)
 	 		gtitle = TString("Graph of Gain (No. of PEs) vs. Azimuthal angle for scan") + Form("%d",dat) + TString(", ") + Form("%d", REM) + TString(" points removed");
 	 		mg->SetTitle (gtitle);
 	  		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
-			mg->GetYaxis()->SetTitle("Gain (No. of PEs))"); //set Yaxis title
-	 		mg->Draw("AP");
+			mg->GetYaxis()->SetTitle("Gain (DUQ))"); //set Yaxis title
+	 		mg->GetYaxis()->SetRangeUser(0,2000);
+	 		mg->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_mid ,"pdf");
 	 		
@@ -475,7 +476,8 @@ if (index == 1)
 	 		mg2->SetTitle (gtitlenorm);
 	 		mg2->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg2->GetYaxis()->SetTitle("Normalized Gain"); //set Yaxis title
-	 		mg2->Draw("AP");
+	 		mg2->GetYaxis()->SetRangeUser(0,2000);
+	 		mg2->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_end ,"pdf");
 	 
