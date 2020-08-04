@@ -75,11 +75,11 @@ int main(int argc, char ** argv)
 				float h_min;
 				if (dat == 3737)
 					{
-						nbins = 57;
+						nbins = 120;
 						t_min = 400;
 						t_max = 470;
-						h_max = 1500;
-						h_min = -6500;
+						h_max = 1000;
+						h_min = -11000;
 					
 					}
 				else if (dat == 3899)
