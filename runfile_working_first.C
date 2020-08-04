@@ -476,7 +476,7 @@ if (index == 1)
 	 		mg2->SetTitle (gtitlenorm);
 	 		mg2->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg2->GetYaxis()->SetTitle("Normalized Gain"); //set Yaxis title
-	 		mg2->GetYaxis()->SetRangeUser(0,2000);
+	 		mg2->GetYaxis()->SetRangeUser(0,2);
 	 		mg2->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_end ,"pdf");
