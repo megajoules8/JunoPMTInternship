@@ -234,7 +234,7 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
-	 	cout <<"Input alpha factor:"<<endl;
+	 	cout <<"Input theta :"<<endl;
 	 	cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
@@ -311,10 +311,10 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						BW = ceil(histo_LED->GetBinWidth(2));
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_alpha_") + Form ("%.2f", theta) + TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_alpha_") + Form ("%.2f", theta) + TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf");
 						TString PdfName_start;
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_alpha_") + Form ("%.2f", theta) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
@@ -361,7 +361,7 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, 10.0, theta/(0.1*_G), 0.2 };
+						Double_t p_test[4] = { 1.0/_G, theta, 1/(0.1*_G), 0.2 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
@@ -411,8 +411,8 @@ if (index == 1)
 						Float_t pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
 						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
 						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
-						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
-						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
+						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						
 						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
