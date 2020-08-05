@@ -251,7 +251,9 @@ if (index == 1)
 	 
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
-	 
+	 	Int_t theta[8] = {2,4,6,8,10,12,14,16};
+	 	Float_t w[8] = {0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
+	 	Float_t alphalambda[9] = {0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4 }; 
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
 	 	TString PdfName_end;
@@ -260,6 +262,8 @@ if (index == 1)
 		//PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf");
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
+	 for (int b =0; b<8; ++b)
+	 {	 
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -308,10 +312,10 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						BW = ceil(histo_LED->GetBinWidth(2));
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%f", BW)+ TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%f", BW)+ TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf");
 						TString PdfName_start;
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%f", BW)+ TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
@@ -358,7 +362,7 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, 10.0, 1.0/(0.1*_G), 0.2 };
+						Double_t p_test[4] = { 1.0/_G, theta[b], 1.0/(0.1*_G), 0.2 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
@@ -408,9 +412,9 @@ if (index == 1)
 						Float_T pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
 						Float_T pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
 						Float_T pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
-						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
-						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
-						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
+						
 						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
@@ -484,7 +488,7 @@ if (index == 1)
 	 		mg2->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_end ,"pdf");
-	 
+	 }
 	 
 	 }	
  else
