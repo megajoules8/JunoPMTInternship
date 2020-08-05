@@ -78,6 +78,7 @@ double sig_reduced_err;
 double xbar;
 double xbarErr;
 int dat;
+Float_t theta;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
 cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
 cin>>index;
@@ -233,6 +234,8 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
+	 	cout <<"Input theta value:"<<endl;
+	 	cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
 	 	Int_t n = 24;
@@ -251,9 +254,6 @@ if (index == 1)
 	 
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
-	 	Float_t theta[8] = {2,4,6,8,10,12,14,16};
-	 	Float_t w[8] = {0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
-	 	Float_t alphalambda[9] = {0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4 }; 
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
 	 	TString PdfName_end;
@@ -262,8 +262,7 @@ if (index == 1)
 		//PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf");
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
-	 for (int b =0; b<8; ++b)
-	 {	 
+	 
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -312,8 +311,8 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						BW = ceil(histo_LED->GetBinWidth(2));
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta) + TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta) + TString("_Results.pdf");
 						TString PdfName_start;
 						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
@@ -362,7 +361,7 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, theta[b], 1.0/(0.1*_G), 0.2 };
+						Double_t p_test[4] = { 1.0/_G, theta, 1.0/(0.1*_G), 0.2 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
@@ -464,7 +463,7 @@ if (index == 1)
 	 		mg->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_mid ,"pdf");
-		 	mg->Clear();
+		 	
 	 		
 	 		auto gr2_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA_NORM[0],X_ERR,PMT_DATA_NORM[1]);	gr2_1->SetMarkerColor(1); gr2_1->SetLineColor(1); gr2_1->SetMarkerStyle(8); gr2_1->SetName("Position 1"); gr2_1->SetTitle("Position 1");
 			auto gr2_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA_NORM[2],X_ERR,PMT_DATA_NORM[3]);	gr2_2->SetMarkerColor(2); gr2_2->SetLineColor(2);  gr2_2->SetMarkerStyle(8); gr2_2->SetName("Position 2"); gr2_2->SetTitle("Position 2");
@@ -489,8 +488,8 @@ if (index == 1)
 	 		mg2->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_end ,"pdf");
-		 	mg2->Clear();
-	 }
+		 	
+	 
 	 
 	 }	
  else
