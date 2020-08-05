@@ -405,8 +405,11 @@ if (index == 1)
 						// gainerror = Gfit*
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
+						Float_T pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
+						Float_T pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
+						Float_T pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 ))   +   sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
-						gainerror = Gfit* sqrt((pow(fit.errs[4],2)/fit.vals[4])+(pow(fit.errs[6],2)/fit.vals[6])+(pow(fit.errs[7],2)/fit.vals[7]));
+						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						//gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
 						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
