@@ -464,7 +464,7 @@ if (index == 1)
 	 		mg->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_mid ,"pdf");
-		 	mg->Delete;
+		 	mg->Delete();
 	 		
 	 		auto gr2_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA_NORM[0],X_ERR,PMT_DATA_NORM[1]);	gr2_1->SetMarkerColor(1); gr2_1->SetLineColor(1); gr2_1->SetMarkerStyle(8); gr2_1->SetName("Position 1"); gr2_1->SetTitle("Position 1");
 			auto gr2_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA_NORM[2],X_ERR,PMT_DATA_NORM[3]);	gr2_2->SetMarkerColor(2); gr2_2->SetLineColor(2);  gr2_2->SetMarkerStyle(8); gr2_2->SetName("Position 2"); gr2_2->SetTitle("Position 2");
@@ -489,7 +489,7 @@ if (index == 1)
 	 		mg2->Draw("APL");
 			c1->BuildLegend();
 			c1->Print( PdfName_end ,"pdf");
-		 	mg2->Delete;
+		 	mg2->Delete();
 	 }
 	 
 	 }	
