@@ -409,9 +409,9 @@ if (index == 1)
 						// gainerror = Gfit*
 						sig_reduced = 1/sqrt(1 + fit.vals[5]);
 						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
-						Float_T pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
-						Float_T pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
-						Float_T pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
+						Float_t pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
+						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
+						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
 						gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						
