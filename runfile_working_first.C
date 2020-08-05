@@ -251,7 +251,7 @@ if (index == 1)
 	 
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
-	 	Int_t theta[8] = {2,4,6,8,10,12,14,16};
+	 	Float_t theta[8] = {2,4,6,8,10,12,14,16};
 	 	Float_t w[8] = {0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5};
 	 	Float_t alphalambda[9] = {0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4 }; 
 	 	TMultiGraph  *mg  = new TMultiGraph();
@@ -312,10 +312,10 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						BW = ceil(histo_LED->GetBinWidth(2));
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf");
 						TString PdfName_start;
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%d", theta[b]) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
