@@ -314,7 +314,7 @@ if (index == 1)
 						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta) + TString("_Results.pdf)");
 						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta) + TString("_Results.pdf");
 						TString PdfName_start;
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta[b]) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.0f", theta) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
