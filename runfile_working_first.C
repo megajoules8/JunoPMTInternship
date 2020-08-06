@@ -234,8 +234,8 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
-	 	cout <<"Input theta :"<<endl;
-	 	cin >> theta;
+	 	//cout <<"Input theta :"<<endl;
+	 	//cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
 	 	Int_t n = 24;
@@ -256,6 +256,18 @@ if (index == 1)
 	 	Float_t PMT_DATA_NORM[14][24];
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
+	 
+	 	Float_t max_w =0;
+	 	Float_t max_alpha=0;
+	 	Float_t max_lambda=0;
+	 	Float_t max_theta=0;
+	 	Float_t max_mu=0;
+	 	Float_t min_w =100;
+	 	Float_t min_alpha=100;
+	 	Float_t min_lambda=100;
+	 	Float_t min_theta=100;
+	 	Float_t min_mu=100;
+	 		 
 	 	TString PdfName_end;
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
 	 	TString PdfName_mid;
@@ -263,6 +275,26 @@ if (index == 1)
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
 	 
+	 	TH1F *rel_err_w 	= new TH1F("dw", "Relative error of w", 200 , 0, 100);
+	 	rel_err_w->GetXaxis()->SetTitle("Relative error of w");
+		rel_err_w->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *rel_err_alpha 	= new TH1F("dalpha", "Relative error of alpha", 200 , 0, 100);
+	 	rel_err_alpha->GetXaxis()->SetTitle("Relative error of alpha");
+		rel_err_alpha->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 200 , 0, 100);
+	 	rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
+		rel_err_lambda->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 200 , 0, 100);
+	 	rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
+		rel_err_theta->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 200 , 0, 100);
+	 	rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
+		rel_err_mu->GetYaxis()->SetTitle("Counts");
+	 	
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
@@ -311,10 +343,13 @@ if (index == 1)
 						c1->WaitPrimitive(); //ROOT waits until you hit ENTER
 						
 						BW = ceil(histo_LED->GetBinWidth(2));
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf");
+						//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf)");
+						//PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf");
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf");
 						TString PdfName_start;
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf(");
+						//PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf(");
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
@@ -361,7 +396,7 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, theta, 1/(0.1*_G), 0.2 };
+						Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						
 						Int_t nbins = histo_LED->GetNbinsX();
@@ -423,11 +458,15 @@ if (index == 1)
 						BW = histo_LED->GetBinWidth(2);
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
-						c1->Update();
-						c1->WaitPrimitive();
-						c1->Print(PdfName_mid ,"pdf");
+						
+						rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
+						rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
+						rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
+						rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}
+						rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
+					
+						
 					}
-			
 			
 			if (p == 1) {	for(Int_t r=0; r<=count; ++r) {ANGLES_1[r] = ANGLES[r]; g_sum_1 += PMT_DATA[2*p-2][r];}	counts[p-1] = count; g_pos_1 = g_sum_1/count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;} }
 			if (p == 2) {	for(Int_t r=0; r<=count; ++r) {ANGLES_2[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
@@ -440,7 +479,19 @@ if (index == 1)
 			
 			
 		}
-	    		auto gr_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetLineColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
+	    		
+	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->SetMaximum(max_w); SetMinimum(min_w); rel_err_w->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->SetMaximum(max_alpha); SetMinimum(min_alpha); rel_err_alpha->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			rel_err_lambda->SetMarkerStyle( 20 ); rel_err_lambda->SetMarkerSize( 0.4 ); rel_err_lambda->SetLineColor( kBlack ); rel_err_lambda->SetMarkerColor( kBlack ); rel_err_lambda->SetStats(0); rel_err_lambda->SetMaximum(max_lambda); SetMinimum(min_lambda); rel_err_lambda->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->SetMaximum(max_theta); SetMinimum(min_theta); rel_err_theta->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			rel_err_mu->SetMarkerStyle( 20 ); rel_err_mu->SetMarkerSize( 0.4 ); rel_err_mu->SetLineColor( kBlack ); rel_err_mu->SetMarkerColor( kBlack ); rel_err_mu->SetStats(0); rel_err_mu->SetMaximum(max_mu); SetMinimum(min_mu); rel_err_mu->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+	 
+	 		auto gr_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetLineColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
 			auto gr_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetLineColor(2); gr_2->SetMarkerStyle(8); gr_2->SetName("Position 2"); gr_2->SetTitle("Position 2");
 			auto gr_3 = new TGraphErrors(counts[2],ANGLES_3,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetLineColor(3); gr_3->SetMarkerStyle(8); gr_3->SetName("Position 3"); gr_3->SetTitle("Position 3");
 			auto gr_4 = new TGraphErrors(counts[3],ANGLES_4,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetLineColor(4); gr_4->SetMarkerStyle(8); gr_4->SetName("Position 4"); gr_4->SetTitle("Position 4");
