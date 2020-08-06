@@ -267,6 +267,8 @@ if (index == 1)
 	 	Float_t min_lambda=100;
 	 	Float_t min_theta=100;
 	 	Float_t min_mu=100;
+	 	Float_t max_g =0;
+	 	Float_t	min_g =100;
 	 		 
 	 	TString PdfName_end;
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
@@ -294,6 +296,10 @@ if (index == 1)
 	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 2000 , 0, 100);
 	 	rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
 		rel_err_mu->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *rel_err_g 	= new TH1F("dg", "Relative error of G", 2000 , 0, 100);
+	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
+		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 	
 	 	for (int p = 1; p<8; ++p)
 	 	{	
@@ -466,6 +472,7 @@ if (index == 1)
 							rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
 							rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}
 							rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
+						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
 						
 					}
@@ -491,6 +498,8 @@ if (index == 1)
 			rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->GetXaxis()->SetRangeUser(min_theta,max_theta); rel_err_theta->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 			rel_err_mu->SetMarkerStyle( 20 ); rel_err_mu->SetMarkerSize( 0.4 ); rel_err_mu->SetLineColor( kBlack ); rel_err_mu->SetMarkerColor( kBlack ); rel_err_mu->SetStats(0); rel_err_mu->GetXaxis()->SetRangeUser(min_mu,max_mu); rel_err_mu->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+	 		rel_err_g->SetMarkerStyle( 20 ); rel_err_g->SetMarkerSize( 0.4 ); rel_err_g->SetLineColor( kBlack ); rel_err_g->SetMarkerColor( kBlack ); rel_err_g->SetStats(0); rel_err_g->GetXaxis()->SetRangeUser(min_g,max_g); rel_err_g->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 
 	 		auto gr_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetLineColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
@@ -543,11 +552,8 @@ if (index == 1)
 			c1->BuildLegend();
 	 		c1->Update(); c1->WaitPrimitive();
 			c1->Print( PdfName_end ,"pdf");
-	 		cout <<"Mean relative error of w : "<<rel_err_w->GetMean()<<endl;
-	 		cout <<"Mean relative error of alpha : "<<rel_err_alpha->GetMean()<<endl;
-	 		cout <<"Mean relative error of lambda : "<<rel_err_lambda->GetMean()<<endl;
-	 		cout <<"Mean relative error of theta : "<<rel_err_theta->GetMean()<<endl;
-	 		cout <<"Mean relative error of mu : "<<rel_err_mu->GetMean()<<endl;
+	 		cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
+	 		cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
 	 
 		 	
 	 
