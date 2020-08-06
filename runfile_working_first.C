@@ -459,13 +459,14 @@ if (index == 1)
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-						
-						rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
-						rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
-						rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
-						rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}
-						rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
-					
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0))
+							
+						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
+							rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
+							rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
+							rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}
+							rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
+						}
 						
 					}
 			
@@ -481,15 +482,15 @@ if (index == 1)
 			
 		}
 	    		
-	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->SetMaximum(max_w); rel_err_w->SetMinimum(min_w); rel_err_w->Draw( "" );
+	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->SetRangeUser(min_w,max_w); rel_err_w->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->SetMaximum(max_alpha); rel_err_alpha->SetMinimum(min_alpha); rel_err_alpha->Draw( "" );
+			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->SetRangeUser(min_alpha,max_alpha); rel_err_alpha->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_lambda->SetMarkerStyle( 20 ); rel_err_lambda->SetMarkerSize( 0.4 ); rel_err_lambda->SetLineColor( kBlack ); rel_err_lambda->SetMarkerColor( kBlack ); rel_err_lambda->SetStats(0); rel_err_lambda->SetMaximum(max_lambda); rel_err_lambda->SetMinimum(min_lambda); rel_err_lambda->Draw( "" );
+			rel_err_lambda->SetMarkerStyle( 20 ); rel_err_lambda->SetMarkerSize( 0.4 ); rel_err_lambda->SetLineColor( kBlack ); rel_err_lambda->SetMarkerColor( kBlack ); rel_err_lambda->SetStats(0); rel_err_lambda->SetRangeUser(min_lambda,max_lambda); rel_err_lambda->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->SetMaximum(max_theta); rel_err_theta->SetMinimum(min_theta); rel_err_theta->Draw( "" );
+			rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->SetRangeUser(min_theta,max_theta); rel_err_theta->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_mu->SetMarkerStyle( 20 ); rel_err_mu->SetMarkerSize( 0.4 ); rel_err_mu->SetLineColor( kBlack ); rel_err_mu->SetMarkerColor( kBlack ); rel_err_mu->SetStats(0); rel_err_mu->SetMaximum(max_mu); rel_err_mu->SetMinimum(min_mu); rel_err_mu->Draw( "" );
+			rel_err_mu->SetMarkerStyle( 20 ); rel_err_mu->SetMarkerSize( 0.4 ); rel_err_mu->SetLineColor( kBlack ); rel_err_mu->SetMarkerColor( kBlack ); rel_err_mu->SetStats(0); rel_err_mu->SetRangeUser(min_mu,max_mu); rel_err_mu->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 
 	 		auto gr_1 = new TGraphErrors(counts[0],ANGLES_1,PMT_DATA[0],X_ERR,PMT_DATA[1]);	gr_1->SetMarkerColor(1); gr_1->SetLineColor(1); gr_1->SetMarkerStyle(8); gr_1->SetName("Position 1"); gr_1->SetTitle("Position 1");
