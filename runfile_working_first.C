@@ -515,6 +515,7 @@ if (index == 1)
 	 		mg->GetYaxis()->SetRangeUser(0,2000);
 	 		mg->Draw("APL");
 			c1->BuildLegend();
+	 		c1->Update(); c1->WaitPrimitive();
 			c1->Print( PdfName_mid ,"pdf");
 		 	
 	 		
@@ -540,6 +541,7 @@ if (index == 1)
 	 		mg2->GetYaxis()->SetRangeUser(0,2);
 	 		mg2->Draw("APL");
 			c1->BuildLegend();
+	 		c1->Update(); c1->WaitPrimitive();
 			c1->Print( PdfName_end ,"pdf");
 	 		cout <<"Mean relative error of w : "<<rel_err_w->GetMean()<<endl;
 	 		cout <<"Mean relative error of alpha : "<<rel_err_alpha->GetMean()<<endl;
