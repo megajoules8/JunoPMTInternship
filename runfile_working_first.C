@@ -275,25 +275,25 @@ if (index == 1)
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
 	 
-	 	TH1F *rel_err_w 	= new TH1F("dw", "Relative error of w", 200 , 0, 100);
-	 	rel_err_w->GetXaxis()->SetTitle("Relative error of w");
-		rel_err_w->GetYaxis()->SetTitle("Counts");
+	 	TH1F *rel_err_w 	= new TH1F("dw", "Relative error of w", 2000 , 0, 100);
+	 	//rel_err_w->GetXaxis()->SetTitle("Relative error of w");
+		//rel_err_w->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_alpha 	= new TH1F("dalpha", "Relative error of alpha", 200 , 0, 100);
-	 	rel_err_alpha->GetXaxis()->SetTitle("Relative error of alpha");
-		rel_err_alpha->GetYaxis()->SetTitle("Counts");
+	 	TH1F *rel_err_alpha 	= new TH1F("dalpha", "Relative error of alpha", 2000 , 0, 100);
+	 	//rel_err_alpha->GetXaxis()->SetTitle("Relative error of alpha");
+		//rel_err_alpha->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 200 , 0, 100);
-	 	rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
-		rel_err_lambda->GetYaxis()->SetTitle("Counts");
+	 	TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 2000 , 0, 100);
+	 	//rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
+		//rel_err_lambda->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 200 , 0, 100);
-	 	rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
-		rel_err_theta->GetYaxis()->SetTitle("Counts");
+	 	TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 2000 , 0, 100);
+	 	//rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
+		//rel_err_theta->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 200 , 0, 100);
-	 	rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
-		rel_err_mu->GetYaxis()->SetTitle("Counts");
+	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 2000 , 0, 100);
+	 	//rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
+		//rel_err_mu->GetYaxis()->SetTitle("Counts");
 	 	
 	 	for (int p = 1; p<8; ++p)
 	 	{	
