@@ -474,6 +474,11 @@ if (index == 1)
 							rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
 						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
+					
+						double cov;
+	 					cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
+		 				cout<<cov<<endl;
+			
 						
 					}
 			
@@ -484,9 +489,6 @@ if (index == 1)
 			if (p == 5) {	for(Int_t r=0; r<=count; ++r) {ANGLES_5[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 6) {	for(Int_t r=0; r<=count; ++r) {ANGLES_6[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 7) {	for(Int_t r=0; r<=count; ++r) {ANGLES_7[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
-			double cov;
-	 		cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
-		 	cout<<cov<<endl;
 			
 			
 		}
