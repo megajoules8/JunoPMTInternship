@@ -554,8 +554,10 @@ if (index == 1)
 			c1->Print( PdfName_end ,"pdf");
 	 		cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
 	 		cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
-	 
-		 	
+	 		double cov;
+	 		object (ROOT::Minuit2::Minuit2Minimizer)  mFFT -> fit.mFFT;
+	 		cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
+		 	cout<<cov<<endl;
 	 
 	 
 	 }	
