@@ -476,7 +476,7 @@ if (index == 1)
 						}
 					
 						double cov;
-	 					cov = fit.mFFT->CovMatrix(1,2);
+	 					cov = fit.mFFT->CovMatrix(8,8);
 		 				cout<<cov<<endl;
 			
 						
