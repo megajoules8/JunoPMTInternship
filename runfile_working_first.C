@@ -484,7 +484,10 @@ if (index == 1)
 			if (p == 5) {	for(Int_t r=0; r<=count; ++r) {ANGLES_5[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 6) {	for(Int_t r=0; r<=count; ++r) {ANGLES_6[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 7) {	for(Int_t r=0; r<=count; ++r) {ANGLES_7[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
-			
+			double cov;
+	 		object (ROOT::Minuit2::Minuit2Minimizer)  mFFT -> fit.mFFT;
+	 		cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
+		 	cout<<cov<<endl;
 			
 			
 		}
@@ -554,10 +557,7 @@ if (index == 1)
 			c1->Print( PdfName_end ,"pdf");
 	 		cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
 	 		cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
-	 		double cov;
-	 		object (ROOT::Minuit2::Minuit2Minimizer)  mFFT -> fit.mFFT;
-	 		cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
-		 	cout<<cov<<endl;
+	 		
 	 
 	 
 	 }	
