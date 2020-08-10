@@ -485,8 +485,6 @@ if (index == 1)
 			if (p == 6) {	for(Int_t r=0; r<=count; ++r) {ANGLES_6[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			if (p == 7) {	for(Int_t r=0; r<=count; ++r) {ANGLES_7[r] = ANGLES[r]; }	counts[p-1] = count;	for(Int_t s=0; s<=count; ++s) {PMT_DATA_NORM[2*p-2][s] = PMT_DATA[2*p-2][s]/g_pos_1;	PMT_DATA_NORM[2*p-1][s] = PMT_DATA[2*p-1][s]/g_pos_1;}}
 			double cov;
-	 		object (ROOT::Minuit2::Minuit2Minimizer)  mFFT;
-			mFFT -> fit.mFFT;
 	 		cov = fit.mFFT->CovMatrix(fit.vals[6], fit.vals[7]);
 		 	cout<<cov<<endl;
 			
