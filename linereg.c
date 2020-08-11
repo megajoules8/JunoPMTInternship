@@ -25,8 +25,8 @@ f.SetLineColor(kRed); f.SetLineStyle(2);
 g.Fit(&f);
 f.DrawClone("Same");
 
-TMatrixD cov = f->GetCorrelationMatrix();
-TMatrixD cor = f->GetCovarianceMatrix();
+TMatrixD cov = f.GetCorrelationMatrix();
+TMatrixD cor = f.GetCovarianceMatrix();
 cov.Print();
 cor.Print();
 return 0;
