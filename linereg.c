@@ -1,6 +1,3 @@
-#include “TGraph.h”
-#include “TFitResult.h”
-#include “TMatrixD.h”
 
 int QA2()
 {
