@@ -26,7 +26,7 @@ g.DrawClone("APE");
 //g.Fit(&f);
 //f.DrawClone("Same");
 
-TFitResultPtr r = g.Fit("Linear law","S"); 
+TFitResultPtr r = g.Fit("pol1","S"); 
 TMatrixD cov = r->GetCorrelationMatrix();
 TMatrixD cor = r->GetCovarianceMatrix();
 cov.Print();
