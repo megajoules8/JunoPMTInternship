@@ -37,7 +37,7 @@ TF1 *Fn = new TF1("Fn",lin,0.5,10.5,2);
 Fn->SetNpx(500);
 Fn->SetParameter(0,a);
 Fn->SetParameter(1,b);
-Fnslit->DrawClone("Same");
+Fn->DrawClone("Same");
 TMatrixD cov = r->GetCorrelationMatrix();
 TMatrixD cor = r->GetCovarianceMatrix();
 cov.Print();
