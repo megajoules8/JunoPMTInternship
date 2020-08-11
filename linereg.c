@@ -17,12 +17,12 @@ TGraph g(10,x,y);
 g.SetTitle("Measurement XYZ;lenght [cm];Arb.Units");
 auto mycanvas = new TCanvas();
 g.DrawClone("APE");
-TFitResultPtr r = g->Fit(“pol1”, “S”);
+/*TFitResultPtr r = g->Fit(“pol1”, “S”);
 r.DrawClone("Same");  
 TMatrixD cov = r->GetCorrelationMatrix();
 TMatrixD cor = r->GetCovarianceMatrix();
 cov.Print();
-cor.Print();
+cor.Print();*/
 return 0;
 }
 
