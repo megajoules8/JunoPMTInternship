@@ -479,7 +479,7 @@ if (index == 1)
 						double cov;
 	 					cov = fit.mFFT->CovMatrix(3,3);
 		 				cout<<cov<<endl;
-						const TMatrixD ms = fit.mFFT->GetCovarianceMatrix();
+						const TMatrixD ms = fit.vals->GetCovarianceMatrix();
  						ms.Print();
 						
 					}
