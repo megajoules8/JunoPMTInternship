@@ -27,13 +27,10 @@ g.DrawClone("APE");
 //f.DrawClone("Same");
 
 TFitResultPtr r = g.Fit("Linear law","S"); 
-r.SetLineColor(kRed); r.SetLineStyle(2);
-r.DrawClone("Same");  
-  
-/*TMatrixD cov = f.GetCorrelationMatrix();
+TMatrixD cov = f.GetCorrelationMatrix();
 TMatrixD cor = f.GetCovarianceMatrix();
 cov.Print();
-cor.Print();*/
+cor.Print();
 return 0;
 }
 
