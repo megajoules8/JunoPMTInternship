@@ -29,7 +29,7 @@ g.DrawClone("APE");
 
 TF1 *f1 = new TF1("f1","pol1",0.5,10.5);
 g->Fit("f1","R");
-f1.DrawClone("Same");
+f1->DrawClone("Same");
 TFitResultPtr r = g.Fit("pol1","S"); 
 // Double_t a = r->Value(0);
 // Double_t b = r->Value(1);
