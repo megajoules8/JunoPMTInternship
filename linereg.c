@@ -26,5 +26,5 @@ return 0;
 }
 
 int main(){
-macro1();
+linereg();
 }
