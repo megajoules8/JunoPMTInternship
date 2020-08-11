@@ -11,7 +11,7 @@
 void linereg()
 {
 Double_t x[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-Double_t y[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+Double_t y[] = {2, 5, 6, 7, 10, 11, 14, 16, 19.5, 20};
 
 TGraph g(10,x,y);
 g.SetTitle("Measurement XYZ;lenght [cm];Arb.Units");
