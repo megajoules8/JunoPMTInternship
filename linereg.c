@@ -8,10 +8,7 @@
 #include "TMatrixD.h"
 #include <TFitResult.h>
 
-double lin(double *x,double *a, double *b)
-  {
-     return (a*x + b) ;
-  }
+
 void linereg()
 {
 Double_t x[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -30,14 +27,17 @@ g.DrawClone("APE");
 //g.Fit(&f);
 //f.DrawClone("Same");
 
+TF1 *f1 = new TF1("f1","pol1",0.5,10.5);
+g->Fit("f1","R");
+f1.DrawClone("Same");
 TFitResultPtr r = g.Fit("pol1","S"); 
-Double_t a = r->Value(0);
-Double_t b = r->Value(1);
-TF1 *Fn = new TF1("Fn",lin,0.5,10.5,2);
-Fn->SetNpx(500);
-Fn->SetParameter(0,a);
-Fn->SetParameter(1,b);
-Fn->DrawClone("Same");
+// Double_t a = r->Value(0);
+// Double_t b = r->Value(1);
+// TF1 *Fn = new TF1("Fn",lin,0.5,10.5,2);
+// Fn->SetNpx(500);
+// Fn->SetParameter(0,a);
+// Fn->SetParameter(1,b);
+// Fn->DrawClone("Same");
 TMatrixD cov = r->GetCorrelationMatrix();
 TMatrixD cor = r->GetCovarianceMatrix();
 cov.Print();
