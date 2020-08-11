@@ -15,8 +15,15 @@ Double_t y[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
 
 TGraph g(10,x,y);
 g.SetTitle("Measurement XYZ;lenght [cm];Arb.Units");
+g.SetMarkerStyle(kOpenCircle);
+g.SetMarkerColor(kBlue);
+g.SetLineColor(kBlue);
 auto mycanvas = new TCanvas();
 g.DrawClone("APE");
+TF1 f("Linear law","[0]+x*[1]",.5,10.5);
+f.SetLineColor(kRed); f.SetLineStyle(2);
+g.Fit(&f);
+f.DrawClone("Same");
 /*TFitResultPtr r = g->Fit(“pol1”, “S”);
 r.DrawClone("Same");  
 TMatrixD cov = r->GetCorrelationMatrix();
