@@ -479,11 +479,8 @@ if (index == 1)
 						double cov;
 	 					cov = fit.mFFT->CovMatrix(3,3);
 		 				cout<<cov<<endl;
-						const TMatrixD *ms=fit.mFFT->GetCovMatrix();
- 						TMatrixDSym sym; 
- 						sym.Use(ms->GetNrows(),ms->GetMatrixArray());
- 						ms->Print(); 
- 						sym.Print();
+						const TMatrixD ms = fit.mFFT->GetCovMatrix();
+ 						ms.Print();
 						
 					}
 			
