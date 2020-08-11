@@ -6,6 +6,7 @@
 #include "TArrow.h"
 #include "TLatex.h"
 #include "TMatrixD.h"
+#include “TFitResult.h”
 
 void linereg()
 {
@@ -16,11 +17,10 @@ TGraph g(10,x,y);
 g.SetTitle("Measurement XYZ;lenght [cm];Arb.Units");
 auto mycanvas = new TCanvas();
 g.DrawClone("APE");
-TF1 f("Linear law","[0]+x*[1]",.5,10.5);
-g.Fit(&f);
-f.DrawClone("Same");
-TMatrixD cov = f.GetCorrelationMatrix();
-TMatrixD cor = f.GetCovarianceMatrix();
+TFitResultPtr r = g->Fit(“pol1”, “S”);
+r.DrawClone("Same");  
+TMatrixD cov = r->GetCorrelationMatrix();
+TMatrixD cor = r->GetCovarianceMatrix();
 cov.Print();
 cor.Print();
 return 0;
