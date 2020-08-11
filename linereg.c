@@ -20,15 +20,16 @@ g.SetMarkerColor(kBlue);
 g.SetLineColor(kBlue);
 auto mycanvas = new TCanvas();
 g.DrawClone("APE");
-TF1 f("Linear law","[0]+x*[1]",.5,10.5);
-f.SetLineColor(kRed); f.SetLineStyle(2);
-g.Fit(&f);
+//TF1 f("Linear law","[0]+x*[1]",.5,10.5);
+TFitResultPtr r = g->Fit(“pol1”, “S”);
+r.SetLineColor(kRed); frSetLineStyle(2);
+//g.Fit(&f);
 f.DrawClone("Same");
 
-TMatrixD cov = f.GetCorrelationMatrix();
+/*TMatrixD cov = f.GetCorrelationMatrix();
 TMatrixD cor = f.GetCovarianceMatrix();
 cov.Print();
-cor.Print();
+cor.Print();*/
 return 0;
 }
 
