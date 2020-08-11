@@ -43,6 +43,7 @@
 #include "Fit/DataRange.h"
 #include "Math/MinimizerOptions.h"
 #include "TMatrixD.h"
+#include "TMatrixDSym.h"
 #include <ctype.h>
 using namespace std;
 //main function
