@@ -6,7 +6,7 @@
 #include "TArrow.h"
 #include "TLatex.h"
 #include "TMatrixD.h"
-#include “TFitResult.h”
+#include <TFitResult.h>
 
 void linereg()
 {
