@@ -25,6 +25,7 @@ f.SetLineColor(kRed); f.SetLineStyle(2);
 g.Fit(&f);
 f.DrawClone("Same");
 
+TFitResultPtr r = f->Fit("Linear law","S"); 
 /*TMatrixD cov = f.GetCorrelationMatrix();
 TMatrixD cor = f.GetCovarianceMatrix();
 cov.Print();
