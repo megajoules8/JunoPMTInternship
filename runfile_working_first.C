@@ -454,7 +454,16 @@ if (index == 1)
 						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
 						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
+						
+						double cov_al_lam;
+						double cov_al_w;
+						double cov_w_lam;
+	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
+						cov_al_w = fit.mFFT->CovMatrix(7,6);
+						cov_w_lam = fit.mFFT->CovMatrix(4,7);
+					
 						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
+						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
 						
 						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
@@ -476,11 +485,9 @@ if (index == 1)
 						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
 					
-						double cov;
-	 					cov = fit.mFFT->CovMatrix(3,3);
-		 				cout<<cov<<endl;
-						const TMatrixD ms = fit.vals->GetCovMatrix();
- 						ms.Print();
+						
+		 				//cout<<cov<<endl;
+						
 						
 					}
 			
