@@ -13,8 +13,9 @@ void linereg()
 {
 Double_t x[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 Double_t y[] = {2, 5, 6, 7, 10, 11, 14, 16, 19.5, 20};
+Double_t yerrs[] = {0.1, 0.15, 0.09, 0.22, 0.17, 0.05, 0.12, 0.11, 0.35, 0.2};  
 
-TGraph g(10,x,y);
+TGraphErrors g(10,x,y, nullptr, yerrs);
 g.SetTitle("Measurement XYZ;lenght [cm];Arb.Units");
 g.SetMarkerStyle(kOpenCircle);
 g.SetMarkerColor(kBlue);
