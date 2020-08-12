@@ -462,7 +462,7 @@ if (index == 1)
 	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
 						cov_al_w = fit.mFFT->CovMatrix(7,6);
 						cov_w_lam = fit.mFFT->CovMatrix(4,7);
-						ff <<"Position = "<<p<<" , Angle = "<<a*15<<endl;
+						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
 						ff <<"_________________________________________________________________________________________________________________________"<<endl;
@@ -472,6 +472,21 @@ if (index == 1)
 								for (int x=0; x<8; ++x)
 									{
 										ff<<"     "<<fit.mFFT->Correlation(y,x);
+									}
+								ff<<"     "<<endl;
+							}
+						ff <<" "<<endl;
+					
+						ff <<"Covariance matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
+						ff <<" "<<endl;
+						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
+						ff <<"_________________________________________________________________________________________________________________________"<<endl;
+						for (int y =0; y<8; ++y)
+							{
+								ff<<"     "<<y<<"      |";
+								for (int x=0; x<8; ++x)
+									{
+										ff<<"     "<<fit.mFFT->CovMatrix(y,x);
 									}
 								ff<<"     "<<endl;
 							}
