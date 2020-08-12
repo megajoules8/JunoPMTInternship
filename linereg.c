@@ -31,7 +31,7 @@ g.DrawClone("APE");
 TF1 *f1 = new TF1("f1","[0]+(x-5.5)*[1]",0.5,10.5);
 g.Fit("f1","R");
 f1->DrawClone("Same");
-TFitResultPtr r = g.Fit("[0]+(x-5.5)*[1]","S"); 
+TFitResultPtr r = g.Fit("f1","S"); 
 // Double_t a = r->Value(0);
 // Double_t b = r->Value(1);
 // TF1 *Fn = new TF1("Fn",lin,0.5,10.5,2);
