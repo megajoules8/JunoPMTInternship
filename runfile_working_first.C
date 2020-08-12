@@ -462,7 +462,7 @@ if (index == 1)
 	 					cov_al_lam = fit.mFFT->Corelation(4,6);
 						cov_al_w = fit.mFFT->Correlation(7,6);
 						cov_w_lam = fit.mFFT->Correlation(4,7);
-						ff <<"Position = "<<p<<" , Angle = "<<"a*15"<<endl;
+						ff <<"Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
 						ff <<"_________________________________________________________________________________________________________________________"<<endl;
