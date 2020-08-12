@@ -239,6 +239,7 @@ if (index == 1)
 	 	//cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	ofstream gaindata (filename);
+	 	ofstream ff ("matrices.txt");
 	 	Int_t n = 24;
 		Float_t X_ERR[n];
 	 	Float_t ANGLES[n];
@@ -461,7 +462,18 @@ if (index == 1)
 	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
 						cov_al_w = fit.mFFT->CovMatrix(7,6);
 						cov_w_lam = fit.mFFT->CovMatrix(4,7);
-					
+						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
+						ff <<"_________________________________________________________________________________________________________________________"<<endl;
+						for (int y =0; y<8; ++y)
+							{
+								ff<<"     "<<y<<"      |";
+								for (int x=0; x<8; ++x)
+									{
+										ff<<"     "<<fit.mFFT->CovMatrix(y,x);
+									}
+								ff<<"     "<<endl;
+							}
+						
 						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
 						
