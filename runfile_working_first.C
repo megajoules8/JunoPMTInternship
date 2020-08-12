@@ -456,6 +456,9 @@ if (index == 1)
 						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						
+						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
+						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
+						
 						double cov_al_lam;
 						double cov_al_w;
 						double cov_w_lam;
@@ -490,11 +493,8 @@ if (index == 1)
 									}
 								ff<<"     "<<endl;
 							}
-						ff <<" "<<endl;
-						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
-						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
-						
-						
+						ff <<" "<<endl;	
+					
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
