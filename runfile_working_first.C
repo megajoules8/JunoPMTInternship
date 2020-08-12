@@ -455,16 +455,16 @@ if (index == 1)
 						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
 						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
-						
-						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
-						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
-						
 						double cov_al_lam;
 						double cov_al_w;
 						double cov_w_lam;
 	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
 						cov_al_w = fit.mFFT->CovMatrix(7,6);
 						cov_w_lam = fit.mFFT->CovMatrix(4,7);
+						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
+						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
+						
+						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
