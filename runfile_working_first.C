@@ -462,6 +462,8 @@ if (index == 1)
 	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
 						cov_al_w = fit.mFFT->CovMatrix(7,6);
 						cov_w_lam = fit.mFFT->CovMatrix(4,7);
+						ff <<"Position = "<<p<<" , Angle = "<<"a*15"<<endl;
+						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
 						ff <<"_________________________________________________________________________________________________________________________"<<endl;
 						for (int y =0; y<8; ++y)
@@ -473,7 +475,7 @@ if (index == 1)
 									}
 								ff<<"     "<<endl;
 							}
-						
+						ff <<" "<<endl;
 						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
 						
