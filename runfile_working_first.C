@@ -489,7 +489,7 @@ if (index == 1)
 								ff<<"     "<<y<<"      |";
 								for (int x=0; x<8; ++x)
 									{
-										ff<<"     "<<fit.mFFT->GetCovMatrix(y,x);
+										ff<<"     "<<fit.mFFT->CovMatrix(y,x);
 									}
 								ff<<"     "<<endl;
 							}
