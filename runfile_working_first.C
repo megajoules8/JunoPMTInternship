@@ -258,7 +258,7 @@ if (index == 1)
 	 	Float_t PMT_DATA_NORM[14][24];
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
-	 
+	 	
 	 	Float_t max_w =0;
 	 	Float_t max_alpha=0;
 	 	Float_t max_lambda=0;
@@ -281,7 +281,10 @@ if (index == 1)
 		//PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf");
 	 	Float_t g_pos_1;
 		Float_t g_sum_1;
-	 
+	 	
+	 	TFile Good_pt("good.root","RECREATE");
+	 	TFile Bad_pt("bad.root","RECREATE");
+	 	
 	 	TH1F *rel_err_w 	= new TH1F("dw", "Relative error of w", 2000 , 0, 100);
 	 	rel_err_w->GetXaxis()->SetTitle("Relative error of w");
 		rel_err_w->GetYaxis()->SetTitle("Counts");
@@ -372,6 +375,10 @@ if (index == 1)
 						Fit_Gauss->SetParLimits(2, 0.5*sigma,  1.5*sigma); // [2] is for sigma, predefined by "gaus"
 							
 						histo_LED->Draw();
+					
+						if ((p==1)&&(a==1)) {Good_pt.Write();}
+						if ((p==5)&&(a==23)) {Bad_pt.Write();}
+					
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Fit_Gauss -> Draw("same");
 							
