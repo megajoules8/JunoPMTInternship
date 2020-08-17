@@ -17,6 +17,7 @@
 #include "Pedestal.h"
 #include "SPEResponse.h"
 #include "PMT.h"
+#include "TFile.h"
 #include "DFTmethod.h"
 #include "SPEFitter.h"
 #include "TGraph.h"
