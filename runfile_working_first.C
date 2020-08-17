@@ -238,6 +238,7 @@ if (index == 1)
 	 	//cout <<"Input theta :"<<endl;
 	 	//cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
+	 	TFile out_file("../my_rootfile.root","RECREATE");
 	 	ofstream gaindata (filename);
 	 	ofstream ff ("matrices.txt");
 	 	Int_t n = 24;
@@ -620,7 +621,8 @@ if (index == 1)
 			c1->Print( PdfName_end ,"pdf");
 	 		cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
 	 		cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
-	 		
+	 		out_file.Close();
+
 	 
 	 
 	 }	
