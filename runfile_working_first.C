@@ -271,6 +271,8 @@ if (index == 1)
 	 	Float_t min_mu=100;
 	 	Float_t max_g =0;
 	 	Float_t	min_g =100;
+	 	Float_t max_chi =0;
+	 	Float_t	min_chi =4;
 	 		 
 	 	TString PdfName_end;
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
@@ -302,6 +304,10 @@ if (index == 1)
 	 	TH1F *rel_err_g 	= new TH1F("dg", "Relative error of G", 2000 , 0, 100);
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
+	 
+	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square", 2000 , 0, 4);
+	 	chisqr->GetXaxis()->SetTitle("Reduced Chi-Square");
+		chisqr->GetYaxis()->SetTitle("Counts");
 	 	
 	 	for (int p = 1; p<8; ++p)
 	 	{	
@@ -469,6 +475,7 @@ if (index == 1)
 						chi = 0;
 						for (int z=10; z<41; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );}
 						cout<< "reduced chi_sq for the Bin range (11,40) = "<<chi/fit.ndof<<endl;
+						chisqr-> Fill(chi/fit.ndof); 		if (chi/fit.ndof > max_chi) {max_chi = chi/fit.ndof;}	if (chi/fit.ndof < min_chi) {min_chi = chi/fit.ndof;}
 						//cout<<fit.ndof<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
