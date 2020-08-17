@@ -478,6 +478,9 @@ if (index == 1)
 						chisqr-> Fill(chi/fit.ndof); 		if (chi/fit.ndof > max_chi) {max_chi = chi/fit.ndof;}	if (chi/fit.ndof < min_chi) {min_chi = chi/fit.ndof;}
 						//cout<<fit.ndof<<endl;
 						
+						chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+					
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
