@@ -306,7 +306,7 @@ if (index == 1)
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square for the Bin range (5,25)", 200 , 0, 4);
+	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square for the Bin range (5,25)", 200 , 0, 10);
 	 	chisqr->GetXaxis()->SetTitle("Reduced Chi-Square");
 		chisqr->GetYaxis()->SetTitle("Counts");
 	 	
