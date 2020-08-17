@@ -305,7 +305,7 @@ if (index == 1)
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square for the Bin range (11,40)", 200 , 0, 4);
+	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square for the Bin range (5,25)", 200 , 0, 4);
 	 	chisqr->GetXaxis()->SetTitle("Reduced Chi-Square");
 		chisqr->GetYaxis()->SetTitle("Counts");
 	 	
@@ -473,8 +473,8 @@ if (index == 1)
 						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<" +/- "<<grBF->GetErrorY(8)<<endl;
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
 						chi = 0;
-						for (int z=10; z<41; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );}
-						cout<< "reduced chi_sq for the Bin range (11,40) = "<<chi/fit.ndof<<endl;
+						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );}
+						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi/fit.ndof<<endl;
 						chisqr-> Fill(chi/fit.ndof); 		if (chi/fit.ndof > max_chi) {max_chi = chi/fit.ndof;}	if (chi/fit.ndof < min_chi) {min_chi = chi/fit.ndof;}
 						//cout<<fit.ndof<<endl;
 						
