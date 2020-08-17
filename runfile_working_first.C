@@ -475,7 +475,7 @@ if (index == 1)
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
 						chi = 0;
 						NDF = 0;
-						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
+						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z)) , 2 )/histo_LED->GetBinError(z);	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
 						
 						//NDF = NDF-dft.spef.nparams-4;
 						chi_red = chi/NDF;
