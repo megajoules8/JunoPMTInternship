@@ -477,7 +477,7 @@ if (index == 1)
 						NDF = 0;
 						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
 						
-						NDF = NDF-dft.spef.nparams-4;
+						//NDF = NDF-dft.spef.nparams-4;
 						chi_red = chi/NDF;
 						cout<<"NDF = "<<NDF<<endl;
 						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi_red<<endl;
