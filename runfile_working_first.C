@@ -479,6 +479,7 @@ if (index == 1)
 						
 						NDF = NDF-dft.spef.nparams-4;
 						chi_red = chi/NDF;
+						cout<<"NDF = "<<NDF<<endl;
 						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi_red<<endl;
 						chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
