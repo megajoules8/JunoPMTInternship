@@ -464,7 +464,7 @@ if (index == 1)
 						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
 						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
 						
-						cout<< "25th Bin content of fit = "<<grBF->GetY(histo_LED->GetBinContent(25))<<" +/- "<<grBF->GetErrorY(histo_LED->GetBinContent(25))<<endl;
+						cout<< "25th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis->GetBinCenter(25))<<" +/- "<<grBF->GetErrorY(25)<<endl;
 						cout<< "25th Bin content of LED = "<<histo_LED->GetBinContent(25)<<" +/- "<<histo_LED->GetBinError(25)<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
