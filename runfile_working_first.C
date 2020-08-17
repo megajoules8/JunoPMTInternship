@@ -273,7 +273,8 @@ if (index == 1)
 	 	Float_t	min_g =100;
 	 	Float_t max_chi =0;
 	 	Float_t	min_chi =4;
-	 		 
+	 	Float_t chi_red;
+	 	Float_t NDF;
 	 	TString PdfName_end;
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
 	 	TString PdfName_mid;
@@ -473,9 +474,13 @@ if (index == 1)
 						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<" +/- "<<grBF->GetErrorY(8)<<endl;
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
 						chi = 0;
-						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );}
-						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi/fit.ndof<<endl;
-						chisqr-> Fill(chi/fit.ndof); 		if (chi/fit.ndof > max_chi) {max_chi = chi/fit.ndof;}	if (chi/fit.ndof < min_chi) {min_chi = chi/fit.ndof;}
+						NDF = 0;
+						for (int z=5; z<26; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
+						
+						NDF = NDF-dft.spef.nparams-4;
+						chi_red = chi/NDF;
+						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi_red<<endl;
+						chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
@@ -508,7 +513,7 @@ if (index == 1)
 							}
 						ff <<" "<<endl;	
 					
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi/fit.ndof <= 3))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi_red <= 3))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<chi/fit.ndof<<" "<<STATUS<<endl;
@@ -517,7 +522,7 @@ if (index == 1)
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi/fit.ndof <= 3))
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi_red <= 3))
 							
 						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
 							rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
