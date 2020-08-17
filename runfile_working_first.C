@@ -238,7 +238,7 @@ if (index == 1)
 	 	//cout <<"Input theta :"<<endl;
 	 	//cin >> theta;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
-	 	TFile out_file("../my_rootfile.root","RECREATE");
+	 	TFile *out_file("../my_rootfile.root","RECREATE");
 	 	ofstream gaindata (filename);
 	 	ofstream ff ("matrices.txt");
 	 	Int_t n = 24;
