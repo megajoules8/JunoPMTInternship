@@ -305,7 +305,7 @@ if (index == 1)
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square", 2000 , 0, 4);
+	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square", 200 , 0, 4);
 	 	chisqr->GetXaxis()->SetTitle("Reduced Chi-Square");
 		chisqr->GetYaxis()->SetTitle("Counts");
 	 	
@@ -478,9 +478,6 @@ if (index == 1)
 						chisqr-> Fill(chi/fit.ndof); 		if (chi/fit.ndof > max_chi) {max_chi = chi/fit.ndof;}	if (chi/fit.ndof < min_chi) {min_chi = chi/fit.ndof;}
 						//cout<<fit.ndof<<endl;
 						
-						chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
-						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-					
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
 						ff <<"            |      0     |      1      |      2     |      3      |      4     |      5      |      6     |      7      |"<<endl;
@@ -546,7 +543,8 @@ if (index == 1)
 			
 			
 		}
-	    		
+	    		chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->GetXaxis()->SetRangeUser(min_w,max_w); rel_err_w->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->GetXaxis()->SetRangeUser(min_alpha,max_alpha); rel_err_alpha->Draw( "" );
