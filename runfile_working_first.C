@@ -374,8 +374,8 @@ if (index == 1)
 							
 						histo_LED->Draw();
 					
-						if ((p==1)&&(a==1)) {histo_LED.Write();}
-						if ((p==5)&&(a==23)) {histo_LED.Write();}
+						if ((p==1)&&(a==1)) {histo_LED->Write();}
+						if ((p==5)&&(a==23)) {histo_LED->Write();}
 					
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Fit_Gauss -> Draw("same");
