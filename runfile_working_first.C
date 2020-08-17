@@ -468,8 +468,8 @@ if (index == 1)
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
 						chi = 0;
 						for (int z=10; z<41; z++) {chi += pow( (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z))/histo_LED->GetBinError(z) , 2 );}
-						cout<< "reduced chi_sq for the Bin range (11,40) = "<<chi<<endl;
-						cout<<fit.ndof<<endl;
+						cout<< "reduced chi_sq for the Bin range (11,40) = "<<chi/fit.ndof<<endl;
+						//cout<<fit.ndof<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
