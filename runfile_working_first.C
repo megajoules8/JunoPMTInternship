@@ -312,7 +312,7 @@ if (index == 1)
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err"<< endl;
+	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err chi_sq chi_sq for signal is Point Good?"<< endl;
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {X_ERR[f] = 0;}
@@ -508,16 +508,16 @@ if (index == 1)
 							}
 						ff <<" "<<endl;	
 					
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi/fit.ndof <= 3))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
-						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<STATUS<<endl;
+						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<chi/fit.ndof<<" "<<STATUS<<endl;
 						cout << " Gain (DUQ) : " << Gfit <<" +/- "<< gainerror << endl;
 						BW = histo_LED->GetBinWidth(2);
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0))
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi/fit.ndof <= 3))
 							
 						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
 							rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
@@ -573,7 +573,7 @@ if (index == 1)
 			mg->Add(gr_6);
 			mg->Add(gr_7);
 	 		TString gtitle;
-	 		gtitle = TString("Graph of Gain (No. of PEs) vs. Azimuthal angle for scan") + Form("%d",dat) + TString(", ") + Form("%d", REM) + TString(" points removed");
+	 		gtitle = TString("Graph of Gain (DUQ) vs. Azimuthal angle for scan") + Form("%d",dat) + TString(", ") + Form("%d", REM) + TString(" points removed");
 	 		mg->SetTitle (gtitle);
 	  		mg->GetXaxis()->SetTitle("Azimuthal Angle (Degrees)"); //set Xaxis title
 			mg->GetYaxis()->SetTitle("Gain (DUQ))"); //set Yaxis title
