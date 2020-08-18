@@ -256,6 +256,7 @@ if (index == 1)
 	 Int_t counts[7];
 	 Int_t REM = 0;
 	 Float_t chi;
+	 Float_t KS;
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
 	 	TMultiGraph  *mg  = new TMultiGraph();
@@ -308,19 +309,24 @@ if (index == 1)
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Reduced Chi-Square for the Bin range (5,25)", 400 , 0, 20);
-	 	chisqr->GetXaxis()->SetTitle("Reduced Chi-Square");
-		chisqr->GetYaxis()->SetTitle("Counts");
+	 	//TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Chi-Square/Nbins for the Bin range (5,25)", 400 , 0, 20);
+	 	//chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
+		//chisqr->GetYaxis()->SetTitle("Counts");
 	 	
+	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS values for the Bin range (5,25)", 400 , 0, 20);
+	 	KST->GetXaxis()->SetTitle("KS value");
+		KST->GetYaxis()->SetTitle("Counts");
+	 
 	 	for (int p = 1; p<8; ++p)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
-	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err chi_sq chi_sq_sub fit.status is Point Good?"<< endl;
+	 			gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err chi_sq fit.status is Point Good?"<< endl;
 	 			//gaindata <<"angle Theta Gain"<< endl;
 	 			gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {X_ERR[f] = 0;}
 				//gr_name = TString("GR_") + Form("%d", p);
 				Int_t count = 0;
+				
 	 			for (int a=0; a<24; ++a)
 	 			    {
 			 			//define 2 strings to specify to hiss whether we are in PED or LED
@@ -375,8 +381,8 @@ if (index == 1)
 							
 						histo_LED->Draw();
 					
-						if ((p==1)&&(a==1)) {histo_LED->Write();}
-						if ((p==5)&&(a==23)) {histo_LED->Write();}
+						//if ((p==1)&&(a==1)) {histo_LED->Write();}
+						//if ((p==5)&&(a==23)) {histo_LED->Write();}
 					
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Fit_Gauss -> Draw("same");
@@ -479,16 +485,21 @@ if (index == 1)
 						
 						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<" +/- "<<grBF->GetErrorY(8)<<endl;
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
-						chi = 0;
-						NDF = 0;
-						for (int z=5; z<26; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
+						//chi = 0;
+						//NDF = 0;
+						//for (int z=5; z<26; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
 						
 						//NDF = NDF-dft.spef.nparams-4;
-						chi_red = chi/(NDF-1);
-						cout<<"NDF = "<<NDF-1<<endl;
-						cout<< "reduced chi_sq for the Bin range (5,25) = "<<chi_red<<endl;
-						chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
+						//chi_red = chi/(NDF-1);
+						//cout<<"NDF = "<<NDF-1<<endl;
+						//cout<< "chi_sq/Nbins for the Bin range (5,25) = "<<chi_red<<endl;
+						//chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
+						Float_t temp = 0;
+						KS = 0;
+						for (int z=5; z<26; z++) {temp = abs (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z)); 	if(temp > KS) {KS = temp; temp = 0;}	}
+						chisqr-> Fill(KS);
+						cout<< "KS value for the Bin range (5,25) = "<<KS<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
@@ -520,16 +531,16 @@ if (index == 1)
 							}
 						ff <<" "<<endl;	
 					
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi_red < 3.35))	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) )	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
-						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<chi_red<<" "<<"  "<<fit.fit_status<<"  "<<STATUS<<endl;
+						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<"  "<<fit.fit_status<<"  "<<STATUS<<endl;
 						cout << " Gain (DUQ) : " << Gfit <<" +/- "<< gainerror << endl;
 						BW = histo_LED->GetBinWidth(2);
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (chi_red < 3.35))
+						if ((fit.chi2r <= 3) && (fit.fit_status == 0) )
 							
 						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
 							rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
