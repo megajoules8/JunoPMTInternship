@@ -316,7 +316,7 @@ if (index == 1)
 	 	//chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
 		//chisqr->GetYaxis()->SetTitle("Counts");
 	 	
-	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS values for the Bin range (5,25)", 4000 , 0, 200);
+	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS values for the Bin range (5,25)", 800 , 0, 200);
 	 	KST->GetXaxis()->SetTitle("KS value");
 		KST->GetYaxis()->SetTitle("Counts");
 	 
