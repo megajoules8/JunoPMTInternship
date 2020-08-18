@@ -255,8 +255,7 @@ if (index == 1)
 	 Float_t ANGLES_7[n];
 	 Int_t counts[7];
 	 Int_t REM = 0;
-	 Float_t chi;
-	 Float_t KS;
+	 
 	 	Float_t PMT_DATA[14][24];
 	 	Float_t PMT_DATA_NORM[14][24];
 	 	TMultiGraph  *mg  = new TMultiGraph();
@@ -276,8 +275,12 @@ if (index == 1)
 	 	Float_t	min_g =100;
 	 	Float_t max_chi =0;
 	 	Float_t	min_chi =4;
+	 	Float_t max_KS =0;
+	 	Float_t	min_KS =400;
 	 	Float_t chi_red;
 	 	Float_t NDF;
+	 	Float_t chi;
+	 	Float_t KS;
 	 	TString PdfName_end;
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
 	 	TString PdfName_mid;
@@ -498,7 +501,7 @@ if (index == 1)
 						Float_t temp = 0;
 						KS = 0;
 						for (int z=5; z<26; z++) {temp = abs (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z)); 	if(temp > KS) {KS = temp; temp = 0;}	}
-						chisqr-> Fill(KS);
+						KST-> Fill(KS);		if (KS > max_KS) {max_KS = KS;}	if (KS < min_KS) {min_KS = KS;}
 						cout<< "KS value for the Bin range (5,25) = "<<KS<<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
@@ -566,7 +569,8 @@ if (index == 1)
 			
 			
 		}
-	    		chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+	    		//chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+	 		KST->SetMarkerStyle( 20 ); KST->SetMarkerSize( 0.4 ); KST->SetLineColor( kBlack ); KST->SetMarkerColor( kBlack ); KST->SetStats(0); KST->GetXaxis()->SetRangeUser(min_KS,max_KS); KST->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->GetXaxis()->SetRangeUser(min_w,max_w); rel_err_w->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
