@@ -533,7 +533,7 @@ if (index == 1)
 						
 						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kRed ); LED_CDF->SetMarkerColor( kRed ); LED_CDF->SetStats(0);  hs->Add( LED_CDF );
 	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlue ); FIT_CDF->SetMarkerColor( kBlue ); FIT_CDF->SetStats(0);  hs->Add( FIT_CDF );
-	 					hs->Draw("nostack");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+	 					/*hs->Draw("nostack");*/	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						
 						//Float_t temp = 0;
 						//KS = 0;
