@@ -514,10 +514,11 @@ if (index == 1)
 						FCDF = TString("Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						
 						THStack *hs = new THStack(STACK,"");
-						cout<<"Good"<<endl;
+						
 						TH1F *LED_CDF 	= new TH1F(ECDF, ECDF, nbins , xmin-BW, xmax);
 	 					TH1F *FIT_CDF 	= new TH1F(FCDF, FCDF, nbins , xmin-BW, xmax);
 					
+						cout<<"Good"<<endl;
 	 					hs->GetXaxis()->SetTitle("Charge (DUQ)");
 						hs->GetYaxis()->SetTitle("Relative Cumulative Frequency");
 					
