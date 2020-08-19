@@ -22,6 +22,7 @@
 #include "SPEFitter.h"
 #include "TGraph.h"
 #include "TGraphErrors.h"
+#include "THStack.h"
 
 #include "TROOT.h"
 #include "TEnv.h"
