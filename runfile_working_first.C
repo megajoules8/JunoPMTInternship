@@ -325,9 +325,9 @@ if (index == 1)
 	 	//chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
 		//chisqr->GetYaxis()->SetTitle("Counts");
 	 	
-	 	//TH1F *KST 	= new TH1F("KST", "Histogram of KS values for the Bin range (5,25)", 400 , 0, 200);
-	 	//KST->GetXaxis()->SetTitle("KS value");
-		//KST->GetYaxis()->SetTitle("Counts");
+	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS values", 400 , 0, 200);
+	 	KST->GetXaxis()->SetTitle("KS value");
+		KST->GetYaxis()->SetTitle("Counts");
 	 
 	 	
 	 
@@ -533,12 +533,12 @@ if (index == 1)
 						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kRed ); LED_CDF->SetMarkerColor( kRed ); LED_CDF->SetStats(0);  hs->Add( LED_CDF );
 	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlue ); FIT_CDF->SetMarkerColor( kBlue ); FIT_CDF->SetStats(0);  hs->Add( FIT_CDF );
 	 					hs->Draw("nostack");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-					
+						
 						//Float_t temp = 0;
 						//KS = 0;
 						//for (int z=5; z<26; z++) {temp = abs (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z)); 	if(temp > KS) {KS = temp; temp = 0;}	}
-						//KST-> Fill(KS);		if (KS > max_KS) {max_KS = KS;}	if (KS < min_KS) {min_KS = KS;}
-						cout<< "KS statistic value (D) for the position "<<p<<", angle "<<a*15<<" = "<<D<<endl;
+						KST-> Fill(D);		if (KS > max_KS) {max_KS = D;}	if (KS < min_KS) {min_KS = D;}
+						cout<< "KS statistic value (D) for the position "<<p<<", angle "<<a*15<<" = "<< D <<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
 						ff <<" "<<endl;
@@ -605,8 +605,8 @@ if (index == 1)
 			
 		}
 	    		//chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
-	 		//KST->SetMarkerStyle( 20 ); KST->SetMarkerSize( 0.4 ); KST->SetLineColor( kBlack ); KST->SetMarkerColor( kBlack ); KST->SetStats(0); KST->GetXaxis()->SetRangeUser(min_KS,max_KS); KST->Draw( "" );
-			
+	 		KST->SetMarkerStyle( 20 ); KST->SetMarkerSize( 0.4 ); KST->SetLineColor( kBlack ); KST->SetMarkerColor( kBlue ); KST->SetStats(0); KST->GetXaxis()->SetRangeUser(min_KS,max_KS); KST->Draw( "" );
+			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->GetXaxis()->SetRangeUser(min_w,max_w); rel_err_w->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->GetXaxis()->SetRangeUser(min_alpha,max_alpha); rel_err_alpha->Draw( "" );
