@@ -71,6 +71,7 @@ TString HV_Value_PED;
 TString HV_Value_LED;
 TString ECDF;
 TString FCDF;
+TString STACK;
 TString Filename;
 double Q ;
 double sigma;
@@ -262,7 +263,6 @@ if (index == 1)
 	 	Float_t PMT_DATA_NORM[14][24];
 	 	TMultiGraph  *mg  = new TMultiGraph();
 	 	TMultiGraph  *mg2  = new TMultiGraph();
-	 	
 	 	Float_t max_w =0;
 	 	Float_t max_alpha=0;
 	 	Float_t max_lambda=0;
@@ -285,6 +285,8 @@ if (index == 1)
 	 	Float_t KS;
 	 	Float_t TEMP;
 	 	Float_t TEMP1;
+	 	Float_t TOT;
+	 	Float_t TOT1;
 	 	TString PdfName_end;
 	 	Float_t D; 
 	 	//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%d", BW)+ TString("_Results.pdf)");
@@ -505,26 +507,28 @@ if (index == 1)
 						//cout<< "chi_sq/Nbins for the Bin range (5,25) = "<<chi_red<<endl;
 						//chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
+						
+						STACK = TString("Empirical Relative Cumulative Frequency and Relative Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						ECDF = TString("Empirical Cumulative Frequency for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						FCDF = TString("Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 					
+						THStack *hs = new THStack(STACK,STACK);
+					
 						TH1F *LED_CDF 	= new TH1F(ECDF, ECDF, nbins , xmin-BW, xmax);
-	 					LED_CDF->GetXaxis()->SetTitle("Charge (DUQ)");
-						LED_CDF->GetYaxis()->SetTitle("Empirical Cumulative Frequency");
-	 
 	 					TH1F *FIT_CDF 	= new TH1F(FCDF, FCDF, nbins , xmin-BW, xmax);
-	 					FIT_CDF->GetXaxis()->SetTitle("Charge (DUQ)");
-						FIT_CDF->GetYaxis()->SetTitle("Cumulative Frequency from Fit");
-						
+					
+	 					hs->GetXaxis()->SetTitle("Charge (DUQ)");
+						hs->GetYaxis()->SetTitle("Relative Cumulative Frequency");
+					
+						TEMP = 0;	TEMP1 = 0;	D = 0;	TOT = 0;	TOT1 = 0;
 						LED_CDF-> Fill(histo_LED->GetBinContent(0));
 						FIT_CDF-> Fill(grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(0)));
-						TEMP = 0;	TEMP1 = 0;	D = 0;
-						for (int t=0; t<nbins; ++t){TEMP += histo_LED->GetBinContent(t);	LED_CDF-> SetBinContent(t+1, TEMP);	 TEMP1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));	FIT_CDF-> SetBinContent(t+1, TEMP1);	if ( abs(TEMP-TEMP1) > D ){D = abs(TEMP-TEMP1);}	}
+						for (int t=0; t<nbins; ++t){TOT+= histo_LED->GetBinContent(t);	TOT1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));}
+						for (int t=0; t<nbins; ++t){TEMP += histo_LED->GetBinContent(t);	LED_CDF-> SetBinContent((t+1), TEMP/TOT);	 TEMP1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));	FIT_CDF-> SetBinContent(t+1, TEMP1/TOT1);	if ( abs(TEMP-TEMP1) > D ){D = abs(TEMP-TEMP1);}	}
 						
-						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kBlack ); LED_CDF->SetMarkerColor( kBlack ); LED_CDF->SetStats(0);  LED_CDF->Draw( "" );
-	 					c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlack ); FIT_CDF->SetMarkerColor( kBlack ); FIT_CDF->SetStats(0);  FIT_CDF->Draw( "" );
-	 					c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kRed ); LED_CDF->SetMarkerColor( kRed ); LED_CDF->SetStats(0);  hs->Add( LED_CDF );
+	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlue ); FIT_CDF->SetMarkerColor( kBlue ); FIT_CDF->SetStats(0);  hs->Add( FIT_CDF );
+	 					hs->Draw();	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 					
 						//Float_t temp = 0;
 						//KS = 0;
