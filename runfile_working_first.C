@@ -518,10 +518,10 @@ if (index == 1)
 						TH1F *LED_CDF 	= new TH1F(ECDF, ECDF, nbins , xmin-BW, xmax);
 	 					TH1F *FIT_CDF 	= new TH1F(FCDF, FCDF, nbins , xmin-BW, xmax);
 					
-						cout<<"Good"<<endl;
+						
 	 					hs->GetXaxis()->SetTitle("Charge (DUQ)");
 						hs->GetYaxis()->SetTitle("Relative Cumulative Frequency");
-					
+						cout<<"Good"<<endl;
 						TEMP = 0;	TEMP1 = 0;	D = 0;	TOT = 0;	TOT1 = 0;
 						LED_CDF-> Fill(histo_LED->GetBinContent(0));
 						FIT_CDF-> Fill(grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(0)));
