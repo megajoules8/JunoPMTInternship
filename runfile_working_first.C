@@ -533,7 +533,7 @@ if (index == 1)
 						
 						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kRed ); LED_CDF->SetMarkerColor( kRed ); LED_CDF->SetStats(0);  hs->Add( LED_CDF );
 	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlue ); FIT_CDF->SetMarkerColor( kBlue ); FIT_CDF->SetStats(0);  hs->Add( FIT_CDF );
-	 					/*hs->Draw("nostack");*/	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+	 					hs->Draw("nostack");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						
 						//Float_t temp = 0;
 						//KS = 0;
@@ -578,7 +578,7 @@ if (index == 1)
 						cout << " Gain (DUQ) : " << Gfit <<" +/- "<< gainerror << endl;
 						cout << " Bin Width : " << BW << endl;
 						//gaindata <<" "<< endl;
-						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+						
 						if ((fit.chi2r <= 3) && (fit.fit_status == 0) && (D<0.02) )
 							
 						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
