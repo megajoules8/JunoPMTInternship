@@ -73,6 +73,7 @@ TString HV_Value_LED;
 TString ECDF;
 TString FCDF;
 TString STACK;
+TString STACK2;
 TString Filename;
 double Q ;
 double sigma;
@@ -510,10 +511,11 @@ if (index == 1)
 						//cout<<fit.ndof<<endl;
 						
 						STACK = TString("Empirical Relative Cumulative Frequency and Relative Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
+						STACK2 = TString("Empirical Relative Cumulative Frequency and Relative Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a) + TString(";Charge (DUQ); Relative Cumulative Frequency");
 						ECDF = TString("Empirical Cumulative Frequency for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						FCDF = TString("Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						
-						THStack *hs = new THStack(STACK,";Charge (DUQ); Relative Cumulative Frequency");
+						THStack *hs = new THStack(STACK,STACK2);
 						
 						TH1F *LED_CDF 	= new TH1F(ECDF, ECDF, nbins , xmin-BW, xmax);
 	 					TH1F *FIT_CDF 	= new TH1F(FCDF, FCDF, nbins , xmin-BW, xmax);
