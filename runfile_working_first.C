@@ -537,7 +537,7 @@ if (index == 1)
 						//Float_t temp = 0;
 						//KS = 0;
 						//for (int z=5; z<26; z++) {temp = abs (grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z)); 	if(temp > KS) {KS = temp; temp = 0;}	}
-						KST-> Fill(D);		if (KS > max_KS) {max_KS = D;}	if (KS < min_KS) {min_KS = D;}
+						KST-> Fill(D);		if (D > max_KS) {max_KS = D;}	if (D < min_KS) {min_KS = D;}
 						cout<< "KS statistic value (D) for the position "<<p<<", angle "<<a*15<<" = "<< D <<endl;
 						
 						ff <<"Correlation matrix for Position = "<<p<<" , Angle = "<<a*15<<endl;
