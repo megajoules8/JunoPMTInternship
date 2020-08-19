@@ -321,9 +321,9 @@ if (index == 1)
 	 	rel_err_g->GetXaxis()->SetTitle("Relative error of G");
 		rel_err_g->GetYaxis()->SetTitle("Counts");
 	 
-	 	//TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Chi-Square/Nbins for the Bin range (5,25)", 400 , 0, 20);
-	 	//chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
-		//chisqr->GetYaxis()->SetTitle("Counts");
+	 	TH1F *chisqr 	= new TH1F("chisqr", "Histogram of Chi-Square/Nbins for the Bin range (5,25)", 400 , 0, 20);
+	 	chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
+		chisqr->GetYaxis()->SetTitle("Counts");
 	 	
 	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS Statistics", 2000 , 0, 1);
 	 	KST->GetXaxis()->SetTitle("KS Statistic Value");
@@ -500,15 +500,15 @@ if (index == 1)
 						BW = histo_LED->GetBinWidth(2);
 						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<" +/- "<<grBF->GetErrorY(8)<<endl;
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
-						//chi = 0;
-						//NDF = 0;
-						//for (int z=5; z<26; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
+						chi = 0;
+						NDF = 0;
+						for (int z=5; z<26; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
 						
 						//NDF = NDF-dft.spef.nparams-4;
-						//chi_red = chi/(NDF-1);
-						//cout<<"NDF = "<<NDF-1<<endl;
-						//cout<< "chi_sq/Nbins for the Bin range (5,25) = "<<chi_red<<endl;
-						//chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
+						chi_red = chi/(NDF);
+						cout<<"NDF = "<<NDF<<endl;
+						cout<< "chi_sq/Nbins for the Bin range (5,25) = "<<chi_red<<endl;
+						chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
 						
 						STACK = TString("Empirical Relative Cumulative Frequency and Relative Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
@@ -605,7 +605,8 @@ if (index == 1)
 			
 			
 		}
-	    		//chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+	    		chisqr->SetMarkerStyle( 20 ); chisqr->SetMarkerSize( 0.4 ); chisqr->SetLineColor( kBlack ); chisqr->SetMarkerColor( kBlack ); chisqr->SetStats(0); chisqr->GetXaxis()->SetRangeUser(min_chi,max_chi); chisqr->Draw( "" );
+	 		c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		KST->SetMarkerStyle( 20 ); KST->SetMarkerSize( 0.4 ); KST->SetLineColor( kBlack ); KST->SetMarkerColor( kBlue ); KST->SetStats(0); KST->GetXaxis()->SetRangeUser(min_KS,max_KS); KST->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		rel_err_w->SetMarkerStyle( 20 ); rel_err_w->SetMarkerSize( 0.4 ); rel_err_w->SetLineColor( kBlack ); rel_err_w->SetMarkerColor( kBlack ); rel_err_w->SetStats(0); rel_err_w->GetXaxis()->SetRangeUser(min_w,max_w); rel_err_w->Draw( "" );
