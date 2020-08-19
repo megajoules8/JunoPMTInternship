@@ -512,9 +512,9 @@ if (index == 1)
 						STACK = TString("Empirical Relative Cumulative Frequency and Relative Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						ECDF = TString("Empirical Cumulative Frequency for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
 						FCDF = TString("Cumulative Frequency from Fit for the LED for position = ") + Form("%d",p) + TString(" angle = ")+ Form("%d", 15*a);
-						cout<<"Good"<<endl;
+						
 						THStack *hs = new THStack(STACK,"");
-					
+						cout<<"Good"<<endl;
 						TH1F *LED_CDF 	= new TH1F(ECDF, ECDF, nbins , xmin-BW, xmax);
 	 					TH1F *FIT_CDF 	= new TH1F(FCDF, FCDF, nbins , xmin-BW, xmax);
 					
