@@ -471,6 +471,7 @@ if (index == 1)
 						TGraph *grBF = dft.GetGraph();
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
+						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
 						
