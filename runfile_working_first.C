@@ -526,7 +526,7 @@ if (index == 1)
 						LED_CDF-> Fill(histo_LED->GetBinContent(0));
 						FIT_CDF-> Fill(grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(0)));
 						for (int t=0; t<nbins; ++t){TOT+= histo_LED->GetBinContent(t);	TOT1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));}
-						for (int t=0; t<nbins; ++t){TEMP += histo_LED->GetBinContent(t);	LED_CDF-> SetBinContent((t+1), TEMP/TOT);	 TEMP1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));	FIT_CDF-> SetBinContent(t+1, TEMP1/TOT1);	if ( abs(TEMP-TEMP1) > D ){D = abs(TEMP-TEMP1);}	}
+						for (int t=0; t<nbins; ++t){TEMP += histo_LED->GetBinContent(t);	LED_CDF-> SetBinContent((t+1), TEMP/TOT);	 TEMP1 += grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(t));	FIT_CDF-> SetBinContent(t+1, TEMP1/TOT1);	if ( abs((TEMP/TOT)-(TEMP1/TOT1)) > D ){D = abs(TEMP-TEMP1);}	}
 						
 						LED_CDF->SetMarkerStyle( 20 ); LED_CDF->SetMarkerSize( 0.4 ); LED_CDF->SetLineColor( kRed ); LED_CDF->SetMarkerColor( kRed ); LED_CDF->SetStats(0);  hs->Add( LED_CDF );
 	 					FIT_CDF->SetMarkerStyle( 20 ); FIT_CDF->SetMarkerSize( 0.4 ); FIT_CDF->SetLineColor( kBlue ); FIT_CDF->SetMarkerColor( kBlue ); FIT_CDF->SetStats(0);  hs->Add( FIT_CDF );
