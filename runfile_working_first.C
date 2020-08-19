@@ -280,7 +280,7 @@ if (index == 1)
 	 	Float_t max_chi =0;
 	 	Float_t	min_chi =4;
 	 	Float_t max_KS =0;
-	 	Float_t	min_KS =400;
+	 	Float_t	min_KS =1;
 	 	Float_t chi_red;
 	 	Float_t NDF;
 	 	Float_t chi;
@@ -325,7 +325,7 @@ if (index == 1)
 	 	//chisqr->GetXaxis()->SetTitle("Chi-Square/Nbins");
 		//chisqr->GetYaxis()->SetTitle("Counts");
 	 	
-	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS Statistics", 400 , 0, 200);
+	 	TH1F *KST 	= new TH1F("KST", "Histogram of KS Statistics", 50 , 0, 1);
 	 	KST->GetXaxis()->SetTitle("KS Statistic Value");
 		KST->GetYaxis()->SetTitle("Counts");
 	 
