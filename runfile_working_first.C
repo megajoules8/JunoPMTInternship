@@ -85,6 +85,7 @@ double sig_reduced_err;
 double xbar;
 double xbarErr;
 int dat;
+int SPEM;
 Float_t theta;
 //ofstream ff ("gains.txt"); // write the respective voltages and gains to a file in directory
 cout << "Input 0 for Juno file analysis, 1 for HV folder analysis"<<endl;
@@ -241,8 +242,8 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
-	 	//cout <<"Input theta :"<<endl;
-	 	//cin >> theta;
+	 	cout <<"Input 0 for GAMMA, 1 for GAUSS :"<<endl;
+	 	cin >> SPEM;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	TFile *out_file = new TFile("my_rootfile.root","RECREATE");
 	 	ofstream gaindata (filename);
@@ -281,6 +282,10 @@ if (index == 1)
 	 	Float_t	min_chi =4;
 	 	Float_t max_KS =0;
 	 	Float_t	min_KS =1;
+	 	Float_t max_Q =0;
+	 	Float_t	min_Q =10000;
+	 	Float_t max_s =0;
+	 	Float_t	min_s =100;
 	 	Float_t chi_red;
 	 	Float_t NDF;
 	 	Float_t chi;
@@ -300,18 +305,32 @@ if (index == 1)
 	 	TH1F *rel_err_w 	= new TH1F("dw", "Relative error of w", 2000 , 0, 100);
 	 	rel_err_w->GetXaxis()->SetTitle("Relative error of w");
 		rel_err_w->GetYaxis()->SetTitle("Counts");
-	 
+	 	
 	 	TH1F *rel_err_alpha 	= new TH1F("dalpha", "Relative error of alpha", 2000 , 0, 100);
 	 	rel_err_alpha->GetXaxis()->SetTitle("Relative error of alpha");
 		rel_err_alpha->GetYaxis()->SetTitle("Counts");
+	 	
+	 	if (SPEM == 0)
+		{
+	 		TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 2000 , 0, 100);
+	 		rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
+			rel_err_theta->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 2000 , 0, 100);
-	 	rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
-		rel_err_lambda->GetYaxis()->SetTitle("Counts");
+	 		TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 2000 , 0, 100);
+	 		rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
+			rel_err_lambda->GetYaxis()->SetTitle("Counts");
+		}
+	 	else if (SPEM == 1)
+		{
+			TH1F *rel_err_Q 	= new TH1F("dQ", "Relative error of Q", 2000 , 0, 100);
+	 		rel_err_Q->GetXaxis()->SetTitle("Relative error of Q");
+			rel_err_Q->GetYaxis()->SetTitle("Counts");
 	 
-	 	TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 2000 , 0, 100);
-	 	rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
-		rel_err_theta->GetYaxis()->SetTitle("Counts");
+	 		TH1F *rel_err_s 	= new TH1F("ds", "Relative error of s", 2000 , 0, 100);
+	 		rel_err_s->GetXaxis()->SetTitle("Relative error of s");
+			rel_err_s->GetYaxis()->SetTitle("Counts");
+		}	
+	 	
 	 
 	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 2000 , 0, 100);
 	 	rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
@@ -437,9 +456,19 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
-						SPEResponse gamma_test( PMType::GAMMA, p_test );
-						
+						if(SPEM == 0)
+						{
+							cout<<"   *** SPEResponse model chosen = GAMMA ***   "<<endl;
+							Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
+							SPEResponse gamma_test( PMType::GAMMA, p_test );
+						}
+						else if(SPEM == 1)
+						{
+							cout<<"   *** SPEResponse model chosen = GAUSS ***   "<<endl;
+							Double_t p_test[4] = { _G, 0.3*_G, 1/(0.1*_G), 0.2 };
+							SPEResponse gamma_test( PMType::GAUSS, p_test );
+						}
+						else	{cout<<"Incorrect index for SPE!!"<<endl;}
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
 						Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
@@ -473,8 +502,8 @@ if (index == 1)
 						grBF->Draw( "SAME,L" );
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
-						Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); 
-						
+						     if (SPEM == 0){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); }
+						else if (SPEM == 1){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
@@ -487,16 +516,28 @@ if (index == 1)
 						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
 						Float_t pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
 						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
-						Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);
+						if (SPEM == 0) {Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);}
+						if (SPEM == 1)	{Float_t pderiv_Q = (1-fit.vals[7]);}
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						double cov_al_lam;
 						double cov_al_w;
 						double cov_w_lam;
-	 					cov_al_lam = fit.mFFT->CovMatrix(4,6);
+						double cov_al_Q;
+						double cov_w_Q;
 						cov_al_w = fit.mFFT->CovMatrix(7,6);
-						cov_w_lam = fit.mFFT->CovMatrix(4,7);
+						if (SPEM == 0)
+							{	
+							cov_al_lam = fit.mFFT->CovMatrix(4,6);
+							cov_w_lam = fit.mFFT->CovMatrix(4,7);
+							}
+						if (SPEM == 0)
+							{	
+							cov_al_Q = fit.mFFT->CovMatrix(4,6);
+							cov_w_Q = fit.mFFT->CovMatrix(4,7);
+							}
 						//gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) );
-						gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );
+						if (SPEM == 0) {gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );}
+						if (SPEM == 1) {gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_Q*fit.errs[4],2) + 2*cov_al_Q*pderiv_Q*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_Q*pderiv_Q*pderiv_w );}
 						BW = histo_LED->GetBinWidth(2);
 						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<" +/- "<<grBF->GetErrorY(8)<<endl;
 						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
@@ -583,8 +624,17 @@ if (index == 1)
 							
 						{	rel_err_w-> Fill(fit.errs[7]*100/fit.vals[7]); 		if (fit.errs[7]*100/fit.vals[7] > max_w) {max_w = fit.errs[7]*100/fit.vals[7];} 		if (fit.errs[7]*100/fit.vals[7] < min_w) {min_w = fit.errs[7]*100/fit.vals[7];}
 							rel_err_alpha-> Fill(fit.errs[6]*100/fit.vals[6]); 	if (fit.errs[6]*100/fit.vals[6] > max_alpha) {max_alpha = fit.errs[6]*100/fit.vals[6];}		if (fit.errs[6]*100/fit.vals[6] < min_alpha) {min_alpha = fit.errs[6]*100/fit.vals[6];}
-							rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
-							rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}
+							if (SPEM == 0)
+							{
+								rel_err_lambda-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_lambda) {max_lambda = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_lambda) {min_lambda = fit.errs[4]*100/fit.vals[4];}
+								rel_err_theta-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_theta) {max_theta = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_theta) {min_theta = fit.errs[5]*100/fit.vals[5];}	
+							}
+						 	
+						 	if (SPEM == 1)
+							{
+								rel_err_Q-> Fill(fit.errs[4]*100/fit.vals[4]); 	if (fit.errs[4]*100/fit.vals[4] > max_Q) {max_Q = fit.errs[4]*100/fit.vals[4];}	if (fit.errs[7]*100/fit.vals[7] < min_Q) {min_Q = fit.errs[4]*100/fit.vals[4];}
+								rel_err_s-> Fill(fit.errs[5]*100/fit.vals[5]); 	if (fit.errs[5]*100/fit.vals[5] > max_s) {max_s = fit.errs[5]*100/fit.vals[5];}		if (fit.errs[7]*100/fit.vals[7] < min_s) {min_s = fit.errs[5]*100/fit.vals[5];}	
+							}
 							rel_err_mu-> Fill(fit.errs[3]*100/fit.vals[3]); 	if (fit.errs[3]*100/fit.vals[3] > max_mu) {max_mu = fit.errs[3]*100/fit.vals[3];}		if (fit.errs[7]*100/fit.vals[7] < min_mu) {min_mu = fit.errs[3]*100/fit.vals[3];}
 						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
@@ -613,10 +663,20 @@ if (index == 1)
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 			rel_err_alpha->SetMarkerStyle( 20 ); rel_err_alpha->SetMarkerSize( 0.4 ); rel_err_alpha->SetLineColor( kBlack ); rel_err_alpha->SetMarkerColor( kBlack ); rel_err_alpha->SetStats(0); rel_err_alpha->GetXaxis()->SetRangeUser(min_alpha,max_alpha); rel_err_alpha->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_lambda->SetMarkerStyle( 20 ); rel_err_lambda->SetMarkerSize( 0.4 ); rel_err_lambda->SetLineColor( kBlack ); rel_err_lambda->SetMarkerColor( kBlack ); rel_err_lambda->SetStats(0); rel_err_lambda->GetXaxis()->SetRangeUser(min_lambda,max_lambda); rel_err_lambda->Draw( "" );
-			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
-			rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->GetXaxis()->SetRangeUser(min_theta,max_theta); rel_err_theta->Draw( "" );
-			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			if(SPEM ==0)
+			{
+	 			rel_err_lambda->SetMarkerStyle( 20 ); rel_err_lambda->SetMarkerSize( 0.4 ); rel_err_lambda->SetLineColor( kBlack ); rel_err_lambda->SetMarkerColor( kBlack ); rel_err_lambda->SetStats(0); rel_err_lambda->GetXaxis()->SetRangeUser(min_lambda,max_lambda); rel_err_lambda->Draw( "" );
+				c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+				rel_err_theta->SetMarkerStyle( 20 ); rel_err_theta->SetMarkerSize( 0.4 ); rel_err_theta->SetLineColor( kBlack ); rel_err_theta->SetMarkerColor( kBlack ); rel_err_theta->SetStats(0); rel_err_theta->GetXaxis()->SetRangeUser(min_theta,max_theta); rel_err_theta->Draw( "" );
+				c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			}
+	 		if(SPEM == 1)
+			{
+				rel_err_Q->SetMarkerStyle( 20 ); rel_err_Q->SetMarkerSize( 0.4 ); rel_err_Q->SetLineColor( kBlack ); rel_err_Q->SetMarkerColor( kBlack ); rel_err_Q->SetStats(0); rel_err_Q->GetXaxis()->SetRangeUser(min_Q,max_Q); rel_err_Q->Draw( "" );
+				c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+				rel_err_s->SetMarkerStyle( 20 ); rel_err_s->SetMarkerSize( 0.4 ); rel_err_s->SetLineColor( kBlack ); rel_err_s->SetMarkerColor( kBlack ); rel_err_s->SetStats(0); rel_err_s->GetXaxis()->SetRangeUser(min_s,max_s); rel_err_s->Draw( "" );
+				c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
+			}
 			rel_err_mu->SetMarkerStyle( 20 ); rel_err_mu->SetMarkerSize( 0.4 ); rel_err_mu->SetLineColor( kBlack ); rel_err_mu->SetMarkerColor( kBlack ); rel_err_mu->SetStats(0); rel_err_mu->GetXaxis()->SetRangeUser(min_mu,max_mu); rel_err_mu->Draw( "" );
 			c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 	 		rel_err_g->SetMarkerStyle( 20 ); rel_err_g->SetMarkerSize( 0.4 ); rel_err_g->SetLineColor( kBlack ); rel_err_g->SetMarkerColor( kBlack ); rel_err_g->SetStats(0); rel_err_g->GetXaxis()->SetRangeUser(min_g,max_g); rel_err_g->Draw( "" );
