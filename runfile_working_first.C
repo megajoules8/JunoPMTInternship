@@ -397,11 +397,23 @@ if (index == 1)
 						BW = ceil(histo_LED->GetBinWidth(2));
 						//PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf)");
 						//PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf");
-						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf)");
-						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf");
 						TString PdfName_start;
+					if(SPEM == 0)
+					{
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAMMA.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAMMA.pdf");
+						
 						//PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf(");
-						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAMMA.pdf(");
+					}
+					if(SPEM == 1)
+					{
+						PdfName_end = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAUSS.pdf)");
+						PdfName_mid = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAUSS.pdf");
+						
+						//PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW)+ TString("_theta_") + Form ("%.2f", theta) + TString("_Results.pdf(");
+						PdfName_start = TString("scan") + Form("%d", dat) + TString("_BW_") + Form("%.0f", BW) + TString("_Results_GAUSS.pdf(");
+					}
 						c1->Print(PdfName_start,"pdf");
 						
 						Fit_Gauss->SetParameters(amp*histo_LED->GetBinWidth(1)*(1/(sqrt(2*M_PI)*sigma)),Q,sigma);
