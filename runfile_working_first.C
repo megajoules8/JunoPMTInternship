@@ -744,9 +744,17 @@ if (index == 1)
 			c1->BuildLegend();
 	 		c1->Update(); c1->WaitPrimitive();
 			c1->Print( PdfName_end ,"pdf");
-	 		cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
-	 		cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
-	 		out_file->Close();
+	 		if(SPEM == 0)
+			{
+	 			cout <<"Mean relative error of w , alpha, lambda, theta, mu, G: "<<endl;
+	 			cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_lambda->GetMean()<<" "<<rel_err_theta->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
+			}
+	 		if(SPEM == 1)
+			{
+	 			cout <<"Mean relative error of w , alpha, Q, s, mu, G: "<<endl;
+	 			cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_Q->GetMean()<<" "<<rel_err_s->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
+			}
+			out_file->Close();
 
 	 
 	 
