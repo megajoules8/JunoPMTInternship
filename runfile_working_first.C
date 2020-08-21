@@ -496,7 +496,7 @@ if (index == 1)
 						TString STATUS;
 						Double_t Gfit;
 						     if (SPEM == 0){	Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); }
-						     if (SPEM == 1){	Gfit = ( fit.vals[7]*fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
+						     if (SPEM == 1){	Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
