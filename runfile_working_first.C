@@ -464,14 +464,19 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						//cout<<"   *** Default SPEResponse model = GAMMA ***   "<<endl;
-						Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
+						
+						Double_t p_test[4];
+						if(SPEM == 0)
+						{	
+						cout<<"   *** SPEResponse model = GAMMA ***   "<<endl;
+						p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
 						SPEResponse gamma_test( PMType::GAMMA, p_test );
+						}
 						
 						if(SPEM == 1)
 						{
-							cout<<"   *** SPEResponse model chosen = GAUSS ***   "<<endl;
-							Double_t p_test[4] = { _G, 0.3*_G, 1/(0.1*_G), 0.2 };
+							cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;
+							p_test[4] = { _G, 0.3*_G, 1/(0.1*_G), 0.2 };
 							SPEResponse gamma_test( PMType::GAUSS, p_test );
 						}
 						
