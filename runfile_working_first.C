@@ -242,7 +242,7 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
-	 	cout <<"Input 0 for GAMMA, 1 for GAUSS :"<<endl;
+	 	cout <<"Default SPE Response Model = GAMMA, input 1 for GAUSS, 0 to continue with GAMMA :"<<endl;
 	 	cin >> SPEM;
 	 	filename = TString("gain_data_scan") + Form("%d",dat);
 	 	TFile *out_file = new TFile("my_rootfile.root","RECREATE");
@@ -310,18 +310,14 @@ if (index == 1)
 	 	rel_err_alpha->GetXaxis()->SetTitle("Relative error of alpha");
 		rel_err_alpha->GetYaxis()->SetTitle("Counts");
 	 	
-	 	if (SPEM == 0)
-		{
 	 		TH1F *rel_err_theta 	= new TH1F("dtheta", "Relative error of theta", 2000 , 0, 100);
-	 		rel_err_theta->GetXaxis()->SetTitle("Relative error of thet");
+	 		rel_err_theta->GetXaxis()->SetTitle("Relative error of theta");
 			rel_err_theta->GetYaxis()->SetTitle("Counts");
 	 
 	 		TH1F *rel_err_lambda 	= new TH1F("dlambda", "Relative error of lambda", 2000 , 0, 100);
 	 		rel_err_lambda->GetXaxis()->SetTitle("Relative error of lambda");
 			rel_err_lambda->GetYaxis()->SetTitle("Counts");
-		}
-	 	else if (SPEM == 1)
-		{
+			 	
 			TH1F *rel_err_Q 	= new TH1F("dQ", "Relative error of Q", 2000 , 0, 100);
 	 		rel_err_Q->GetXaxis()->SetTitle("Relative error of Q");
 			rel_err_Q->GetYaxis()->SetTitle("Counts");
@@ -329,9 +325,7 @@ if (index == 1)
 	 		TH1F *rel_err_s 	= new TH1F("ds", "Relative error of s", 2000 , 0, 100);
 	 		rel_err_s->GetXaxis()->SetTitle("Relative error of s");
 			rel_err_s->GetYaxis()->SetTitle("Counts");
-		}	
-	 	
-	 
+			 
 	 	TH1F *rel_err_mu 	= new TH1F("dmu", "Relative error of mu", 2000 , 0, 100);
 	 	rel_err_mu->GetXaxis()->SetTitle("Relative error of mu");
 		rel_err_mu->GetYaxis()->SetTitle("Counts");
@@ -456,19 +450,17 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						if(SPEM == 0)
-						{
-							cout<<"   *** SPEResponse model chosen = GAMMA ***   "<<endl;
-							Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
-							SPEResponse gamma_test( PMType::GAMMA, p_test );
-						}
-						else if(SPEM == 1)
+						//cout<<"   *** Default SPEResponse model = GAMMA ***   "<<endl;
+						Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
+						SPEResponse gamma_test( PMType::GAMMA, p_test );
+						
+						if(SPEM == 1)
 						{
 							cout<<"   *** SPEResponse model chosen = GAUSS ***   "<<endl;
 							Double_t p_test[4] = { _G, 0.3*_G, 1/(0.1*_G), 0.2 };
 							SPEResponse gamma_test( PMType::GAUSS, p_test );
 						}
-						else	{cout<<"Incorrect index for SPE!!"<<endl;}
+						
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
 						Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
@@ -503,7 +495,7 @@ if (index == 1)
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						     if (SPEM == 0){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); }
-						else if (SPEM == 1){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
+						     if (SPEM == 1){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
