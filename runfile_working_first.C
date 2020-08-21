@@ -242,7 +242,7 @@ if (index == 1)
 	 	cout <<"Input 4232 for scan4232"<<endl;
 	 	
 	 	cin >> dat;
-	 	cout <<"Default SPE Response Model = GAMMA, input 1 for GAUSS, 0 to continue with GAMMA :"<<endl;
+	 	cout <<"Default SPE Response Model = GAMMA, input 1 for GAUSS, 0 for GAMMA :"<<endl;
 	 	cin >> SPEM;
 	 	
 	 	if(SPEM == 0){filename = TString("gain_data_scan") + Form("%d",dat) + TString("GAMMA");}
@@ -464,13 +464,11 @@ if (index == 1)
 						cout << " Esimated G : " << _G << endl;
 						
 						SPEFitter fit;
-						
-						Double_t p_test[4];
+						Double_t p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
+						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						if(SPEM == 0)
 						{	
 						cout<<"   *** SPEResponse model = GAMMA ***   "<<endl;
-						p_test[4] = { 1.0/_G, 10.0, 1/(0.1*_G), 0.2 };
-						SPEResponse gamma_test( PMType::GAMMA, p_test );
 						}
 						
 						if(SPEM == 1)
