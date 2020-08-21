@@ -621,8 +621,14 @@ if (index == 1)
 							}
 						ff <<" "<<endl;	
 					
-						if ((fit.chi2r <= 3) && (fit.fit_status == 0)  && (gainerror/Gfit<0.08) )	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						if(SPEM == 0)	{
+							if ((fit.chi2r <= 3) && (fit.fit_status == 0)  && (gainerror/Gfit<0.08) )	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
 						else {STATUS = "No"; ++REM;}
+								}
+						if(SPEM == 1)	{
+							if ((fit.chi2r <= 3) && (fit.fit_status == 0) )	{ANGLES[count] = 15*a;  PMT_DATA[2*p-2][count] = Gfit;	PMT_DATA[2*p-1][count] = gainerror;   ++count;	STATUS = "Yes";}
+						else {STATUS = "No"; ++REM;}
+								}
 						gaindata << a*15 <<"  "<<fit.vals[3]<<"  "<<fit.errs[3]<<"  "<<fit.vals[7]<<"  "<<fit.errs[7]<<"  "<<fit.vals[6]<<"  "<<fit.errs[6]<<"  "<<fit.vals[4]<<"  "<<fit.errs[4]<<"  "<<fit.vals[5]<<"	"<<fit.errs[5]<<"  "<< sig_reduced<<"  "<<sig_reduced_err<<"  "\
 						<<Gfit <<"  "<< gainerror<<"  "<< fit.chi2r<<"  "<<chi_red<<"  "<<fit.fit_status<<"  "<<D<<"  "<<gainerror/Gfit<<"  "<<STATUS<<"  "<<endl;
 						cout << " Gain (DUQ) : " << Gfit <<" +/- "<< gainerror << endl;
