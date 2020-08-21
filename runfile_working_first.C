@@ -244,7 +244,9 @@ if (index == 1)
 	 	cin >> dat;
 	 	cout <<"Default SPE Response Model = GAMMA, input 1 for GAUSS, 0 to continue with GAMMA :"<<endl;
 	 	cin >> SPEM;
-	 	filename = TString("gain_data_scan") + Form("%d",dat);
+	 	
+	 	if(SPEM == 0){filename = TString("gain_data_scan") + Form("%d",dat) + TString("GAMMA");}
+	 	if(SPEM == 1){filename = TString("gain_data_scan") + Form("%d",dat) + TString("GAUSS");}
 	 	TFile *out_file = new TFile("my_rootfile.root","RECREATE");
 	 	ofstream gaindata (filename);
 	 	ofstream ff ("matrices.txt");
