@@ -467,7 +467,7 @@ if (index == 1)
 						GAU = TString("PMType::GAUSS");
 						SPEFitter fit;
 						Float_t A,B,C,D;
-						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
+						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1.1/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
 						if(SPEM == 1) {A = 1.0*_G; B = 0.3*_G; C = 0.9/(0.1*_G); D = 0.2; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
 						SPEResponse gamma_test( PMType::GAUSS, p_test );	
