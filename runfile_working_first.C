@@ -462,25 +462,16 @@ if (index == 1)
 						
 						Double_t _G = ( histo_LED->GetMean() - Q )/(MU); //calculated in nVs
 						cout << " Esimated G : " << _G << endl;
-						
+						TString SPE, GAM, GAU;
+						GAM = TString("PMType::GAMMA");
+						GAU = TString("PMType::GAUSS");
 						SPEFitter fit;
 						Float_t A,B,C,D;
-						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2; }
-						if(SPEM == 1) {A = _G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; }
+						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2; SPE = GAM; cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
+						if(SPEM == 1) {A = _G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; SPE = GAU; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
-						
-						if(SPEM == 0)
-						{	
-							cout<<"   *** SPEResponse model = GAMMA ***   "<<endl;
-							SPEResponse gamma_test( PMType::GAMMA, p_test );	
-						}
-						
-						if(SPEM == 1)
-						{
-							cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;
-							SPEResponse gamma_test( PMType::GAUSS, p_test );
-						}
-						
+						SPEResponse gamma_test( SPE, p_test );	
+									
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
 						Double_t xmax = histo_LED->GetXaxis()->GetBinUpEdge(nbins);
