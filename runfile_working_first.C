@@ -494,8 +494,9 @@ if (index == 1)
 						grBF->Draw( "SAME,L" );
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
-						     if (SPEM == 0){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); }
-						     if (SPEM == 1){	Double_t Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
+						Double_t Gfit;
+						     if (SPEM == 0){	Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])/fit.vals[4] ); }
+						     if (SPEM == 1){	Gfit = ( fit.vals[7]/fit.vals[6]+(1.0-fit.vals[7])*fit.vals[4] ); }
 						//ff <<HV[i]<<" "<<  Gfit/(50*1.60217662e-10) <<" "<< Gfit<<endl;  // write the respective voltages and gains to a file in directory
 						cout << "" << endl;
 						cout << "" << endl;
@@ -508,8 +509,10 @@ if (index == 1)
 						sig_reduced_err = 0.5*pow( (1+fit.vals[5]), -1.5 );
 						Float_t pderiv_w = (1/fit.vals[6]) - (1/fit.vals[4]);
 						Float_t pderiv_alpha = -fit.vals[7]/pow(fit.vals[6],2);
-						if (SPEM == 0) {Float_t pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);}
-						if (SPEM == 1)	{Float_t pderiv_Q = (1-fit.vals[7]);}
+						Float_t pderiv_lambda;
+						Float_t pderiv_Q;
+						if (SPEM == 0) {pderiv_lambda = -(1-fit.vals[7])/pow(fit.vals[4],2);}
+						if (SPEM == 1)	{pderiv_Q = (1-fit.vals[7]);}
 						//gainerror = (fit.vals[7]/fit.vals[6])* ( sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[6]/fit.vals[6]),2 )))   +   ((1-fit.vals[7])/fit.vals[4])*(sqrt( pow( (fit.errs[7]/fit.vals[7]),2 ) + pow( (fit.errs[4]/fit.vals[4]),2 )) );
 						double cov_al_lam;
 						double cov_al_w;
