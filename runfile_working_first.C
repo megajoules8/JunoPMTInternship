@@ -467,10 +467,10 @@ if (index == 1)
 						GAU = TString("PMType::GAUSS");
 						SPEFitter fit;
 						Float_t A,B,C,D;
-						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2; SPE = GAM; cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
-						if(SPEM == 1) {A = _G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; SPE = GAU; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
+						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
+						if(SPEM == 1) {A = _G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
-						SPEResponse gamma_test( SPE, p_test );	
+						SPEResponse gamma_test( PMType::GAUSS, p_test );	
 									
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
