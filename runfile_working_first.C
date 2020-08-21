@@ -468,7 +468,7 @@ if (index == 1)
 						SPEFitter fit;
 						Float_t A,B,C,D;
 						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
-						if(SPEM == 1) {A = _G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
+						if(SPEM == 1) {A = 0.7*_G; B = 0.3*_G; C = 1/(0.1*_G); D = 0.2; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
 						SPEResponse gamma_test( PMType::GAUSS, p_test );	
 									
@@ -545,17 +545,17 @@ if (index == 1)
 						if (SPEM == 0) {gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_lambda*fit.errs[4],2) + 2*cov_al_lam*pderiv_lambda*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_lam*pderiv_lambda*pderiv_w );}
 						if (SPEM == 1) {gainerror = sqrt ( pow(pderiv_w*fit.errs[7],2) + pow(pderiv_alpha*fit.errs[6],2) + pow(pderiv_Q*fit.errs[4],2) + 2*cov_al_Q*pderiv_Q*pderiv_alpha + 2*cov_al_w*pderiv_w*pderiv_alpha + 2*cov_w_Q*pderiv_Q*pderiv_w );}
 						BW = histo_LED->GetBinWidth(2);
-						cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<endl;
-						cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
+						//cout<< "8th Bin content of fit = "<<grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(8))<<endl;
+						//cout<< "8th Bin content of LED = "<<histo_LED->GetBinContent(8)<<" +/- "<<histo_LED->GetBinError(8)<<endl;
 						
 						chi = 0;
 						NDF = 0;
-						for (int z=5; z<26; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
+						for (int z=15; z<41; z++) {chi += pow( ( grBF->Eval(histo_LED->GetXaxis()->GetBinCenter(z)) - histo_LED->GetBinContent(z) )/histo_LED->GetBinError(z) , 2 );	if(histo_LED->GetBinContent(z)>0) {++NDF;} }
 						
 						//NDF = NDF-dft.spef.nparams-4;
 						chi_red = chi/(NDF);
 						cout<<"NDF = "<<NDF<<endl;
-						cout<< "chi_sq/Nbins for the Bin range (5,25) = "<<chi_red<<endl;
+						cout<< "chi_sq/Nbins for the Bin range (15,40) = (500,3000)DUQ = "<<chi_red<<endl;
 						chisqr-> Fill(chi_red); 		if (chi_red > max_chi) {max_chi = chi_red;}	if (chi_red < min_chi) {min_chi = chi_red;}
 						//cout<<fit.ndof<<endl;
 						
