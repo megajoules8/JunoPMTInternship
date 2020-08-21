@@ -350,7 +350,7 @@ if (index == 1)
 	 	{	
 	 			gaindata <<"Fit data for position "<< p <<": "<< endl;
 				if (SPEM == 0) {gaindata <<"angle Mu Mu_err w w_err alpha alpha_err lambda lambda_err Theta Theta_err sig_reduced sig_reduced_err Gain Gain_err chi_sq chi_sub fit.status D  gainerror/Gfit is Point Good? "<< endl;}
-	 			if (SPEM == 0) {gaindata <<"angle Mu Mu_err w w_err alpha alpha_err Q Q_err s s_err sig_reduced sig_reduced_err Gain Gain_err chi_sq chi_sub fit.status D  gainerror/Gfit is Point Good? "<< endl;}
+	 			if (SPEM == 1) {gaindata <<"angle Mu Mu_err w w_err alpha alpha_err Q Q_err s s_err sig_reduced sig_reduced_err Gain Gain_err chi_sq chi_sub fit.status D  gainerror/Gfit is Point Good? "<< endl;}
 				gaindata <<" "<< endl;
 				for (int f=0; f<24; ++f) {X_ERR[f] = 0;}
 				//gr_name = TString("GR_") + Form("%d", p);
