@@ -681,7 +681,7 @@ if (index == 1)
 			auto gr_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA[2],X_ERR,PMT_DATA[3]);	gr_2->SetMarkerColor(2); gr_2->SetLineColor(2); gr_2->SetMarkerStyle(7); gr_2->SetName("Position 2"); gr_2->SetTitle("Position 2");
 			auto gr_3 = new TGraphErrors(counts[2],ANGLES_3,PMT_DATA[4],X_ERR,PMT_DATA[5]);	gr_3->SetMarkerColor(3); gr_3->SetLineColor(3); gr_3->SetMarkerStyle(7); gr_3->SetName("Position 3"); gr_3->SetTitle("Position 3");
 			auto gr_4 = new TGraphErrors(counts[3],ANGLES_4,PMT_DATA[6],X_ERR,PMT_DATA[7]);	gr_4->SetMarkerColor(4); gr_4->SetLineColor(4); gr_4->SetMarkerStyle(7); gr_4->SetName("Position 4"); gr_4->SetTitle("Position 4");
-			auto gr_5 = new TGraphErrors(counts[4],ANGLES_5,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(5); gr_5->SetLineColor(5); gr_5->SetMarkerStyle(7); gr_5->SetName("Position 5"); gr_5->SetTitle("Position 5");
+			auto gr_5 = new TGraphErrors(counts[4],ANGLES_5,PMT_DATA[8],X_ERR,PMT_DATA[9]);	gr_5->SetMarkerColor(93); gr_5->SetLineColor(93); gr_5->SetMarkerStyle(7); gr_5->SetName("Position 5"); gr_5->SetTitle("Position 5");
 			auto gr_6 = new TGraphErrors(counts[5],ANGLES_6,PMT_DATA[10],X_ERR,PMT_DATA[11]); gr_6->SetMarkerColor(6); gr_6->SetLineColor(6); gr_6->SetMarkerStyle(7); gr_6->SetName("Position 6"); gr_6->SetTitle("Position 6");
 			auto gr_7 = new TGraphErrors(counts[6],ANGLES_7,PMT_DATA[12],X_ERR,PMT_DATA[13]); gr_7->SetMarkerColor(7); gr_7->SetLineColor(7); gr_7->SetMarkerStyle(7); gr_7->SetName("Position 7"); gr_7->SetTitle("Position 7");
 			mg->Add(gr_1);
@@ -707,7 +707,7 @@ if (index == 1)
 			auto gr2_2 = new TGraphErrors(counts[1],ANGLES_2,PMT_DATA_NORM[2],X_ERR,PMT_DATA_NORM[3]);	gr2_2->SetMarkerColor(2); gr2_2->SetLineColor(2);  gr2_2->SetMarkerStyle(7); gr2_2->SetName("Position 2"); gr2_2->SetTitle("Position 2");
 			auto gr2_3 = new TGraphErrors(counts[2],ANGLES_3,PMT_DATA_NORM[4],X_ERR,PMT_DATA_NORM[5]);	gr2_3->SetMarkerColor(3); gr2_3->SetLineColor(3); gr2_3->SetMarkerStyle(7); gr2_3->SetName("Position 3"); gr2_3->SetTitle("Position 3");
 			auto gr2_4 = new TGraphErrors(counts[3],ANGLES_4,PMT_DATA_NORM[6],X_ERR,PMT_DATA_NORM[7]);	gr2_4->SetMarkerColor(4); gr2_4->SetLineColor(4); gr2_4->SetMarkerStyle(7); gr2_4->SetName("Position 4"); gr2_4->SetTitle("Position 4");
-			auto gr2_5 = new TGraphErrors(counts[4],ANGLES_5,PMT_DATA_NORM[8],X_ERR,PMT_DATA_NORM[9]);	gr2_5->SetMarkerColor(5); gr2_5->SetLineColor(5); gr2_5->SetMarkerStyle(7); gr2_5->SetName("Position 5"); gr2_5->SetTitle("Position 5");
+			auto gr2_5 = new TGraphErrors(counts[4],ANGLES_5,PMT_DATA_NORM[8],X_ERR,PMT_DATA_NORM[9]);	gr2_5->SetMarkerColor(93); gr2_5->SetLineColor(93); gr2_5->SetMarkerStyle(7); gr2_5->SetName("Position 5"); gr2_5->SetTitle("Position 5");
 			auto gr2_6 = new TGraphErrors(counts[5],ANGLES_6,PMT_DATA_NORM[10],X_ERR,PMT_DATA_NORM[11]); 	gr2_6->SetMarkerColor(6); gr2_6->SetLineColor(6); gr2_6->SetMarkerStyle(7); gr2_6->SetName("Position 6"); gr2_6->SetTitle("Position 6");
 			auto gr2_7 = new TGraphErrors(counts[6],ANGLES_7,PMT_DATA_NORM[12],X_ERR,PMT_DATA_NORM[13]); 	gr2_7->SetMarkerColor(7); gr2_7->SetLineColor(7); gr2_7->SetMarkerStyle(7); gr2_7->SetName("Position 7"); gr2_7->SetTitle("Position 7");
 	 		mg2->Add(gr2_1);
