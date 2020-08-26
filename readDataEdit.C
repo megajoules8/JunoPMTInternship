@@ -24,6 +24,7 @@ int main(int argc, char ** argv)
 	TString LED;
 	TString Nom;
 	int dat;
+	int BW;
 	
 	cout <<"Input the data set you wish to analyze:"<<endl;
 	cout <<"Input 248 for scan248"<<endl;
@@ -36,7 +37,8 @@ int main(int argc, char ** argv)
 	cout <<"Input 4232 for scan4232"<<endl;
 	
 	cin >> dat;
-		
+	cout <<"Input the bin width:"<<endl;	
+	cin >> BW;
 	for (int p = 1; p<8; ++p)
 	{
 				
@@ -75,11 +77,12 @@ int main(int argc, char ** argv)
 				float h_min;
 				if (dat == 3737)
 					{
-						nbins = 600;
+						
 						t_min = 400;
 						t_max = 470;
 						h_max = 1000;
 						h_min = -11000;
+						nbins = (h_max-h_min)/BW;
 					
 					}
 				else if (dat == 3899)
