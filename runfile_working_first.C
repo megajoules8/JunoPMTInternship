@@ -501,7 +501,7 @@ if (index == 1)
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
 						
-						if ((p==1)&&(a==1)) {TFile* f1 = new TFile("pos_1_15.root");	cout<<"good"<<endl; TGraph* graph1 = (TGraph*)f1->Get("grBF");	cout<<"good"<<endl; "graph1->SetLineColor(kRed);	graph1->Draw("SAME,L");}
+						if ((p==1)&&(a==1)) {TFile* f1 = new TFile("pos_1_15.root");	cout<<"good"<<endl; TGraph* graph1 = (TGraph*)f1->Get("grBF");	cout<<"good"<<endl; graph1->SetLineColor(kRed);	graph1->Draw("SAME,L");}
 						if ((p==3)&&(a==20)) {TFile* f2 = new TFile("pos_3_300.root");	TGraph* graph2 = (TGraph*)f2->Get("grBF");	graph2->SetLineColor(kRed);	graph2->Draw("SAME,L");}
 						if ((p==5)&&(a==18)) {TFile* f3 = new TFile("pos_5_270.root");	TGraph* graph3 = (TGraph*)f3->Get("grBF");	graph3->SetLineColor(kRed);	graph3->Draw("SAME,L");}
 						if ((p==5)&&(a==23)) {TFile* f4 = new TFile("pos_5_345.root");	TGraph* graph4 = (TGraph*)f4->Get("grBF");	graph4->SetLineColor(kRed);	graph4->Draw("SAME,L");}
