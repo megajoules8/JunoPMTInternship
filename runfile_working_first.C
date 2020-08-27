@@ -497,13 +497,14 @@ if (index == 1)
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
 						TGraph *grBF = dft.GetGraph();
+						grBF->SetName("grBF");
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
 						
-						if ((p==1)&&(a==1)) {TFile* f1 = new TFile("pos_1_15.root");	TGraph* graph1 = (TGraph*)f1->Get("");	graph1->SetLineColor(kRed);	graph1->Draw("SAME,L");}
-						if ((p==3)&&(a==20)) {TFile* f2 = new TFile("pos_3_300.root");	TGraph* graph2 = (TGraph*)f2->Get("");	graph2->SetLineColor(kRed);	graph2->Draw("SAME,L");}
-						if ((p==5)&&(a==18)) {TFile* f3 = new TFile("pos_5_270.root");	TGraph* graph3 = (TGraph*)f3->Get("");	graph3->SetLineColor(kRed);	graph3->Draw("SAME,L");}
-						if ((p==5)&&(a==23)) {TFile* f4 = new TFile("pos_5_345.root");	TGraph* graph4 = (TGraph*)f4->Get("");	graph4->SetLineColor(kRed);	graph4->Draw("SAME,L");}
+						if ((p==1)&&(a==1)) {TFile* f1 = new TFile("pos_1_15.root");	TGraph* graph1 = (TGraph*)f1->Get("grBF");	graph1->SetLineColor(kRed);	graph1->Draw("SAME,L");}
+						if ((p==3)&&(a==20)) {TFile* f2 = new TFile("pos_3_300.root");	TGraph* graph2 = (TGraph*)f2->Get("grBF");	graph2->SetLineColor(kRed);	graph2->Draw("SAME,L");}
+						if ((p==5)&&(a==18)) {TFile* f3 = new TFile("pos_5_270.root");	TGraph* graph3 = (TGraph*)f3->Get("grBF");	graph3->SetLineColor(kRed);	graph3->Draw("SAME,L");}
+						if ((p==5)&&(a==23)) {TFile* f4 = new TFile("pos_5_345.root");	TGraph* graph4 = (TGraph*)f4->Get("grBF");	graph4->SetLineColor(kRed);	graph4->Draw("SAME,L");}
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						Double_t Gfit;
