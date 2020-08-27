@@ -504,7 +504,7 @@ if (index == 1)
 						grBF->SetName("grBF");
 						grBF->PaintStats(0);
 						
-						if ((p==1)&&(a==1)) {grBF->Write();	grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f1->Close();}
+						if ((p==1)&&(a==1)) {/*grBF->Write();*/	grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f1->Close();}
 						if ((p==1)&&(a==1)) {TFile* f2 = new TFile("pos_1_15.root");	TGraph* graph = (TGraph*)f2->Get("grBF");	graph->SetLineColor(kRed);	graph->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						//if ((p==3)&&(a==20)) {grBF->Write();	grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f3->Close();}
 						//if ((p==3)&&(a==20)) {TFile* f4 = new TFile("pos_3_300.root");	TGraph* graph4 = (TGraph*)f4->Get("grBF");	graph4->SetLineColor(kRed);	graph4->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
