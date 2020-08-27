@@ -684,7 +684,7 @@ if (index == 1)
 						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
 					
-						SPEFitter fit2;
+						/*SPEFitter fit2;
 						Double_t p_test2[4] = {1.0/_G, 10.0, 1.0/(0.1*_G), 0.2};
 						SPEResponse gamma_test2( PMType::GAMMA, p_test2 );
 						dft2.wbin = histo_LED->GetBinWidth(1);
@@ -703,7 +703,7 @@ if (index == 1)
 						TGraph *grBF2 = dft2.GetGraph();
 						grBF2->PaintStats(0);
 						grBF2->SetLineColor(kRed);
-						grBF2->Draw( "SAME,L" );
+						grBF2->Draw( "SAME,L" );*/
 
 		 				//cout<<cov<<endl;
 						
