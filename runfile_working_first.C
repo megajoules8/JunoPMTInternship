@@ -502,7 +502,7 @@ if (index == 1)
 						grBF->PaintStats(0);
 						
 						if ((p==1)&&(a==1)) {grBF->Write();	grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f1->Close();}
-						if ((p==1)&&(a==1)) {TFile* f2 = new TFile("pos_1_15.root");	TGraph* graph = (TGraph*)f2->Get("grBF");	graph->Draw("L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
+						if ((p==1)&&(a==1)) {TFile* f2 = new TFile("pos_1_15.root");	TGraph* graph = (TGraph*)f2->Get("grBF");	graph->SetLineColor(kRed);	graph->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						//if ((p==3)&&(a==20)) {TMultiGraph  *mg_2  = new TMultiGraph();	TFile* f2 = new TFile("pos_3_300.root");	auto graph2 = (TGraph*)f2->Get("grBF");	mg_2->Add(grBF);	mg_2->Add(graph2);	mg_2->Draw("CDL");
 						//		      c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						/*if ((p==5)&&(a==18)) {TMultiGraph  *mg_3  = new TMultiGraph();	TFile* f3 = new TFile("pos_5_270.root");	auto graph3 = (TGraph*)f3->Get("grBF");	mg_3->Add(grBF);	mg_3->Add(graph3);	mg_3->Draw("CDL");
