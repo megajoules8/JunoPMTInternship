@@ -247,7 +247,6 @@ if (index == 1)
 	 	
 	 	if(SPEM == 0){filename = TString("gain_data_scan") + Form("%d",dat) + TString("GAMMA");}
 	 	if(SPEM == 1){filename = TString("gain_data_scan") + Form("%d",dat) + TString("GAUSS");}
-	 	TFile *out_file = new TFile("my_rootfile.root","RECREATE");
 	 	ofstream gaindata (filename);
 	 	ofstream ff ("matrices.txt");
 	 	Int_t n = 24;
@@ -422,9 +421,6 @@ if (index == 1)
 							
 						histo_LED->Draw();
 					
-						//if ((p==1)&&(a==1)) {histo_LED->Write();}
-						//if ((p==5)&&(a==23)) {histo_LED->Write();}
-					
 						histo_LED->Fit("Fit_Gauss","","", Q-5.0*sigma,Q+3*sigma);
 						Fit_Gauss -> Draw("same");
 							
@@ -503,6 +499,11 @@ if (index == 1)
 						TGraph *grBF = dft.GetGraph();
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
+						
+						if ((p==1)&&(a==1)) {TFile *file1 = new TFile("pos_1_15.root","RECREATE");	grBF->Write();	file1->Close();
+						if ((p==3)&&(a==20)) {TFile *file2 = new TFile("pos_3_300.root","RECREATE");	grBF->Write();	file2->Close();
+						if ((p==5)&&(a==18)) {TFile *file3 = new TFile("pos_5_270.root","RECREATE");	grBF->Write();	file3->Close();
+						if ((p==5)&&(a==23)) {TFile *file4 = new TFile("pos_5_345.root","RECREATE");	grBF->Write();	file4->Close();
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						Double_t Gfit;
