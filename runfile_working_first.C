@@ -501,13 +501,13 @@ if (index == 1)
 						grBF->PaintStats(0);
 						
 						
-						if ((p==1)&&(a==1)) {TMultiGraph  *mg_1  = new TMultiGraph();	TFile* f1 = new TFile("pos_1_15.root");		TGraph* graph1 = (TGraph*)f1->Get("grBF");	mg_1->Add(grBF);	mg_1->Add(graph1);	mg_1->Draw("SAME,L");	
+						if ((p==1)&&(a==1)) {TMultiGraph  *mg_1  = new TMultiGraph();	TFile* f1 = new TFile("pos_1_15.root");		TGraph graph1 = (TGraph)f1->Get("grBF");	mg_1->Add(grBF);	mg_1->Add(graph1);	mg_1->Draw("SAME,L");	
 								     c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
-						if ((p==3)&&(a==20)) {TMultiGraph  *mg_2  = new TMultiGraph();	TFile* f2 = new TFile("pos_3_300.root");	TGraph* graph2 = (TGraph*)f2->Get("grBF");	mg_2->Add(grBF);	mg_2->Add(graph2);	mg_2->Draw("SAME,L");
+						if ((p==3)&&(a==20)) {TMultiGraph  *mg_2  = new TMultiGraph();	TFile* f2 = new TFile("pos_3_300.root");	TGraph graph2 = (TGraph)f2->Get("grBF");	mg_2->Add(grBF);	mg_2->Add(graph2);	mg_2->Draw("SAME,L");
 								      c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
-						if ((p==5)&&(a==18)) {TMultiGraph  *mg_3  = new TMultiGraph();	TFile* f3 = new TFile("pos_5_270.root");	TGraph* graph3 = (TGraph*)f3->Get("grBF");	mg_3->Add(grBF);	mg_3->Add(graph3);	mg_3->Draw("SAME,L");
+						if ((p==5)&&(a==18)) {TMultiGraph  *mg_3  = new TMultiGraph();	TFile* f3 = new TFile("pos_5_270.root");	TGraph graph3 = (TGraph)f3->Get("grBF");	mg_3->Add(grBF);	mg_3->Add(graph3);	mg_3->Draw("SAME,L");
 								      c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
-						if ((p==5)&&(a==23)) {TMultiGraph  *mg_4  = new TMultiGraph();	TFile* f4 = new TFile("pos_5_345.root");	TGraph* graph4 = (TGraph*)f4->Get("grBF");	mg_4->Add(grBF);	mg_4->Add(graph4);	mg_4->Draw("SAME,L");
+						if ((p==5)&&(a==23)) {TMultiGraph  *mg_4  = new TMultiGraph();	TFile* f4 = new TFile("pos_5_345.root");	TGraph graph4 = (TGraph)f4->Get("grBF");	mg_4->Add(grBF);	mg_4->Add(graph4);	mg_4->Draw("SAME,L");
 								      c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						else {grBF->Draw( "SAME,L" );	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						
