@@ -501,7 +501,7 @@ if (index == 1)
 						grBF->PaintStats(0);
 						
 						
-						if ((p==1)&&(a==1)) {TMultiGraph  *mg_1  = new TMultiGraph();	TFile* f1 = new TFile("pos_1_15.root");		auto graph1 = (TGraph*)f1->Get("grBF");	mg_1->Add(grBF);	mg_1->Add(graph1);	mg_1->Draw("CDL");	
+						if ((p==1)&&(a==1)) {TMultiGraph  *mg_1  = new TMultiGraph();	TFile* f1 = new TFile("pos_1_15.root");		auto graph1 = (TGraph*)f1->Get("grBF");		mg_1->Add(graph1);	mg_1->Draw("CDL");	
 								     c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						if ((p==3)&&(a==20)) {TMultiGraph  *mg_2  = new TMultiGraph();	TFile* f2 = new TFile("pos_3_300.root");	auto graph2 = (TGraph*)f2->Get("grBF");	mg_2->Add(grBF);	mg_2->Add(graph2);	mg_2->Draw("CDL");
 								      c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
