@@ -23,7 +23,6 @@
 #include "TGraph.h"
 #include "TGraphErrors.h"
 #include "THStack.h"
-
 #include "TROOT.h"
 #include "TEnv.h"
 #include "TBrowser.h"
@@ -40,7 +39,6 @@
 #include "TSystem.h"
 #include <stdlib.h>
 #include "TCanvas.h"
-
 #include "HFitInterface.h"
 #include "Fit/DataRange.h"
 #include "Math/MinimizerOptions.h"
@@ -461,18 +459,12 @@ if (index == 1)
 						TString SPE, GAM, GAU;
 						GAM = TString("PMType::GAMMA");
 						GAU = TString("PMType::GAUSS");
-						
 						SPEFitter fit;
-						
-						
 						Float_t A,B,C,D;
 						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1.0/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
 						if(SPEM == 1) {A = 1.0*_G; B = 0.3*_G; C = 1.1/(0.1*_G); D = 0.18; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
-						
-						
-						SPEResponse gamma_test( PMType::GAUSS, p_test );	
-						
+						SPEResponse gamma_test( PMType::GAMMA, p_test );	
 									
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
@@ -486,43 +478,29 @@ if (index == 1)
 						
 						
 						DFTmethod dft( 4.0*nbins, xmin, xmax, gamma_test );
-						DFTmethod dft2( 4.0*nbins, xmin, xmax, gamma_test2 );
-						
 						dft.wbin = histo_LED->GetBinWidth(1);
 						dft.Norm = histo_LED->Integral();
 						dft.Q0 = Q;
 						dft.s0 = sigma;
 						dft.mu = MU;
-					
-						
 						
 						fit.SetDFTmethod( dft );
 						fit.FitwDFTmethod( histo_LED );
-					
-						
 						
 							
 						dft.Norm = fit.vals[0];
 						dft.Q0 = fit.vals[1];
 						dft.s0 = fit.vals[2];
 						dft.mu = fit.vals[3]; 
-					
-						
-					
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
-						
-						
 						dft.spef.SetParams( p_fit );
-						
 						TFile *f1 = new TFile("pos_1_15.root", "RECREATE");
 						//TFile *f3 = new TFile("pos_3_300.root", "RECREATE");
 						//TFile *f5 = new TFile("pos_7_270.root", "RECREATE");
 						//TFile *f7 = new TFile("pos_7_345.root", "RECREATE");
 						TGraph *grBF = dft.GetGraph();
-						
 						grBF->SetName("grBF");
 						grBF->PaintStats(0);
-						
 						
 						//if ((p==1)&&(a==1)) {grBF->Write(); grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f1->Close();}
 						//if ((p==1)&&(a==1)) {TFile* f2 = new TFile("pos_1_15.root");	TGraph* graph = (TGraph*)f2->Get("grBF");	graph->SetLineColor(kRed);	graph->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
@@ -532,9 +510,7 @@ if (index == 1)
 						//if ((p==5)&&(a==18)) {TFile* f6 = new TFile("pos_5_270.root");	TGraph* graph6 = (TGraph*)f6->Get("grBF");	graph6->SetLineColor(kRed);	graph6->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
 						//if ((p==7)&&(a==23)) {grBF->Write();	grBF->Draw("L");	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");	f7->Close();}
 						//if ((p==7)&&(a==23)) {TFile* f8 = new TFile("pos_7_345.root");	TGraph* graph8 = (TGraph*)f8->Get("grBF");	graph8->SetLineColor(kRed);	graph8->Draw("SAME,L"); c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");}
-						grBF->Draw( "SAME,L" );	
-						
-						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf"); }
+						grBF->Draw( "SAME,L" );	c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf"); 
 						
 						TString STATUS;
 						Double_t Gfit;
@@ -684,27 +660,7 @@ if (index == 1)
 						 	rel_err_g-> Fill(gainerror*100/Gfit); 			if (gainerror*100/Gfit > max_g) {max_g = gainerror*100/Gfit;}					if (gainerror*100/Gfit < min_g) {min_g = gainerror*100/Gfit;}
 						}
 					
-						/*SPEFitter fit2;
-						Double_t p_test2[4] = {1.0/_G, 10.0, 1.0/(0.1*_G), 0.2};
-						SPEResponse gamma_test2( PMType::GAMMA, p_test2 );
-						dft2.wbin = histo_LED->GetBinWidth(1);
-						dft2.Norm = histo_LED->Integral();
-						dft2.Q0 = Q;
-						dft2.s0 = sigma;
-						dft2.mu = MU;
-						fit2.SetDFTmethod( dft2 );
-						fit2.FitwDFTmethod( histo_LED );
-						dft2.Norm = fit2.vals[0];
-						dft2.Q0 = fit2.vals[1];
-						dft2.s0 = fit2.vals[2];
-						dft2.mu = fit2.vals[3]; 
-						Double_t p_fit2[4] = { fit2.vals[4], fit2.vals[5], fit2.vals[6], fit2.vals[7] };
-						dft2.spef.SetParams( p_fit2 );
-						TGraph *grBF2 = dft2.GetGraph();
-						grBF2->PaintStats(0);
-						grBF2->SetLineColor(kRed);
-						grBF2->Draw( "SAME,L" );*/
-
+						
 		 				//cout<<cov<<endl;
 						
 						
@@ -808,7 +764,6 @@ if (index == 1)
 	 			cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_Q->GetMean()<<" "<<rel_err_s->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
 			}
 			
-
 	 
 	 
 	 }	
@@ -816,10 +771,7 @@ if (index == 1)
  	 {
  	 	cout<<"Invalid value for index."<<endl;
  	 } 
-
-
 		
-
 	
 	
  return;	
