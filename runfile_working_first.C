@@ -466,7 +466,7 @@ if (index == 1)
 						if(SPEM == 0) {A = 1.0/_G; B = 10.0; C = 1.0/(0.1*_G); D = 0.2;  cout<<"   *** SPEResponse model = GAMMA ***   "<<endl; }
 						if(SPEM == 1) {A = 1.0*_G; B = 0.3*_G; C = 1.1/(0.1*_G); D = 0.18; cout<<"   *** SPEResponse model = GAUSS ***   "<<endl;}
 						Double_t p_test[4] = { A, B, C, D };
-						SPEResponse gamma_test( PMType::GAMMA, p_test );	
+						SPEResponse gamma_test( PMType::GAUSS, p_test );	
 									
 						Int_t nbins = histo_LED->GetNbinsX();
 						Double_t xmin = histo_LED->GetXaxis()->GetBinLowEdge(1);
@@ -500,10 +500,10 @@ if (index == 1)
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
 						
-						if ((p==1)&&(a==1)) {TFile *file1 = new TFile("pos_1_15.root","RECREATE");	grBF->Write();	file1->Close();}
-						if ((p==3)&&(a==20)) {TFile *file2 = new TFile("pos_3_300.root","RECREATE");	grBF->Write();	file2->Close();}
-						if ((p==5)&&(a==18)) {TFile *file3 = new TFile("pos_5_270.root","RECREATE");	grBF->Write();	file3->Close();}
-						if ((p==5)&&(a==23)) {TFile *file4 = new TFile("pos_5_345.root","RECREATE");	grBF->Write();	file4->Close();}
+						if ((p==1)&&(a==1)) {TFile* f1 = new TFile("pos_1_15.root");	TGraph* graph1 = (TGraph*)f1->Get("grBF");	graph1->SetLineColor(kRed);	graph1->Draw("SAME,L");}
+						if ((p==3)&&(a==20)) {TFile* f2 = new TFile("pos_3_300.root");	TGraph* graph2 = (TGraph*)f2->Get("grBF");	graph2->SetLineColor(kRed);	graph2->Draw("SAME,L");}
+						if ((p==5)&&(a==18)) {TFile* f3 = new TFile("pos_5_270.root");	TGraph* graph3 = (TGraph*)f3->Get("grBF");	graph3->SetLineColor(kRed);	graph3->Draw("SAME,L");}
+						if ((p==5)&&(a==23)) {TFile* f4 = new TFile("pos_5_345.root");	TGraph* graph4 = (TGraph*)f4->Get("grBF");	graph4->SetLineColor(kRed);	graph4->Draw("SAME,L");}
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						Double_t Gfit;
