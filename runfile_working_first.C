@@ -496,7 +496,7 @@ if (index == 1)
 						dft.mu = fit.vals[3]; 
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
 						dft.spef.SetParams( p_fit );
-						if ((p==1)&&(a==1)) {TFile *f1 = new TFile("pos_1_15.root", "RECREATE"); }
+						TFile *f1 = new TFile("pos_1_15.root", "RECREATE");
 						TGraph *grBF = dft.GetGraph();
 						grBF->SetName("grBF");
 						grBF->PaintStats(0);
