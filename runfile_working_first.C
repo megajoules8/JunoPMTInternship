@@ -500,10 +500,10 @@ if (index == 1)
 						grBF->PaintStats(0);
 						grBF->Draw( "SAME,L" );
 						
-						if ((p==1)&&(a==1)) {TFile *file1 = new TFile("pos_1_15.root","RECREATE");	grBF->Write();	file1->Close();
-						if ((p==3)&&(a==20)) {TFile *file2 = new TFile("pos_3_300.root","RECREATE");	grBF->Write();	file2->Close();
-						if ((p==5)&&(a==18)) {TFile *file3 = new TFile("pos_5_270.root","RECREATE");	grBF->Write();	file3->Close();
-						if ((p==5)&&(a==23)) {TFile *file4 = new TFile("pos_5_345.root","RECREATE");	grBF->Write();	file4->Close();
+						if ((p==1)&&(a==1)) {TFile *file1 = new TFile("pos_1_15.root","RECREATE");	grBF->Write();	file1->Close();}
+						if ((p==3)&&(a==20)) {TFile *file2 = new TFile("pos_3_300.root","RECREATE");	grBF->Write();	file2->Close();}
+						if ((p==5)&&(a==18)) {TFile *file3 = new TFile("pos_5_270.root","RECREATE");	grBF->Write();	file3->Close();}
+						if ((p==5)&&(a==23)) {TFile *file4 = new TFile("pos_5_345.root","RECREATE");	grBF->Write();	file4->Close();}
 						c1->Update(); c1->WaitPrimitive(); c1->Print(PdfName_mid ,"pdf");
 						TString STATUS;
 						Double_t Gfit;
@@ -756,7 +756,7 @@ if (index == 1)
 	 			cout <<"Mean relative error of w , alpha, Q, s, mu, G: "<<endl;
 	 			cout <<rel_err_w->GetMean()<<" "<<rel_err_alpha->GetMean()<<" "<<rel_err_Q->GetMean()<<" "<<rel_err_s->GetMean()<<" "<<rel_err_mu->GetMean()<<" "<<rel_err_g->GetMean()<<endl;
 			}
-			out_file->Close();
+			
 
 	 
 	 
