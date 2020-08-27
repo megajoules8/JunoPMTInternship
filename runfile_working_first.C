@@ -512,13 +512,13 @@ if (index == 1)
 						dft.s0 = fit.vals[2];
 						dft.mu = fit.vals[3]; 
 					
-						dft2.Norm = fit.vals[0];
-						dft2.Q0 = fit.vals[1];
-						dft2.s0 = fit.vals[2];
-						dft2.mu = fit.vals[3]; 
+						dft2.Norm = fit2.vals[0];
+						dft2.Q0 = fit2.vals[1];
+						dft2.s0 = fit2.vals[2];
+						dft2.mu = fit2.vals[3]; 
 					
 						Double_t p_fit[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
-						Double_t p_fit2[4] = { fit.vals[4], fit.vals[5], fit.vals[6], fit.vals[7] };
+						Double_t p_fit2[4] = { fit2.vals[4], fit2.vals[5], fit2.vals[6], fit2.vals[7] };
 						
 						dft.spef.SetParams( p_fit );
 						dft2.spef.SetParams( p_fit2 );
